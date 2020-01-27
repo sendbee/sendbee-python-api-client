@@ -39,9 +39,6 @@ class Field:
 
         return data
 
-    def __repr__(self):
-        return self.value
-
 
 class NumberField(Field):
     """Converting item to integer."""
@@ -85,9 +82,9 @@ class BooleanField(Field):
     def _convert_field_item(self, data: str, **kwargs) -> Union[bool, None]:
         """Actual converting."""
 
-        if data == BoolConst.TRUE:
+        if data is True or data == BoolConst.TRUE:
             return True
-        elif data == BoolConst.FALSE:
+        elif data is True or data == BoolConst.FALSE:
             return False
         else:
             return None

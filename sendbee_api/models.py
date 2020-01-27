@@ -16,7 +16,7 @@ class Model:
         if attr:
             return attr.value
         else:
-            raise AttributeError
+            raise AttributeError(item)
 
     @classmethod
     def process(cls, data: list) -> List[object]:
@@ -51,8 +51,7 @@ class Model:
                             [item[property_object.index]]
                         )[0]
 
-                    delattr(model_object.__class__, model_property)
-                    setattr(model_object, model_property, models)
+                    setattr(model_object, model_property[1:], models)
 
                 elif isinstance(property_object, Field):
 
@@ -61,11 +60,10 @@ class Model:
                     property_object.convert_item(model_object)
 
                     # set model property value with formatted data
-                    delattr(model_object.__class__, model_property)
                     if property_object.value is None:
-                        model_object.attributes[model_property] = None
+                        model_object.attributes[model_property[1:]] = None
                     else:
-                        model_object.attributes[model_property] = \
+                        model_object.attributes[model_property[1:]] = \
                             deepcopy(property_object)
 
             model_list.append(model_object)

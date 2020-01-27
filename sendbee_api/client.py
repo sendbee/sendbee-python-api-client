@@ -1,10 +1,11 @@
 import click
 
 from sendbee_api.contacts.client import Contacts
+from sendbee_api.messages.client import Messages
 from sendbee_api.exceptions import SendbeeRequestApiException
 
 
-class Client(Contacts):
+class Client(Contacts, Messages):
     """Main API class. Sets all API calls."""
 
     base_url = 'api-v1.sendbee.io'
