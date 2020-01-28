@@ -5,6 +5,7 @@ from sendbee_api.fields import TextField, DatetimeField, ModelField
 class ContactTag(Model):
     """Data model for contact tags"""
 
+    _id = TextField(index='id', desc="UUID")
     _name = TextField(index='name', desc="Name")
 
 

@@ -1,5 +1,5 @@
 class SendbeeException(Exception):
-	"""Handle All Marine Traffic Exceptions"""
+	"""Handle All Sendbee Exceptions"""
 
 
 class SendbeeRequestApiException(SendbeeException):

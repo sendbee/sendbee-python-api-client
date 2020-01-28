@@ -1,7 +1,7 @@
 from copy import deepcopy
 from typing import List, Any
 
-from sendbee_api.fields import Field, ModelField, NumberField
+from sendbee_api.fields import Field, ModelField, NumberField, TextField
 
 
 class Model:
@@ -79,3 +79,8 @@ class Meta(Model):
     per_page = NumberField(index='per_page', desc="Per Page")
     last_page = NumberField(index='last_page', desc="Last Page")
     current_page = NumberField(index='current_page', desc="Current Page")
+
+
+class ServerMessage(Model):
+
+    message = TextField(index='message', desc='Message from the server')

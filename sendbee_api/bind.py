@@ -128,10 +128,6 @@ def bind_request(**request_data) -> 'callable':
                 url_query = '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
                 final_url = '{}{}'.format(final_url, url_query)
 
-            self.debug.ok(
-                RequestConst.QUERY_PARAMETERS,
-                self.parameters[RequestConst.QUERY]
-            )
             self.debug.ok('final url', final_url)
 
             return final_url
@@ -163,10 +159,12 @@ def bind_request(**request_data) -> 'callable':
 
         def _do_request(self, url: str) -> (int, dict):
             """
-            Makes the request to Marine Traffic Api servers
+            Makes the request to Sendbee Api servers
             :url: Url for the request
             :return: Tuple with two elements, status code and content
             """
+
+            self.debug.ok('method', self.method)
 
             if self.client.fake_response_path:
                 with open(self.client.fake_response_path, 'r') as f:
@@ -176,20 +174,36 @@ def bind_request(**request_data) -> 'callable':
                 response = requests.get(
                     url, headers=self._headers(), timeout=self._timeout
                 )
+
+                self.debug.ok(
+                    RequestConst.QUERY_PARAMETERS,
+                    self.parameters[RequestConst.QUERY]
+                )
                 self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
+
                 return response.status_code, response.text
 
-            elif self.method == RequestConst.POST:
-                response = requests.post(
+            elif self.method in [RequestConst.POST, RequestConst.PUT,
+                                 RequestConst.DELETE]:
+
+                if self.method == RequestConst.POST:
+                    send_request = requests.post
+                elif self.method == RequestConst.PUT:
+                    send_request = requests.put
+                elif self.method == RequestConst.DELETE:
+                    send_request = requests.delete
+
+                response = send_request(
                     url, json=self.parameters[RequestConst.QUERY],
                     headers=self._headers(), timeout=self._timeout
                 )
+
                 self.debug.ok('payload', self.parameters[RequestConst.QUERY])
                 self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
+
                 return response.status_code, response.text
 
             else:
-                # For future POST, PUT, DELETE requests
                 return ResponseCode.NOT_FOUND, {}
 
         def _process_response(self, status_code: int, response: str) -> 'Response':

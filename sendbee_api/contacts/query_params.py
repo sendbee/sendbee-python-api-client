@@ -13,3 +13,22 @@ class SubscribeContacts(QueryParams):
 
     phone = 'phone', 'Contact phone number'
     tags = 'tags', 'Tag contact while subscribing it'
+
+
+class ListTags(QueryParams):
+    """Get the list of contact tags"""
+
+    name = 'name', 'Name of the tag'
+
+
+class UpdateTag(QueryParams):
+    """Update tag"""
+
+    id = 'id', 'ID of the tag'
+    name = 'name', 'Name of the tag'
+
+
+class DeleteTag(QueryParams):
+    """Delete tag"""
+
+    id = 'id', 'ID of the tag'

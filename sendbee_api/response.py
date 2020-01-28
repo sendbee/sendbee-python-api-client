@@ -57,7 +57,7 @@ class Response:
 
     @property
     def meta(self) -> Union[List[object], None]:
-        """Transform raw data into models."""
+        """Transform raw meta data into models."""
 
         if not self._response_data[ClientConst.META]:
             from sendbee_api.models import Meta
