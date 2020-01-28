@@ -1,7 +1,6 @@
 from datetime import datetime
-from typing import Any, Union, List, Tuple
+from typing import Any, Union
 
-from sendbee_api.response import Response
 from sendbee_api.constants import BoolConst, MiscConst
 
 

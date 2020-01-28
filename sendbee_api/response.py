@@ -48,6 +48,8 @@ class Response:
 
         if not self._response_data[ClientConst.MODELS]:
             formatted_data = self.formatter.format(self._data)
+            if not isinstance(formatted_data, list):
+                formatted_data = [formatted_data]
             self._response_data[ClientConst.MODELS] = \
                 self._model.process(formatted_data)
 

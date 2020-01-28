@@ -68,6 +68,7 @@ class Json(Formatter):
         try:
             return ujson.loads(data)
         except ValueError:
+            print(data)
             return ResponseConst.DEFAULT_ERROR_MESSAGE
 
     def _format(self, data: AnyStr) -> Dict:

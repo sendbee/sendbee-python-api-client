@@ -111,17 +111,27 @@ def bind_request(**request_data) -> 'callable':
             url_parts = '/'.join(
                 [part for part in self.parameters[RequestConst.PATH]]
             )
-            params = self.parameters[RequestConst.QUERY].items()
-            url_query = '?' + '&'.join([f'{k}={v}' for k, v in params])
 
             if url_parts:
-                final_url = '{}/{}{}'.format(base_url, url_parts, url_query)
+                final_url = '{}/{}'.format(base_url, url_parts)
             else:
-                final_url = '{}{}'.format(base_url, url_query)
+                final_url = base_url
 
-            self.debug.ok('url', '{}{}'.format(base_url, url_parts))
-            self.debug.ok(RequestConst.QUERY_PARAMETERS,
-                          self.parameters[RequestConst.QUERY])
+            if self.method == RequestConst.GET:
+                params = self.parameters[RequestConst.QUERY]
+                for param, value in params.items():
+                    if isinstance(value, list):
+                        params[param] = ','.join(value)
+                    elif isinstance(value, dict):
+                        params[param] = ','.join([f'{k}:{v}' for k, v in value])
+
+                url_query = '?' + '&'.join([f'{k}={v}' for k, v in params.items()])
+                final_url = '{}{}'.format(final_url, url_query)
+
+            self.debug.ok(
+                RequestConst.QUERY_PARAMETERS,
+                self.parameters[RequestConst.QUERY]
+            )
             self.debug.ok('final url', final_url)
 
             return final_url
@@ -166,6 +176,15 @@ def bind_request(**request_data) -> 'callable':
                 response = requests.get(
                     url, headers=self._headers(), timeout=self._timeout
                 )
+                self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
+                return response.status_code, response.text
+
+            elif self.method == RequestConst.POST:
+                response = requests.post(
+                    url, json=self.parameters[RequestConst.QUERY],
+                    headers=self._headers(), timeout=self._timeout
+                )
+                self.debug.ok('payload', self.parameters[RequestConst.QUERY])
                 self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
                 return response.status_code, response.text
 

@@ -6,3 +6,10 @@ class ListContacts(QueryParams):
 
     tags = 'tags', 'Filter contacts by tags'
     search_query = 'search_query', 'Filter contacts by query string'
+
+
+class SubscribeContacts(QueryParams):
+    """Subscribe a contact to your business"""
+
+    phone = 'phone', 'Contact phone number'
+    tags = 'tags', 'Tag contact while subscribing it'
