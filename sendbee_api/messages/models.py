@@ -17,3 +17,9 @@ class MessageTemplate(Model):
     _tags = ModelField(TamplateTag, index='tags', desc="Tags")
     _text = TextField(index='text', desc="Text")
     _language = TextField(index='language', desc="Language")
+
+
+class SentMessage(Model):
+    """Data model for sent message"""
+
+    _conversation_id = TextField(index='id', desc="Message UUID")

@@ -241,7 +241,11 @@ def bind_request(**request_data) -> 'callable':
                 self.debug.ok(ResponseConst.STATUS_CODE, status_code)
                 self.debug.ok(ResponseConst.RESPONSE, response.raw_data)
 
-            return response
+            if self.method in [RequestConst.POST, RequestConst.PUT,
+                               RequestConst.DELETE]:
+                return response.models[0]
+            else:
+                return response
 
         def call(self) -> 'Response':
             """
