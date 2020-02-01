@@ -9,6 +9,8 @@
           ' .  . ' ' .  . '     (__/
 ```
 
+# Sendbee Python API Client  
+
 [![PyPI version](https://badge.fury.io/py/sendbee-api.svg)](https://badge.fury.io/py/sendbee-api)
 [![Build Status](https://travis-ci.com/sendbee/sendbee-python-api-client.svg?branch=master)](https://travis-ci.org/sendbee/sendbee-python-api-client)
 
@@ -19,8 +21,6 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/sendbee-api.svg)
 ![GitHub](https://img.shields.io/github/license/sendbee/sendbee-python-api-client.svg?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/sendbee/sendbee-python-api-client.svg?color=blue)
-
-# Sendbee Python API Client  
 
 ## Installation  
 
