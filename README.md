@@ -131,8 +131,8 @@ response.conversation_id
 
 ### Authenticate webhook request  
 
-After you activate your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending which webhook type is linked for that webhook URL.  
-Every request that we make will have authorization token ih header, like this:  
+After activating your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending on which webhook type is linked with that webhook URL.  
+Every request that we make will have authorization token in header, like this:  
 
 ```
 {
