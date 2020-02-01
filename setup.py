@@ -38,7 +38,8 @@ setup(
         'requests>=2.20.0',
         'dumpit>=0.5.0',
         'aenum>=2.1.2',
-        'ujson==1.35'
+        'ujson==1.35',
+        'cryptography==2.8'
     ],
 
     project_urls={

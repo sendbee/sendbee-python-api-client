@@ -8,6 +8,7 @@ from abc import ABCMeta
 from typing import Union
 
 from sendbee_api.debug import Debug
+from sendbee_api.auth import SendbeeAuth
 from sendbee_api.response import Response
 from sendbee_api.formatter import FormatterFactory
 from sendbee_api.exceptions import SendbeeRequestApiException
@@ -133,23 +134,11 @@ def bind_request(**request_data) -> 'callable':
             return final_url
 
         def _headers(self) -> dict:
-            """"""
+            """Construct headers data with authentication part"""
 
-            timestamp = str(int(
-                datetime.now(timezone.utc).timestamp()
-            )).encode('utf-8')
-            data = base64.b64encode(timestamp)
-            encrypted = base64.b64encode(
-                hmac.new(
-                    self.client.secret.encode('utf-8'), data, hashlib.sha256
-                ).digest()
-            )
-            ts_encrypt = '{}.{}'.format(
-                timestamp.decode('utf-8'), encrypted.decode('utf-8')
-            ).encode('utf-8')
-
+            auth_token = SendbeeAuth(self.client.secret).get_auth_token()
             headers = {
-                'X-Authorization': base64.b64encode(ts_encrypt).decode('utf-8'),
+                'X-Authorization': auth_token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }

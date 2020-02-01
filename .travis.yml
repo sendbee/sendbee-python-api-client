@@ -1,0 +1,27 @@
+dist: xenial
+
+language: python
+
+python:
+  - 3.5
+  - 3.6
+  - 3.7
+  - 3.8
+
+install:
+  - pip install .
+  - pip install -r requirements.txt
+
+script:
+  - pytest
+
+deploy:
+  skip_cleanup: true
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: "sendbeedev"
+  password:
+    secure: "IfynHLv+tzb/OJlrBbKRr6tasem5Eail0CQ6w8IhUNTsLUFOeGhJrdoN+yeWzV7sBnUEdhKRGrUHVOwsxWUhanYm7X9gels473CXmos7qzwjrQyYifdJj5kNdi0A8metFdzIUbKLUOAyFgmtCOskIorMrMq+8I6T6azOOTLUyIhQZHFc4oQdevTNiOQ3hbV723mpdmlOZCdXPJA+jpzleqNvnFNOR7H1aDeI3AvHD0+yn6GY3dBRbhw7F7yt8ZIqQJ3Pt2ud818hhqqg12GSR3q4yiLY9UqAdYHPypc6ufXq2RvlBGmX4otjGm9sJGz27tpdlDh52SlzFSL1k1/EmVu1hC61CS61wCxJtQTQdDK6T9dXOuzkMR5+JVSGECzJLeKvaJDNCnVHXZ9KOKYZqne7wGJwQ5S45ireAGN1mHX4wf3nC9FP8TCtFY/gGQIaE/bzfsrRQ0ThK1xXWe8yBVZl5s/7anCg4PQXneljrGTs4286ywEmRRYacKsQ/x48KCM8HZiwCFXppg81Or8d13w0hAK038w3tVFLJTEBHN/1EToDlZ/4hEY9q5QkwpDvUEzDub05M46e0pCfp2oigrCnGdklxLzVXSaPyQzYpMIxvSGwnJPr+BiaFSD4EzkOsLE0mLsWd5lIt6hBSEEvYxqKGQKSNI+dRT8hvu5GXcA="
+  skip_existing: true
+  on:
+    branch: master

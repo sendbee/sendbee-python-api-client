@@ -1,5 +1,6 @@
 import click
 
+from sendbee_api.auth import SendbeeAuth
 from sendbee_api.contacts.client import Contacts
 from sendbee_api.messages.client import Messages
 from sendbee_api.exceptions import SendbeeRequestApiException
@@ -34,3 +35,7 @@ class Client(Contacts, Messages):
             getattr(cls, fn_name)(None, print_params=True)
         except AttributeError:
             click.secho('Unknown API method: {}'.format(fn_name), fg='red')
+
+    @property
+    def auth(self):
+        return SendbeeAuth(self.secret)
