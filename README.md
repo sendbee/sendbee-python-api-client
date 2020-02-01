@@ -1,4 +1,5 @@
-_______ _______ __   _ ______  ______  _______ _______      _______  _____  _____
+```
+ _______ _______ __   _ ______  ______  _______ _______      _______  _____  _____
  |______ |______ | \  | |     \ |_____] |______ |______      |_____| |_____]   |  
  ______| |______ |  \_| |_____/ |_____] |______ |______      |     | |       __|__
                                                                                   
@@ -6,6 +7,7 @@ _______ _______ __   _ ______  ______  _______ _______      _______  _____  ____
        .        .   .           (__\_
         .         .         . -{{_(|8)
           ' .  . ' ' .  . '     (__/
+```
 
 # Sendbee Python API Client  
 
@@ -33,7 +35,7 @@ api = SendbeeApi(
 ### Fetch contacts  
 
 ```python
-contacts = api.contacts([tags=["...", ...]], [search_query="..."])
+contacts = api.contacts([tags=['...', ...]], [search_query='...'])
 
 for contact in contacts:
     contact.id
@@ -47,7 +49,7 @@ for contact in contacts:
 ### Subscribe contact  
 
 ```python
-contact = api.subscribe_contact(phone='+...', [tags=["...", ...]])
+contact = api.subscribe_contact(phone='+...', [tags=['...', ...]])
 
 contact.id
 contact.name
@@ -108,7 +110,9 @@ for template in templates:
 ### Send template message  
 
 ```python
-response = api.send_template_message(id='...', name='...')
+response = api.send_template_message(
+    phone='+...', template_keyword='...', language='...', tags=['...', ...]
+)
 
 response.conversation_id
 # save this id, and when you get sent message status requests on
