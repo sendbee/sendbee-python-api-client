@@ -12,7 +12,7 @@
 # Sendbee Python API Client  
 
 [![PyPI version](https://badge.fury.io/py/sendbee-api.svg)](https://badge.fury.io/py/sendbee-api)
-[![Build Status](https://travis-ci.com/sendbee/sendbee-python-api-client.svg?branch=master)](https://travis-ci.org/sendbee/sendbee-python-api-client)
+[![Build Status](https://travis-ci.org/sendbee/sendbee-python-api-client.svg?branch=master)](https://travis-ci.org/sendbee/sendbee-python-api-client)
 
 ![GitHub issues](https://img.shields.io/github/issues/sendbee/sendbee-python-api-client.svg)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/sendbee/sendbee-python-api-client.svg)

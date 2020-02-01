@@ -28,7 +28,7 @@ class SendbeeAuth:
                 .encode('utf-8')
         return base64.b64encode(ts_encrypt).decode('utf-8')
 
-    def check_auth_token(self, token, expiration_seconds=60):
+    def check_auth_token(self, token, expiration_seconds=60*15):
         timestamp, encrypted = \
             base64.b64decode(token.encode('utf-8')).decode('utf-8').split('.')
 
