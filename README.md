@@ -14,9 +14,7 @@
 ## Installation  
 
 ```bash
-> pip install sendbee_api  
-# not on pypi right now, but will be 
-
+> pip install sendbee-api
 ```
 
 ## Usage  
@@ -119,3 +117,28 @@ response.conversation_id
 # your webhook, you'll get this same id to identify the conversation
 
 ```
+
+### Authenticate webhook request  
+
+After you activate your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending which webhook type is linked for that webhook URL.  
+Every request that we make will have authorization token ih header, like this:  
+
+```json
+{
+    ...
+    'X-Authorization': '__auth_token_here__',
+    ...
+}
+```
+
+To authenticate requests that we make to your webhook URL, take this token from request header and check it using Sendbee API Client:  
+
+```python
+from sendbee_api import SendbeeApi
+
+api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
+
+token = '...'  # taken from the request header
+if api.auth.check_auth_token(token):
+    print('Weeee... Sendbee sent me the data on my webhook URL \o/ :)')
+```  
