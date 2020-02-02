@@ -26,6 +26,7 @@ class Contacts:
         method=RequestConst.POST,
         query_parameters=SubscribeContacts,
         default_parameters={
+            constants.RequestConst.BLOCK_NOTIFICATIONS: 'yes',
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
         description='Api client for subscribing contacts'

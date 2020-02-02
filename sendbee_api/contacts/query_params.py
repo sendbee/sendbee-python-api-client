@@ -1,3 +1,4 @@
+from sendbee_api.constants import RequestConst
 from sendbee_api.query_params import QueryParams
 
 
@@ -13,6 +14,8 @@ class SubscribeContacts(QueryParams):
 
     phone = 'phone', 'Contact phone number'
     tags = 'tags', 'Tag contact while subscribing it'
+    block_notifications = RequestConst.BLOCK_NOTIFICATIONS, \
+                          'Block sending notifications after subscribing contact'
 
 
 class ListTags(QueryParams):

@@ -4,11 +4,13 @@ from collections import namedtuple
 RequestConst = namedtuple(
     'RequestConst', [
         'GET', 'POST', 'PUT', 'DELETE', 'PATH', 'QUERY', 'METHOD', 'TIMEOUT',
-        'API_PATH', 'PROTOCOL', 'QUERY_PARAMETERS', 'DEFAULT_PARAMETERS'
+        'API_PATH', 'PROTOCOL', 'QUERY_PARAMETERS', 'DEFAULT_PARAMETERS',
+        'BLOCK_NOTIFICATIONS'
     ]
 )(
     'GET', 'POST', 'PUT', 'DELETE', 'path', 'query', 'method', 'timeout',
-    'api_path', 'protocol', 'query_parameters', 'default_parameters'
+    'api_path', 'protocol', 'query_parameters', 'default_parameters',
+    'block_notifications'
 )
 
 ResponseConst = namedtuple(
