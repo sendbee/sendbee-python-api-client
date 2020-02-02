@@ -9,7 +9,7 @@ from sendbee_api.exceptions import SendbeeRequestApiException
 class Client(Contacts, Messages):
     """Main API class. Sets all API calls."""
 
-    base_url = 'api-v1.sendbee.io'
+    base_url = 'api-v2.sendbee.io'
     protocol = 'https'
 
     def __init__(self, api_key: str, secret: str, business_id: str = None,
