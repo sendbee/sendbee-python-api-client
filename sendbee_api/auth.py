@@ -8,6 +8,8 @@ class SendbeeAuth:
     """Authentication class for Sendbee API"""
 
     def __init__(self, private_key: str):
+        if isinstance(private_key, str):
+            private_key = private_key.encode('utf-8')
         self._private_key = private_key
 
     def _get_encrypted_key(self, timestamp: str) -> str:
@@ -16,11 +18,12 @@ class SendbeeAuth:
         :return: key string
         """
 
+        if isinstance(timestamp, str):
+            timestamp = timestamp.encode('utf-8')
+
         return base64.b64encode(
             hmac.new(
-                self._private_key.encode('utf-8'),
-                base64.b64encode(timestamp),
-                hashlib.sha256
+                self._private_key, base64.b64encode(timestamp), hashlib.sha256
             ).digest()
         ).decode("utf-8")
 
@@ -31,22 +34,24 @@ class SendbeeAuth:
 
         timestamp = str(int(
             datetime.now(timezone.utc).timestamp()
-        )).encode('utf-8')
+        ))
         encrypted = self._get_encrypted_key(timestamp)
-        ts_encrypt = \
-            f'{timestamp.decode("utf-8")}.{encrypted}'.encode('utf-8')
+        ts_encrypt = f'{timestamp}.{encrypted}'.encode('utf-8')
 
         return base64.b64encode(ts_encrypt).decode('utf-8')
 
-    def check_auth_token(self, token: bool, expiration_seconds: int = 60*15) -> bool:
+    def check_auth_token(self, token: [str, bytes],
+                         expiration_seconds: int = 60*15) -> bool:
         """Checks if the provided and generated tokens are equal
         :param token: token string
         :param expiration_seconds: seconds integer
         :return: True or False
         """
 
-        timestamp, encrypted = \
-            base64.b64decode(token.encode('utf-8')).decode('utf-8').split('.')
+        if isinstance(token, str):
+            token = token.encode('utf-8')
+
+        timestamp, encrypted = base64.b64decode(token).decode('utf-8').split('.')
 
         if datetime.fromtimestamp(int(timestamp), tz=timezone.utc) > \
                 datetime.now(timezone.utc)+timedelta(
