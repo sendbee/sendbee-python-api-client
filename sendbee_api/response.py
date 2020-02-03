@@ -1,15 +1,10 @@
-from typing import Any, Type, List, Union
-
-from sendbee_api.formatter import Formatter, Json
-from sendbee_api.constants import ClientConst, FormatterConst
+from sendbee_api import constants
 
 
 class Response:
     """Response object returned from API call."""
 
-    def __init__(self, data: Any, status_code: int,
-                 formatter: Type[Formatter],
-                 api_request):
+    def __init__(self, data, status_code, formatter, api_request):
         self._data = data
         self._model = api_request.model
 
@@ -18,51 +13,62 @@ class Response:
         self.status_code = status_code
 
         self._response_data = {
-            FormatterConst.FORMATTED: None,
-            ClientConst.MODELS: [],
-            ClientConst.META: None
+            constants.FormatterConst.FORMATTED: None,
+            constants.ClientConst.MODELS: None,
+            constants.ClientConst.META: None,
+            constants.WarningConst.WARNING: None
         }
 
     def __iter__(self):
         return iter(self.models)
 
     @property
-    def raw_data(self) -> Any:
+    def raw_data(self):
         """Return data as is from the server."""
 
         return self._data
 
     @property
-    def formatted_data(self) -> Union[Type[Json], None]:
+    def formatted_data(self):
         """Format data using selected formatter."""
 
-        if self._response_data[FormatterConst.FORMATTED] is None:
-            self._response_data[FormatterConst.FORMATTED] = \
-                self.formatter.format(self._data)
+        if self._response_data[constants.FormatterConst.FORMATTED] is None:
+            self._response_data[constants.FormatterConst.FORMATTED] = \
+                self.formatter.format_data(self._data)
 
-        return self._response_data[FormatterConst.FORMATTED]
+        return self._response_data[constants.FormatterConst.FORMATTED]
 
     @property
-    def models(self) -> Union[List[object], None]:
+    def models(self):
         """Transform raw data into models."""
 
-        if not self._response_data[ClientConst.MODELS]:
-            formatted_data = self.formatter.format(self._data)
+        if not self._response_data[constants.ClientConst.MODELS]:
+            formatted_data = self.formatter.format_data(self._data)
             if not isinstance(formatted_data, list):
                 formatted_data = [formatted_data]
-            self._response_data[ClientConst.MODELS] = \
+            self._response_data[constants.ClientConst.MODELS] = \
                 self._model.process(formatted_data)
 
-        return self._response_data[ClientConst.MODELS]
+        return self._response_data[constants.ClientConst.MODELS]
 
     @property
-    def meta(self) -> Union[List[object], None]:
+    def meta(self):
         """Transform raw meta data into models."""
 
-        if not self._response_data[ClientConst.META]:
+        if not self._response_data[constants.ClientConst.META]:
             from sendbee_api.models import Meta
             formatted_data = self.formatter.format_meta(self._data)
-            self._response_data[ClientConst.META] = \
+            self._response_data[constants.ClientConst.META] = \
                 Meta.process([formatted_data])[0]
 
-        return self._response_data[ClientConst.META]
+        return self._response_data[constants.ClientConst.META]
+
+    @property
+    def warning(self):
+        """Format warning data using selected formatter."""
+
+        if self._response_data[constants.WarningConst.WARNING] is None:
+            self._response_data[constants.WarningConst.WARNING] = \
+                self.formatter.format_warning(self._data)
+
+        return self._response_data[constants.WarningConst.WARNING]

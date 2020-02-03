@@ -1,38 +1,40 @@
-import hmac
-import base64
-import hashlib
-from datetime import datetime, timezone
-
+import click
 import requests
 from abc import ABCMeta
-from typing import Union
 
+from sendbee_api import constants
 from sendbee_api.debug import Debug
 from sendbee_api.auth import SendbeeAuth
 from sendbee_api.response import Response
 from sendbee_api.formatter import FormatterFactory
 from sendbee_api.exceptions import SendbeeRequestApiException
-from sendbee_api.constants import RequestConst, ResponseConst, ClientConst, \
-    TestConst, ResponseCode, BoolConst, MiscConst
 
 
 class Api(metaclass=ABCMeta):
     """Abstract API class."""
 
 
-def bind_request(**request_data) -> 'callable':
+def bind_request(**request_data):
     """Binds request class to client property, dynamically."""
 
     class Request(Api):
         """Request class. Does the actual API request."""
 
-        model = request_data.get(ClientConst.MODEL)
-        api_path = request_data.get(RequestConst.API_PATH)
-        formatter = request_data.get(ClientConst.FORMATTER)
-        method = request_data.get(RequestConst.METHOD, RequestConst.GET)
-        query_parameters = request_data.get(RequestConst.QUERY_PARAMETERS)
-        fake_response_path = request_data.get(TestConst.FAKE_RESPONSE_PATH)
-        default_parameters = request_data.get(RequestConst.DEFAULT_PARAMETERS, {})
+        model = request_data.get(constants.ClientConst.MODEL)
+        api_path = request_data.get(constants.RequestConst.API_PATH)
+        formatter = request_data.get(constants.ClientConst.FORMATTER)
+        method = request_data.get(
+            constants.RequestConst.METHOD, constants.RequestConst.GET
+        )
+        query_parameters = request_data.get(
+            constants.RequestConst.QUERY_PARAMETERS
+        )
+        fake_response_path = request_data.get(
+            constants.TestConst.FAKE_RESPONSE_PATH
+        )
+        default_parameters = request_data.get(
+            constants.RequestConst.DEFAULT_PARAMETERS, {}
+        )
 
         def __init__(self, client, debug: 'Debug',
                      *path_params, **query_params):
@@ -41,14 +43,16 @@ def bind_request(**request_data) -> 'callable':
             self.url = None
             self.debug = debug
             self.client = client
-            self.parameters = {RequestConst.QUERY: {},
-                               RequestConst.PATH: []}
+            self.parameters = {
+                constants.RequestConst.QUERY: {},
+                constants.RequestConst.PATH: []
+            }
 
             self._timeout = 5
 
             self._set_parameters(*path_params, **query_params)
 
-        def _set_parameters(self, *path_params, **query_params) -> None:
+        def _set_parameters(self, *path_params, **query_params):
             """
             Prepares the list of query parameters
             :path_params: list of path parameters
@@ -58,18 +62,19 @@ def bind_request(**request_data) -> 'callable':
 
             # take timeout
             try:
-                self._timeout = int(query_params.get(RequestConst.TIMEOUT,
-                                                     self._timeout))
+                self._timeout = int(query_params.get(
+                    constants.RequestConst.TIMEOUT, self._timeout
+                ))
             except ValueError:
                 pass
             try:
-                del query_params[RequestConst.TIMEOUT]
+                del query_params[constants.RequestConst.TIMEOUT]
             except KeyError:
                 pass
 
             # set default API call params
             for key, value in self.default_parameters.items():
-                self.parameters[RequestConst.QUERY][key] = value
+                self.parameters[constants.RequestConst.QUERY][key] = value
 
             _query_params = self.query_parameters.get_params()
 
@@ -79,28 +84,34 @@ def bind_request(**request_data) -> 'callable':
                     continue
 
                 if key in _query_params.values():
-                    self.parameters[RequestConst.QUERY][key] = value
+                    self.parameters[constants.RequestConst.QUERY][key] = value
 
                 elif key in _query_params.keys():
-                    self.parameters[RequestConst.QUERY][_query_params[key]] = value
+                    self.parameters[
+                        constants.RequestConst.QUERY
+                    ][_query_params[key]] = value
 
             # transform all True and False param to 1 and 0
-            for key, value in self.parameters[RequestConst.QUERY].items():
+            for key, value in self.parameters[
+                constants.RequestConst.QUERY
+            ].items():
                 if value is True:
-                    self.parameters[RequestConst.QUERY][key] = BoolConst.TRUE
+                    self.parameters[constants.RequestConst.QUERY][key] = \
+                        constants.BoolConst.TRUE
                 if value is False:
-                    self.parameters[RequestConst.QUERY][key] = BoolConst.FALSE
+                    self.parameters[constants.RequestConst.QUERY][key] = \
+                        constants.BoolConst.FALSE
 
             # set optional url path params
             for value in path_params:
-                self.parameters[RequestConst.PATH].append(value)
+                self.parameters[constants.RequestConst.PATH].append(value)
 
             # set business_id param if one is provided
             if self.client.business_id:
-                self.parameters[RequestConst.QUERY]['business_id'] = \
+                self.parameters[constants.RequestConst.QUERY]['business_id'] = \
                     self.client.business_id
 
-        def _prepare_url(self) -> str:
+        def _prepare_url(self):
             """
             Prepares url and query parameters for the request
             :return: URL
@@ -110,7 +121,7 @@ def bind_request(**request_data) -> 'callable':
                 self.client.protocol, self.client.base_url, self.api_path
             )
             url_parts = '/'.join(
-                [part for part in self.parameters[RequestConst.PATH]]
+                [part for part in self.parameters[constants.RequestConst.PATH]]
             )
 
             if url_parts:
@@ -118,8 +129,8 @@ def bind_request(**request_data) -> 'callable':
             else:
                 final_url = base_url
 
-            if self.method == RequestConst.GET:
-                params = self.parameters[RequestConst.QUERY]
+            if self.method == constants.RequestConst.GET:
+                params = self.parameters[constants.RequestConst.QUERY]
                 for param, value in params.items():
                     if isinstance(value, list):
                         params[param] = ','.join(value)
@@ -133,7 +144,7 @@ def bind_request(**request_data) -> 'callable':
 
             return final_url
 
-        def _headers(self) -> dict:
+        def _headers(self):
             """Construct headers data with authentication part"""
 
             auth_token = SendbeeAuth(self.client.secret).get_auth_token()
@@ -146,7 +157,7 @@ def bind_request(**request_data) -> 'callable':
 
             return headers
 
-        def _do_request(self, url: str) -> (int, dict):
+        def _do_request(self, url: str):
             """
             Makes the request to Sendbee Api servers
             :url: Url for the request
@@ -157,45 +168,49 @@ def bind_request(**request_data) -> 'callable':
 
             if self.client.fake_response_path:
                 with open(self.client.fake_response_path, 'r') as f:
-                    return ResponseCode.OK, f.read()
+                    return constants.ResponseCode.OK, f.read()
 
-            elif self.method == RequestConst.GET:
+            elif self.method == constants.RequestConst.GET:
                 response = requests.get(
                     url, headers=self._headers(), timeout=self._timeout
                 )
 
                 self.debug.ok(
-                    RequestConst.QUERY_PARAMETERS,
-                    self.parameters[RequestConst.QUERY]
+                    constants.RequestConst.QUERY_PARAMETERS,
+                    self.parameters[constants.RequestConst.QUERY]
                 )
-                self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
+                self.debug.ok(constants.ResponseConst.RESPONSE_OBJECT, response)
 
                 return response.status_code, response.text
 
-            elif self.method in [RequestConst.POST, RequestConst.PUT,
-                                 RequestConst.DELETE]:
-
-                if self.method == RequestConst.POST:
+            elif self.method in [
+                constants.RequestConst.POST,
+                constants.RequestConst.PUT,
+                constants.RequestConst.DELETE
+            ]:
+                if self.method == constants.RequestConst.POST:
                     send_request = requests.post
-                elif self.method == RequestConst.PUT:
+                elif self.method == constants.RequestConst.PUT:
                     send_request = requests.put
-                elif self.method == RequestConst.DELETE:
+                elif self.method == constants.RequestConst.DELETE:
                     send_request = requests.delete
 
                 response = send_request(
-                    url, json=self.parameters[RequestConst.QUERY],
+                    url, json=self.parameters[constants.RequestConst.QUERY],
                     headers=self._headers(), timeout=self._timeout
                 )
 
-                self.debug.ok('payload', self.parameters[RequestConst.QUERY])
-                self.debug.ok(ResponseConst.RESPONSE_OBJECT, response)
+                self.debug.ok('payload', self.parameters[
+                    constants.RequestConst.QUERY
+                ])
+                self.debug.ok(constants.ResponseConst.RESPONSE_OBJECT, response)
 
                 return response.status_code, response.text
 
             else:
-                return ResponseCode.NOT_FOUND, {}
+                return constants.ResponseCode.NOT_FOUND, {}
 
-        def _process_response(self, status_code: int, response: str) -> 'Response':
+        def _process_response(self, status_code, response):
             """
             Process response using models
             :status_code: Response status code
@@ -206,37 +221,56 @@ def bind_request(**request_data) -> 'callable':
             formatter = self.formatter
             if not formatter:
                 formatter = FormatterFactory(
-                    self.parameters[RequestConst.QUERY][RequestConst.PROTOCOL])\
-                    .get_formatter()
+                    self.parameters[
+                        constants.RequestConst.QUERY
+                    ][constants.RequestConst.PROTOCOL]).get_formatter()
 
             response = Response(response, status_code, formatter, self)
+            formatted_data = response.formatted_data
 
-            if status_code >= ResponseCode.BAD_REQUEST:
+            if status_code >= constants.ResponseCode.BAD_REQUEST:
 
-                error_message = response.formatted_data
-                if 'error' not in error_message:
-                    error_message = \
-                        ResponseConst.DEFAULT_ERROR_MESSAGE
+                if constants.ErrorConst.ERROR not in formatted_data:
+                    error_msg = \
+                        constants.ResponseConst.DEFAULT_ERROR_MESSAGE
+                else:
+                    error_msg = formatted_data.get(
+                        constants.ErrorConst.ERROR, {}
+                    ).get(
+                        constants.ErrorConst.DETAIL,
+                        constants.ErrorConst.UNRECOGNIZED_ERROR
+                    )
 
-                self.debug.error(ResponseConst.STATUS_CODE, status_code)
                 self.debug.error(
-                    ResponseConst.RESPONSE, response.formatted_data
+                    constants.ResponseConst.STATUS_CODE, status_code
                 )
-
-                error_msg = error_message.get('error', {})\
-                    .get('detail', 'Unrecognized error')
+                self.debug.error(
+                    constants.ResponseConst.RESPONSE, response.formatted_data
+                )
                 raise SendbeeRequestApiException(error_msg)
             else:
-                self.debug.ok(ResponseConst.STATUS_CODE, status_code)
-                self.debug.ok(ResponseConst.RESPONSE, response.raw_data)
+                self.debug.ok(constants.ResponseConst.STATUS_CODE, status_code)
+                self.debug.ok(constants.ResponseConst.RESPONSE, response.raw_data)
 
-            if self.method in [RequestConst.POST, RequestConst.PUT,
-                               RequestConst.DELETE]:
-                return response.models[0]
+            if response.warning:
+                click.secho(
+                    constants.WarningConst.MESSAGE + response.warning,
+                    fg='yellow'
+                )
+
+            if self.method in [
+                constants.RequestConst.POST,
+                constants.RequestConst.PUT,
+                constants.RequestConst.DELETE
+            ]:
+                if response.models:
+                    return response.models[0]
+                else:
+                    return None
             else:
                 return response
 
-        def call(self) -> 'Response':
+        def call(self):
             """
             Makes the API call
             :return: Return value from self._process_response()
@@ -246,7 +280,7 @@ def bind_request(**request_data) -> 'callable':
             status_code, response = self._do_request(self.url)
             return self._process_response(status_code, response)
 
-    def call(client, *path_params, **query_params) -> Union['Response', None]:
+    def call(client, *path_params, **query_params):
         """
         Binded method for API calls
         :path_params: list of path parameters
@@ -254,7 +288,7 @@ def bind_request(**request_data) -> 'callable':
         :return: Return value from Request.call()
         """
 
-        if MiscConst.PRINT_PARAMS in query_params:
+        if constants.MiscConst.PRINT_PARAMS in query_params:
             Request.query_parameters.print_params()
             return
 
@@ -262,6 +296,6 @@ def bind_request(**request_data) -> 'callable':
             request = Request(client, debug, *path_params, **query_params)
             return request.call()
 
-    call.__doc__ = request_data.get(ClientConst.DESCRIPTION)
+    call.__doc__ = request_data.get(constants.ClientConst.DESCRIPTION)
 
     return call

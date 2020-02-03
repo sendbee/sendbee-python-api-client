@@ -1,21 +1,19 @@
 from datetime import datetime
-from typing import Any, Union
 
-from sendbee_api.constants import BoolConst, MiscConst
+from sendbee_api import constants
 
 
 class Field:
     """Abstract field class."""
 
-    def __init__(self, index: Union[int, str],
-                 desc: str = None, **kwargs):
+    def __init__(self, index, desc=None, **kwargs):
         self.index = index
         self._kwargs = kwargs
 
         self.__doc__ = desc
         self.value = None
 
-    def convert_item(self, model) -> None:
+    def convert_item(self, model):
         """Convert item to desired item type"""
 
         try:
@@ -33,7 +31,7 @@ class Field:
         except TypeError:
             self.value = None
 
-    def _convert_field_item(self, data: Any, **kwargs) -> Any:
+    def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
         return data
@@ -42,7 +40,7 @@ class Field:
 class NumberField(Field):
     """Converting item to integer."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> int:
+    def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
         try:
@@ -54,7 +52,7 @@ class NumberField(Field):
 class RealNumberField(Field):
     """Converting item to integer."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> float:
+    def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
         try:
@@ -66,7 +64,7 @@ class RealNumberField(Field):
 class TextField(Field):
     """Converting item to string."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> str:
+    def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
         try:
@@ -78,12 +76,12 @@ class TextField(Field):
 class BooleanField(Field):
     """Converting item to boolean."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> Union[bool, None]:
+    def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
-        if data is True or data == BoolConst.TRUE:
+        if data is True or data == constants.BoolConst.TRUE:
             return True
-        elif data is True or data == BoolConst.FALSE:
+        elif data is True or data == constants.BoolConst.FALSE:
             return False
         else:
             return None
@@ -92,11 +90,11 @@ class BooleanField(Field):
 class DatetimeField(Field):
     """Converting item to datetime object."""
 
-    def _convert_field_item(self, data: str, **kwargs) -> Union['datetime', str]:
+    def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
         try:
-            _format = kwargs.get(MiscConst.FORMAT)
+            _format = kwargs.get(constants.MiscConst.FORMAT)
             return datetime.strptime(data, _format)
         except ValueError:
             return data
@@ -105,7 +103,6 @@ class DatetimeField(Field):
 class ModelField(Field):
     """Converting item to another data model."""
 
-    def __init__(self, model_cls, index: Union[int, str],
-                 desc: str = None, **kwargs):
+    def __init__(self, model_cls, index, desc=None, **kwargs):
         self.model_cls = model_cls
         super().__init__(index, desc, **kwargs)
