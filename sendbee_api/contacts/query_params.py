@@ -50,9 +50,15 @@ class CreateCustomFields(QueryParams):
     type = 'type', 'Type of the custom field'
 
 
-class UpdatingCustomFields(QueryParams):
+class UpdateCustomFields(QueryParams):
     """Update contact custom fields"""
 
     slug = 'slug', 'Slug of the custom field'
     name = 'name', 'Name of the custom field'
     type = 'type', 'Type of the custom field'
+
+
+class DeleteCustomFields(QueryParams):
+    """Delete tag"""
+
+    slug = 'slug', 'Custom field tag'

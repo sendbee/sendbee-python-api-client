@@ -72,14 +72,14 @@ class Model:
 
 class Meta(Model):
 
-    total = NumberField(index='total', desc="Total")
-    items_to = NumberField(index='to', desc="Items To")
-    items_from = NumberField(index='from', desc="Items From")
-    per_page = NumberField(index='per_page', desc="Per Page")
-    last_page = NumberField(index='last_page', desc="Last Page")
-    current_page = NumberField(index='current_page', desc="Current Page")
+    _total = NumberField(index='total', desc="Total")
+    _items_to = NumberField(index='to', desc="Items To")
+    _items_from = NumberField(index='from', desc="Items From")
+    _per_page = NumberField(index='per_page', desc="Per Page")
+    _last_page = NumberField(index='last_page', desc="Last Page")
+    _current_page = NumberField(index='current_page', desc="Current Page")
 
 
 class ServerMessage(Model):
 
-    message = TextField(index='message', desc='Message from the server')
+    _message = TextField(index='message', desc='Message from the server')

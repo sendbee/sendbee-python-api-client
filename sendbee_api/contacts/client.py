@@ -6,7 +6,7 @@ from sendbee_api.constants import RequestConst
 from sendbee_api.contacts.models import Contact, ContactTag, CustomField
 from sendbee_api.contacts.query_params import ListContacts, SubscribeContacts, \
     ListTags, UpdateTag, DeleteTag, ListCustomFields, CreateCustomFields, \
-    UpdatingCustomFields
+    UpdateCustomFields, DeleteCustomFields
 
 
 class Contacts:
@@ -94,9 +94,19 @@ class Contacts:
         api_path='/contacts/custom-fields',
         model=CustomField,
         method=RequestConst.PUT,
-        query_parameters=UpdatingCustomFields,
+        query_parameters=UpdateCustomFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
         description='Api client for updating contact custom fields'
+    )
+    delete_custom_field = bind_request(
+        api_path='/contacts/custom-fields',
+        model=ServerMessage,
+        method=RequestConst.DELETE,
+        query_parameters=DeleteCustomFields,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for deleting contact custom fields'
     )

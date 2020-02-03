@@ -105,7 +105,52 @@ tag.name
 ### Delete tag  
 
 ```python
-tag = api.delete_tag(id='...')
+response = api.delete_tag(id='...')
+
+response.message
+```
+
+### Fetch custom fields  
+
+```python
+custom_fields = api.custom_fields([search_query='...'])
+
+for custom_field in custom_fields:
+    custom_field.slug
+    custom_field.name
+    custom_field.type
+```
+
+### Create custom field  
+
+```python
+custom_field = api.create_custom_field(
+    name='...', type='text|number|list|date|boolean'
+)
+
+custom_field.slug
+custom_field.name
+custom_field.type
+```
+
+### Update custom field  
+
+```python
+custom_field = api.update_custom_field(
+    slug='...', [name='...'], [type='text|number|list|date|boolean']
+)
+
+custom_field.slug
+custom_field.name
+custom_field.type
+```
+
+### Delete custom field  
+
+```python
+response = api.delete_custom_field(slug='...')
+
+response.message
 ```
 
 ### Fetch message templates  
