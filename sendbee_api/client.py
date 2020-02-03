@@ -12,8 +12,8 @@ class Client(Contacts, Messages):
     base_url = 'api-v2.sendbee.io'
     protocol = 'https'
 
-    def __init__(self, api_key: str, secret: str, business_id: str = None,
-                 debug: bool = False, fake_response_path: str = None):
+    def __init__(self, api_key, secret, business_id=None,
+                 debug=False, fake_response_path=None):
 
         if not api_key:
             raise SendbeeRequestApiException('API key missing!')
@@ -28,7 +28,7 @@ class Client(Contacts, Messages):
         self.fake_response_path = fake_response_path
 
     @classmethod
-    def print_params_for(cls, fn_name: str) -> None:
+    def print_params_for(cls, fn_name) -> None:
         """Prints parameters for certain API call function."""
 
         try:

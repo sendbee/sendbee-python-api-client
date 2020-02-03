@@ -1,6 +1,7 @@
 from collections import namedtuple
 
 
+
 RequestConst = namedtuple(
     'RequestConst', [
         'GET', 'POST', 'PUT', 'DELETE', 'PATH', 'QUERY', 'METHOD', 'TIMEOUT',
@@ -13,6 +14,14 @@ RequestConst = namedtuple(
     'block_notifications'
 )
 
+ErrorConst = namedtuple(
+    'ErrorConst', ['ERROR', 'UNRECOGNIZED_ERROR', 'DETAIL']
+)('error', 'Unrecognized error', 'detail')
+
+WarningConst = namedtuple(
+    'WarningConst', ['WARNING', 'MESSAGE']
+)('warning', '[Sendbee API] WARNING: ')
+
 ResponseConst = namedtuple(
     'ResponseConst', [
         'RESPONSE', 'STATUS_CODE', 'RESPONSE_OBJECT', 'DEFAULT_ERROR_MESSAGE'
@@ -20,15 +29,17 @@ ResponseConst = namedtuple(
 )(
     'response', 'status_code', 'response_object',
     {
-        'error': {
-            'detail': 'Unrecognized error',
+        ErrorConst.ERROR: {
+            ErrorConst.DETAIL: ErrorConst.UNRECOGNIZED_ERROR,
             'type': 'unrecognized_error'
         }
     }
 )
 
 ClientConst = namedtuple(
-    'ClientConst', ['META', 'MODEL', 'MODELS', 'FORMATTER', 'DESCRIPTION']
+    'ClientConst', [
+        'META', 'MODEL', 'MODELS', 'FORMATTER', 'DESCRIPTION'
+    ]
 )('meta', 'model', 'models', 'formatter', 'description')
 
 FormatterConst = namedtuple(

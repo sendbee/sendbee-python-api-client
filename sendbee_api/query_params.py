@@ -1,5 +1,4 @@
 import click
-from typing import Dict
 from dumpit import pdumpit
 from aenum import MultiValueEnum
 
@@ -16,14 +15,15 @@ class QueryParams(MultiValueEnum):
     """Query parameters for API calls."""
 
     @classmethod
-    def get_params(cls) -> Dict:
-        """Merges default query parameters with call specific query parameters."""
+    def get_params(cls):
+        """Merges default query parameters with
+        call specific query parameters."""
 
         return {**{param.name: param.value for param in cls},
                 **{param.name: param.value for param in DefaultQueryParams}}
 
     @classmethod
-    def print_params(cls) -> None:
+    def print_params(cls):
         """Prints all query parameters."""
 
         for param in DefaultQueryParams:

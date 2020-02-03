@@ -7,12 +7,12 @@ from datetime import datetime, timezone, timedelta
 class SendbeeAuth:
     """Authentication class for Sendbee API"""
 
-    def __init__(self, private_key: str):
+    def __init__(self, private_key):
         if isinstance(private_key, str):
             private_key = private_key.encode('utf-8')
         self._private_key = private_key
 
-    def _get_encrypted_key(self, timestamp: str) -> str:
+    def _get_encrypted_key(self, timestamp):
         """Generates encrypted key from timestamp and private key
         :param timestamp: timestamp string
         :return: key string
@@ -27,7 +27,7 @@ class SendbeeAuth:
             ).digest()
         ).decode("utf-8")
 
-    def get_auth_token(self) -> str:
+    def get_auth_token(self):
         """Generates auth token from timestamp and encrypted key
         :return: token string
         """
@@ -40,8 +40,7 @@ class SendbeeAuth:
 
         return base64.b64encode(ts_encrypt).decode('utf-8')
 
-    def check_auth_token(self, token: [str, bytes],
-                         expiration_seconds: int = 60*15) -> bool:
+    def check_auth_token(self, token, expiration_seconds=60*15):
         """Checks if the provided and generated tokens are equal
         :param token: token string
         :param expiration_seconds: seconds integer
@@ -51,7 +50,8 @@ class SendbeeAuth:
         if isinstance(token, str):
             token = token.encode('utf-8')
 
-        timestamp, encrypted = base64.b64decode(token).decode('utf-8').split('.')
+        timestamp, encrypted = \
+            base64.b64decode(token).decode('utf-8').split('.')
 
         if datetime.fromtimestamp(int(timestamp), tz=timezone.utc) > \
                 datetime.now(timezone.utc)+timedelta(

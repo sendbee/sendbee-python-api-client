@@ -1,5 +1,4 @@
 from copy import deepcopy
-from typing import List, Any
 
 from sendbee_api.fields import Field, ModelField, NumberField, TextField
 
@@ -7,7 +6,7 @@ from sendbee_api.fields import Field, ModelField, NumberField, TextField
 class Model:
     """Abstract model class."""
 
-    def __init__(self, item: Any):
+    def __init__(self, item):
         self.item = item
         self.attributes = {}
 
@@ -19,7 +18,7 @@ class Model:
             raise AttributeError(item)
 
     @classmethod
-    def process(cls, data: list) -> List[object]:
+    def process(cls, data):
         """Transform raw data into models."""
 
         model_list = []
