@@ -35,3 +35,24 @@ class DeleteTag(QueryParams):
     """Delete tag"""
 
     id = 'id', 'ID of the tag'
+
+
+class ListCustomFields(QueryParams):
+    """Get the list of contact custom fields"""
+
+    search_query = 'search_query', 'Filter contact custom fields by query string'
+
+
+class CreateCustomFields(QueryParams):
+    """Create contact custom fields"""
+
+    name = 'name', 'Name of the custom field'
+    type = 'type', 'Type of the custom field'
+
+
+class UpdatingCustomFields(QueryParams):
+    """Update contact custom fields"""
+
+    slug = 'slug', 'Slug of the custom field'
+    name = 'name', 'Name of the custom field'
+    type = 'type', 'Type of the custom field'

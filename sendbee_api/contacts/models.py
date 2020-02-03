@@ -20,3 +20,11 @@ class Contact(Model):
         index='created_at', desc="Name", format='%Y-%m-%d %H:%M:%S'
     )
     _tags = ModelField(ContactTag, index='tags', desc="Tags")
+
+
+class CustomField(Model):
+    """Data model for contact custom fields"""
+
+    _slug = TextField(index='slug', desc="Slug")
+    _type = TextField(index='type', desc="Type")
+    _name = TextField(index='name', desc="Name")
