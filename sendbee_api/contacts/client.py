@@ -3,9 +3,10 @@ from sendbee_api.bind import bind_request
 
 from sendbee_api.models import ServerMessage
 from sendbee_api.constants import RequestConst
-from sendbee_api.contacts.models import Contact, ContactTag
-from sendbee_api.contacts.query_params import ListContacts, SubscribeContacts, \
-    ListTags, UpdateTag, DeleteTag
+from sendbee_api.contacts.models import Contact, ContactTag, CustomField
+from sendbee_api.contacts.query_params import ListContacts, UpdateContacts, \
+    ListTags, UpdateTag, DeleteTag, ListCustomFields, CreateCustomFields, \
+    UpdateCustomFields, DeleteCustomFields
 
 
 class Contacts:
@@ -24,12 +25,22 @@ class Contacts:
         api_path='/contacts/subscribe',
         model=Contact,
         method=RequestConst.POST,
-        query_parameters=SubscribeContacts,
+        query_parameters=UpdateContacts,
         default_parameters={
             constants.RequestConst.BLOCK_NOTIFICATIONS: 'yes',
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
-        description='Api client for subscribing contacts'
+        description='Api client for subscribing a contacts'
+    )
+    update_contact = bind_request(
+        api_path='/contacts',
+        model=Contact,
+        method=RequestConst.PUT,
+        query_parameters=UpdateContacts,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for updating contacts'
     )
     tags = bind_request(
         api_path='/contacts/tags',
@@ -69,4 +80,43 @@ class Contacts:
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
         description='Api client for deleting tags'
+    )
+    custom_fields = bind_request(
+        api_path='/contacts/custom-fields',
+        model=CustomField,
+        query_parameters=ListCustomFields,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for custom fields'
+    )
+    create_custom_field = bind_request(
+        api_path='/contacts/custom-fields',
+        model=CustomField,
+        method=RequestConst.POST,
+        query_parameters=CreateCustomFields,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for creating contact custom fields'
+    )
+    update_custom_field = bind_request(
+        api_path='/contacts/custom-fields',
+        model=CustomField,
+        method=RequestConst.PUT,
+        query_parameters=UpdateCustomFields,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for updating contact custom fields'
+    )
+    delete_custom_field = bind_request(
+        api_path='/contacts/custom-fields',
+        model=ServerMessage,
+        method=RequestConst.DELETE,
+        query_parameters=DeleteCustomFields,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for deleting contact custom fields'
     )
