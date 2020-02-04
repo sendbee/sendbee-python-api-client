@@ -52,26 +52,105 @@ contacts = api.contacts([tags=['...', ...]], [search_query='...'])
 
 for contact in contacts:
     contact.id
+    contact.status
+    contact.folder
+    contact.created_at
+    
     contact.name
     contact.phone
     contact.email
-    contact.created_at
-    contact.tags
+    contact.twitter_link
+    contact.facebook_link
+    
+    for tag in contact.tags:
+        tag.id
+        tag.name
+    
+    for note in contact.notes:
+        note.value
+    
+    for custom_field in contact.custom_fields:
+        custom_field.key
+        custom_field.value
 ```
 
 ### Subscribe contact  
 
 ```python
 contact = api.subscribe_contact(
-    phone='+...', [tags=['...', ...]], [block_notifications=[True|False]]
+    phone='+...',
+    [tags=['...', ...]], [name='...'], [email='...'],
+    [address={
+        'line': '...',
+        'city': '...',
+        'postal_code': '...'
+    }],
+    [facebook_link='...'],[twitter_link='...'],
+    [notes=[...]], [custom_fields={...}],
+    [block_notifications=[True|False]]
 )
 
 contact.id
+contact.status
+contact.folder
+contact.created_at
+
 contact.name
 contact.phone
 contact.email
+contact.twitter_link
+contact.facebook_link
+
+for tag in contact.tags:
+    tag.id
+    tag.name
+
+for note in contact.notes:
+    note.value
+
+for custom_field in contact.custom_fields:
+    custom_field.key
+    custom_field.value
+```
+
+### Update contact  
+
+```python
+contact = api.update_contact(
+    id='...',
+    [phone='+...'],
+    [tags=['...', ...]], [name='...'], [email='...'],
+    [address={
+        'line': '...',
+        'city': '...',
+        'postal_code': '...'
+    }],
+    [facebook_link='...'],[twitter_link='...'],
+    [notes=[...]], [custom_fields={...}],
+    [block_notifications=[True|False]]
+)
+
+contact.id
+contact.status
+contact.folder
 contact.created_at
-contact.tags
+
+contact.name
+contact.phone
+contact.email
+contact.twitter_link
+contact.facebook_link
+
+for tag in contact.tags:
+    tag.id
+    tag.name
+
+for note in contact.notes:
+    note.value
+
+for custom_field in contact.custom_fields:
+    custom_field.key
+    custom_field.value
 ```
 
 ### Fetch tags  

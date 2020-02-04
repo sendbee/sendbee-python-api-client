@@ -9,11 +9,19 @@ class ListContacts(QueryParams):
     search_query = 'search_query', 'Filter contacts by query string'
 
 
-class SubscribeContacts(QueryParams):
-    """Subscribe a contact to your business"""
+class UpdateContacts(QueryParams):
+    """Update a contact"""
 
+    id = 'id', 'Contact ID'
     phone = 'phone', 'Contact phone number'
     tags = 'tags', 'Tag contact while subscribing it'
+    name = 'name', 'Subscriber name'
+    email = 'email', 'Subscriber email'
+    address = 'address', 'Subscriber address'
+    custom_fields = 'custom_fields', 'Custom data fields'
+    facebook_link = 'facebook_link', 'Subscriber Facebook link'
+    twitter_link = 'twitter_link', 'Subscriber Twitter link'
+    notes = 'notes', 'Notes about subscriber'
     block_notifications = RequestConst.BLOCK_NOTIFICATIONS, \
                           'Block sending notifications after subscribing contact'
 

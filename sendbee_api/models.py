@@ -11,9 +11,12 @@ class Model:
         self.attributes = {}
 
     def __getattr__(self, item):
-        attr = self.attributes.get(item)
-        if attr:
-            return attr.value
+        if item in self.attributes.keys():
+            attr = self.attributes.get(item)
+            if attr:
+                return self.attributes.get(item).value
+            else:
+                return attr
         else:
             raise AttributeError(item)
 

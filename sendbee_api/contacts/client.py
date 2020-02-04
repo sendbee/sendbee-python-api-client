@@ -4,7 +4,7 @@ from sendbee_api.bind import bind_request
 from sendbee_api.models import ServerMessage
 from sendbee_api.constants import RequestConst
 from sendbee_api.contacts.models import Contact, ContactTag, CustomField
-from sendbee_api.contacts.query_params import ListContacts, SubscribeContacts, \
+from sendbee_api.contacts.query_params import ListContacts, UpdateContacts, \
     ListTags, UpdateTag, DeleteTag, ListCustomFields, CreateCustomFields, \
     UpdateCustomFields, DeleteCustomFields
 
@@ -25,12 +25,22 @@ class Contacts:
         api_path='/contacts/subscribe',
         model=Contact,
         method=RequestConst.POST,
-        query_parameters=SubscribeContacts,
+        query_parameters=UpdateContacts,
         default_parameters={
             constants.RequestConst.BLOCK_NOTIFICATIONS: 'yes',
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
-        description='Api client for subscribing contacts'
+        description='Api client for subscribing a contacts'
+    )
+    update_contact = bind_request(
+        api_path='/contacts',
+        model=Contact,
+        method=RequestConst.PUT,
+        query_parameters=UpdateContacts,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for updating contacts'
     )
     tags = bind_request(
         api_path='/contacts/tags',
