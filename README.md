@@ -20,7 +20,11 @@
 ![GitHub](https://img.shields.io/github/license/sendbee/sendbee-python-api-client.svg?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/sendbee/sendbee-python-api-client.svg?color=blue)
 
-## Installation  
+## Table of contents  
+
+[Installation](#installation)
+
+## <a href='installation'>Installation</a>  
 
 ```bash
 > pip install sendbee-api
