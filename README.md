@@ -22,32 +22,32 @@
 
 ## Table of contents  
 
--   [Installation](#installation)
--   [Initialization](#initialization)
-----------
--   [Fetch contacts](#fetch-contacts)
--   [Subscribe contact](#subscribe-contact)
--   [Update contact](#update-contact)
-----------
--   [Fetch tags](#fetch-tags)
--   [Create tag](#create-tag)
--   [Update tag](#update-tag)
--   [Delete tag](#delete-tag)
-----------
--   [Fetch custom fields](#fetch-custom-fields)
--   [Create custom field](#create-custom-field)
--   [Update custom field](#update-custom-field)
--   [Delete custom field](#delete-custom-field)
-----------
--   [Fetch message templates](#fetch-message-templates)
--   [Send template message](#send-template-message)
-----------
--   [Toggle bot for conversation with contact on off](#Toggle-bot-for-conversation-with-contact-on-off)
-----------
--   [Exception handling](#exception-handling)
--   [Authenticate webhook request](#authenticate-webhook-request)
--   [Warnings](#warnings)
--   [Debugging](#debugging)
+[Installation](#installation)
+[Initialization](#initialization)  
+
+[Fetch contacts](#fetch-contacts)
+[Subscribe contact](#subscribe-contact)
+[Update contact](#update-contact)  
+
+[Fetch tags](#fetch-tags)
+[Create tag](#create-tag)
+[Update tag](#update-tag)
+[Delete tag](#delete-tag)  
+
+[Fetch custom fields](#fetch-custom-fields)
+[Create custom field](#create-custom-field)
+[Update custom field](#update-custom-field)
+[Delete custom field](#delete-custom-field)  
+
+[Fetch message templates](#fetch-message-templates)
+[Send template message](#send-template-message)  
+
+[Toggle bot for conversation with contact on off](#Toggle-bot-for-conversation-with-contact-on-off)
+
+[Exception handling](#exception-handling)
+[Authenticate webhook request](#authenticate-webhook-request)
+[Warnings](#warnings)
+[Debugging](#debugging)  
 
 ## <a href='installation'>Installation</a>  
 
