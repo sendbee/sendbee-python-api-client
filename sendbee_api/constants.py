@@ -6,12 +6,12 @@ RequestConst = namedtuple(
     'RequestConst', [
         'GET', 'POST', 'PUT', 'DELETE', 'PATH', 'QUERY', 'METHOD', 'TIMEOUT',
         'API_PATH', 'PROTOCOL', 'QUERY_PARAMETERS', 'DEFAULT_PARAMETERS',
-        'BLOCK_NOTIFICATIONS'
+        'BLOCK_NOTIFICATIONS', 'BLOCK_AUTOMATION'
     ]
 )(
     'GET', 'POST', 'PUT', 'DELETE', 'path', 'query', 'method', 'timeout',
     'api_path', 'protocol', 'query_parameters', 'default_parameters',
-    'block_notifications'
+    'block_notifications', 'block_automation'
 )
 
 ErrorConst = namedtuple(
@@ -61,3 +61,7 @@ MiscConst = namedtuple(
 ResponseDataConst = namedtuple(
     'ResponseDataConst', ['DATA', 'META']
 )('data', 'meta')
+
+AutomationConst = namedtuple(
+    'AutomationConst', ['TOGGLE_BOT']
+)('toggle_bot')

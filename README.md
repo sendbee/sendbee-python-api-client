@@ -1,19 +1,13 @@
+# Sendbee Python API Client  
+
 ```
-███████╗███████╗███╗   ██╗██████╗ ██████╗ ███████╗███████╗    ██╗   ██╗██████╗      █████╗ ██████╗ ██╗
-██╔════╝██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔════╝    ██║   ██║╚════██╗    ██╔══██╗██╔══██╗██║
-███████╗█████╗  ██╔██╗ ██║██║  ██║██████╔╝█████╗  █████╗      ██║   ██║ █████╔╝    ███████║██████╔╝██║
-╚════██║██╔══╝  ██║╚██╗██║██║  ██║██╔══██╗██╔══╝  ██╔══╝      ╚██╗ ██╔╝██╔═══╝     ██╔══██║██╔═══╝ ██║
-███████║███████╗██║ ╚████║██████╔╝██████╔╝███████╗███████╗     ╚████╔╝ ███████╗    ██║  ██║██║     ██║
-╚══════╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═════╝ ╚══════╝╚══════╝      ╚═══╝  ╚══════╝    ╚═╝  ╚═╝╚═╝     ╚═╝
-                                                                                                      
-                                                                                  
+
                 .' '.            __
        .        .   .           (__\_
         .         .         . -{{_(|8)
           ' .  . ' ' .  . '     (__/
-```
 
-# Sendbee Python API Client  
+```  
 
 [![PyPI version](https://badge.fury.io/py/sendbee-api.svg)](https://badge.fury.io/py/sendbee-api)
 [![Build Status](https://travis-ci.org/sendbee/sendbee-python-api-client.svg?branch=master)](https://travis-ci.org/sendbee/sendbee-python-api-client)
@@ -79,15 +73,38 @@ for contact in contacts:
 ```python
 contact = api.subscribe_contact(
     phone='+...',
-    [tags=['...', ...]], [name='...'], [email='...'],
+    # this is mandatory the most important information
+    # about the subscribing contact
+    
+    [tags=['...', ...]], 
+    # tag new contact
+    # if tag doesn't exist, it will be created
+    
+    [name='...'], [email='...'],
+    [facebook_link='...'],[twitter_link='...'],
     [address={
         'line': '...',
         'city': '...',
         'postal_code': '...'
     }],
-    [facebook_link='...'],[twitter_link='...'],
-    [notes=[...]], [custom_fields={...}],
-    [block_notifications=[True|False]]
+    
+    [notes=[...]], 
+    # write notes about your new subscriber
+    
+    [custom_fields={'__field_name__': '__field_value__', ...}],
+    # fill custom fields with your data (value part)
+    # custom fields must be pre-created in Sendbee Dashboard
+    # any non-existent field will be ignored 
+    
+    [block_notifications=[True|False]],
+    # prevent sending browser push notification and email 
+    # notification to agents, when new contact subscribes
+    # (default is True) 
+    
+    [block_automation=[True|False]]
+    # prevent sending automated template messages to newly
+    # subscribed contact (if any is set in Sendbee Dashboard) 
+    # (default is True) 
 )
 
 contact.id
@@ -118,16 +135,35 @@ for custom_field in contact.custom_fields:
 ```python
 contact = api.update_contact(
     id='...',
+    # contact is identified with ID
+    
     [phone='+...'],
-    [tags=['...', ...]], [name='...'], [email='...'],
+    # this is the most important information 
+    # about the subscribing contact
+    
+    [tags=['...', ...]], 
+    # tag new contact
+    # if tag doesn't exist, it will be created
+    
+    [name='...'], [email='...'],
+    [facebook_link='...'],[twitter_link='...'],
     [address={
         'line': '...',
         'city': '...',
         'postal_code': '...'
     }],
-    [facebook_link='...'],[twitter_link='...'],
-    [notes=[...]], [custom_fields={...}],
-    [block_notifications=[True|False]]
+    
+    [notes=[...]], 
+    # write notes about your new subscriber
+    # if there are notes already saved for this contact
+    # new notes will be appended
+    
+    [custom_fields={'__field_name__': '__field_value__', ...}],
+    # fill custom fields with your data (value part)
+    # custom fields must be pre-created in Sendbee Dashboard
+    # any non-existent field will be ignored 
+    # if there are fields already filled with data for this contact
+    # it will be overwritten with new data 
 )
 
 contact.id
@@ -250,7 +286,22 @@ for template in templates:
 
 ```python
 response = api.send_template_message(
-    phone='+...', template_keyword='...', language='...', tags=['...', ...]
+    phone='+...',
+    
+    template_keyword='...',
+    # every pre-created and approved message template
+    # is identified with a keyword
+    
+    language='...', 
+    # language keyword
+    # example: en (for english)
+    
+    tags={'__tag_key__': '__tag_value__', ...}
+    # tags for template messages are parts of the message that need
+    # to be filled with your custom data
+    # example:
+    # template message: "Welcome {name}! How can we help you?"
+    # tags: {"name": contact.name}
 )
 
 response.conversation_id
