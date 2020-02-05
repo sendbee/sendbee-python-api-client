@@ -310,6 +310,32 @@ response.conversation_id
 
 ```
 
+### Toggle bot for conversation with contact on off  
+
+Every contact is linked with conversation with an agent.  
+Conversation could be handled by an agent or a bot (automation).  
+Every time a message has been sent to a contact by an agent or using the API, the bot is automatically turned off for that conversation.  
+But there is always a use case when you need to turn it on or off manually.  
+
+```python
+api.bot_on(contact_id='...')
+api.bot_off(contact_id='...')
+```
+
+### Exception handling  
+
+Every time something is not as it should be, like parameter is missing, parameter value is invalid, authentication fails, etc, API returns a http status code accordingly and an error message.  
+By using this client library, an error message is detected and taken, and an exception is raised, so you can handle it like this:  
+
+```python
+from sendbee_api import SendbeeRequestApiException
+
+try:
+    api.send_template_message(...)
+except SendbeeRequestApiException as e:
+    print(e)
+```    
+
 ### Authenticate webhook request  
 
 After activating your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending on which webhook type is linked with that webhook URL.  
@@ -334,3 +360,28 @@ token = '...'  # taken from the request header
 if api.auth.check_auth_token(token):
     print('Weeee... Sendbee sent me the data on my webhook URL \o/ :)')
 ```  
+
+### Warnings  
+
+Sometimes APi returns a worning so you could be warned about something.  
+The waning is displayed in standard output:  
+
+![Debugging](docs/images/warning.png)  
+
+### Debugging  
+
+This library has it's own internal debugging tool.  
+By default it is disabled, and to enable it, pass the `debug` parameter:  
+
+```python
+from sendbee_api import SendbeeApi
+
+api = SendbeeApi(
+    '__your_api_key_here__', '__your_secret_key_here__',
+    '__business_id_here__', debug=True
+)
+```  
+
+Once you enabled the internal debug tool, every request to API will output various request and response data in standard output:  
+
+![Debugging](docs/images/debugging.png)   

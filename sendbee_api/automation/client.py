@@ -12,6 +12,7 @@ class Automation:
         api_path='/automation/toggle-bot',
         model=ServerMessage,
         query_parameters=query_params.TootleBotOnOff,
+        method=constants.RequestConst.PUT,
         default_parameters={
             constants.AutomationConst.TOGGLE_BOT: True,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
@@ -22,6 +23,7 @@ class Automation:
         api_path='/automation/toggle-bot',
         model=ServerMessage,
         query_parameters=query_params.TootleBotOnOff,
+        method=constants.RequestConst.PUT,
         default_parameters={
             constants.AutomationConst.TOGGLE_BOT: False,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
