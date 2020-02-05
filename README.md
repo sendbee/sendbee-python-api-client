@@ -22,44 +22,44 @@
 
 ## Table of contents  
 
-[Installation](#installation)  
-[Initialization](#initialization)    
+-   [Installation](#installation)  
+-   [Initialization](#initialization)    
 
 #### Contacts  
 
-[Fetch contacts](#fetch-contacts)  
-[Subscribe contact](#subscribe-contact)  
-[Update contact](#update-contact)  
+-   [Fetch contacts](#fetch-contacts)  
+-   [Subscribe contact](#subscribe-contact)  
+-   [Update contact](#update-contact)  
 
 #### Tags  
 
-[Fetch tags](#fetch-tags)  
-[Create tag](#create-tag)  
-[Update tag](#update-tag)  
-[Delete tag](#delete-tag)  
+-   [Fetch tags](#fetch-tags)  
+-   [Create tag](#create-tag)  
+-   [Update tag](#update-tag)  
+-   [Delete tag](#delete-tag)  
 
 #### Custom Fields  
 
-[Fetch custom fields](#fetch-custom-fields)  
-[Create custom field](#create-custom-field)  
-[Update custom field](#update-custom-field)  
-[Delete custom field](#delete-custom-field)  
+-   [Fetch custom fields](#fetch-custom-fields)  
+-   [Create custom field](#create-custom-field)  
+-   [Update custom field](#update-custom-field)  
+-   [Delete custom field](#delete-custom-field)  
 
 #### Template messages  
 
-[Fetch message templates](#fetch-message-templates)  
-[Send template message](#send-template-message)  
+-   [Fetch message templates](#fetch-message-templates)  
+-   [Send template message](#send-template-message)  
 
 #### Automation  
 
-[Toggle bot for conversation with contact on off](#Toggle-bot-for-conversation-with-contact-on-off)  
+-   [Toggle bot for conversation with contact on off](#Toggle-bot-for-conversation-with-contact-on-off)  
 
 #### Mics  
 
-[Exception handling](#exception-handling)  
-[Authenticate webhook request](#authenticate-webhook-request)  
-[Warnings](#warnings)  
-[Debugging](#debugging)  
+-   [Exception handling](#exception-handling)  
+-   [Authenticate webhook request](#authenticate-webhook-request)  
+-   [Warnings](#warnings)  
+-   [Debugging](#debugging)  
 
 ## <a href='installation'>Installation</a>  
 
