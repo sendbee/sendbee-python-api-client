@@ -1,19 +1,13 @@
+# Sendbee Python API Client  
+
 ```
-███████╗███████╗███╗   ██╗██████╗ ██████╗ ███████╗███████╗    ██╗   ██╗██████╗      █████╗ ██████╗ ██╗
-██╔════╝██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔════╝    ██║   ██║╚════██╗    ██╔══██╗██╔══██╗██║
-███████╗█████╗  ██╔██╗ ██║██║  ██║██████╔╝█████╗  █████╗      ██║   ██║ █████╔╝    ███████║██████╔╝██║
-╚════██║██╔══╝  ██║╚██╗██║██║  ██║██╔══██╗██╔══╝  ██╔══╝      ╚██╗ ██╔╝██╔═══╝     ██╔══██║██╔═══╝ ██║
-███████║███████╗██║ ╚████║██████╔╝██████╔╝███████╗███████╗     ╚████╔╝ ███████╗    ██║  ██║██║     ██║
-╚══════╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═════╝ ╚══════╝╚══════╝      ╚═══╝  ╚══════╝    ╚═╝  ╚═╝╚═╝     ╚═╝
-                                                                                                      
-                                                                                  
+
                 .' '.            __
        .        .   .           (__\_
         .         .         . -{{_(|8)
           ' .  . ' ' .  . '     (__/
-```
 
-# Sendbee Python API Client  
+```  
 
 [![PyPI version](https://badge.fury.io/py/sendbee-api.svg)](https://badge.fury.io/py/sendbee-api)
 [![Build Status](https://travis-ci.org/sendbee/sendbee-python-api-client.svg?branch=master)](https://travis-ci.org/sendbee/sendbee-python-api-client)
@@ -79,15 +73,38 @@ for contact in contacts:
 ```python
 contact = api.subscribe_contact(
     phone='+...',
-    [tags=['...', ...]], [name='...'], [email='...'],
+    # this is mandatory the most important information
+    # about the subscribing contact
+    
+    [tags=['...', ...]], 
+    # tag new contact
+    # if tag doesn't exist, it will be created
+    
+    [name='...'], [email='...'],
+    [facebook_link='...'],[twitter_link='...'],
     [address={
         'line': '...',
         'city': '...',
         'postal_code': '...'
     }],
-    [facebook_link='...'],[twitter_link='...'],
-    [notes=[...]], [custom_fields={...}],
-    [block_notifications=[True|False]]
+    
+    [notes=[...]], 
+    # write notes about your new subscriber
+    
+    [custom_fields={'__field_name__': '__field_value__', ...}],
+    # fill custom fields with your data (value part)
+    # custom fields must be pre-created in Sendbee Dashboard
+    # any non-existent field will be ignored 
+    
+    [block_notifications=[True|False]],
+    # prevent sending browser push notification and email 
+    # notification to agents, when new contact subscribes
+    # (default is True) 
+    
+    [block_automation=[True|False]]
+    # prevent sending automated template messages to newly
+    # subscribed contact (if any is set in Sendbee Dashboard) 
+    # (default is True) 
 )
 
 contact.id
@@ -118,16 +135,35 @@ for custom_field in contact.custom_fields:
 ```python
 contact = api.update_contact(
     id='...',
+    # contact is identified with ID
+    
     [phone='+...'],
-    [tags=['...', ...]], [name='...'], [email='...'],
+    # this is the most important information 
+    # about the subscribing contact
+    
+    [tags=['...', ...]], 
+    # tag new contact
+    # if tag doesn't exist, it will be created
+    
+    [name='...'], [email='...'],
+    [facebook_link='...'],[twitter_link='...'],
     [address={
         'line': '...',
         'city': '...',
         'postal_code': '...'
     }],
-    [facebook_link='...'],[twitter_link='...'],
-    [notes=[...]], [custom_fields={...}],
-    [block_notifications=[True|False]]
+    
+    [notes=[...]], 
+    # write notes about your new subscriber
+    # if there are notes already saved for this contact
+    # new notes will be appended
+    
+    [custom_fields={'__field_name__': '__field_value__', ...}],
+    # fill custom fields with your data (value part)
+    # custom fields must be pre-created in Sendbee Dashboard
+    # any non-existent field will be ignored 
+    # if there are fields already filled with data for this contact
+    # it will be overwritten with new data 
 )
 
 contact.id
@@ -250,7 +286,22 @@ for template in templates:
 
 ```python
 response = api.send_template_message(
-    phone='+...', template_keyword='...', language='...', tags=['...', ...]
+    phone='+...',
+    
+    template_keyword='...',
+    # every pre-created and approved message template
+    # is identified with a keyword
+    
+    language='...', 
+    # language keyword
+    # example: en (for english)
+    
+    tags={'__tag_key__': '__tag_value__', ...}
+    # tags for template messages are parts of the message that need
+    # to be filled with your custom data
+    # example:
+    # template message: "Welcome {name}! How can we help you?"
+    # tags: {"name": contact.name}
 )
 
 response.conversation_id
@@ -258,6 +309,32 @@ response.conversation_id
 # your webhook, you'll get this same id to identify the conversation
 
 ```
+
+### Toggle bot for conversation with contact on off  
+
+Every contact is linked with conversation with an agent.  
+Conversation could be handled by an agent or a bot (automation).  
+Every time a message has been sent to a contact by an agent or using the API, the bot is automatically turned off for that conversation.  
+But there is always a use case when you need to turn it on or off manually.  
+
+```python
+api.bot_on(contact_id='...')
+api.bot_off(contact_id='...')
+```
+
+### Exception handling  
+
+Every time something is not as it should be, like parameter is missing, parameter value is invalid, authentication fails, etc, API returns a http status code accordingly and an error message.  
+By using this client library, an error message is detected and taken, and an exception is raised, so you can handle it like this:  
+
+```python
+from sendbee_api import SendbeeRequestApiException
+
+try:
+    api.send_template_message(...)
+except SendbeeRequestApiException as e:
+    print(e)
+```    
 
 ### Authenticate webhook request  
 
@@ -283,3 +360,28 @@ token = '...'  # taken from the request header
 if api.auth.check_auth_token(token):
     print('Weeee... Sendbee sent me the data on my webhook URL \o/ :)')
 ```  
+
+### Warnings  
+
+Sometimes APi returns a worning so you could be warned about something.  
+The waning is displayed in standard output:  
+
+![Debugging](docs/images/warning.png)  
+
+### Debugging  
+
+This library has it's own internal debugging tool.  
+By default it is disabled, and to enable it, pass the `debug` parameter:  
+
+```python
+from sendbee_api import SendbeeApi
+
+api = SendbeeApi(
+    '__your_api_key_here__', '__your_secret_key_here__',
+    '__business_id_here__', debug=True
+)
+```  
+
+Once you enabled the internal debug tool, every request to API will output various request and response data in standard output:  
+
+![Debugging](docs/images/debugging.png)   

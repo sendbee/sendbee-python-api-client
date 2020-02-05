@@ -1,9 +1,7 @@
 from sendbee_api import constants
+from sendbee_api.messages import models
 from sendbee_api.bind import bind_request
-
-from sendbee_api.constants import RequestConst
-from sendbee_api.messages.models import MessageTemplate, SentMessage
-from sendbee_api.messages.query_params import ListMessageTemplates, SendMessage
+from sendbee_api.messages import query_params
 
 
 class Messages:
@@ -11,8 +9,8 @@ class Messages:
 
     message_templates = bind_request(
         api_path='/message/templates',
-        model=MessageTemplate,
-        query_parameters=ListMessageTemplates,
+        model=models.MessageTemplate,
+        query_parameters=query_params.ListMessageTemplates,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -20,9 +18,9 @@ class Messages:
     )
     send_template_message = bind_request(
         api_path='/message/templates/send',
-        model=SentMessage,
-        method=RequestConst.POST,
-        query_parameters=SendMessage,
+        model=models.SentMessage,
+        method=constants.RequestConst.POST,
+        query_parameters=query_params.SendMessage,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },

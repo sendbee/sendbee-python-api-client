@@ -1,12 +1,8 @@
 from sendbee_api import constants
+from sendbee_api.contacts import models
 from sendbee_api.bind import bind_request
-
 from sendbee_api.models import ServerMessage
-from sendbee_api.constants import RequestConst
-from sendbee_api.contacts.models import Contact, ContactTag, CustomField
-from sendbee_api.contacts.query_params import ListContacts, UpdateContacts, \
-    ListTags, UpdateTag, DeleteTag, ListCustomFields, CreateCustomFields, \
-    UpdateCustomFields, DeleteCustomFields
+from sendbee_api.contacts import query_params
 
 
 class Contacts:
@@ -14,8 +10,8 @@ class Contacts:
 
     contacts = bind_request(
         api_path='/contacts',
-        model=Contact,
-        query_parameters=ListContacts,
+        model=models.Contact,
+        query_parameters=query_params.ListContacts,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -23,20 +19,21 @@ class Contacts:
     )
     subscribe_contact = bind_request(
         api_path='/contacts/subscribe',
-        model=Contact,
-        method=RequestConst.POST,
-        query_parameters=UpdateContacts,
+        model=models.Contact,
+        method=constants.RequestConst.POST,
+        query_parameters=query_params.UpdateContacts,
         default_parameters={
-            constants.RequestConst.BLOCK_NOTIFICATIONS: 'yes',
+            constants.RequestConst.BLOCK_AUTOMATION: True,
+            constants.RequestConst.BLOCK_NOTIFICATIONS: True,
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
         description='Api client for subscribing a contacts'
     )
     update_contact = bind_request(
         api_path='/contacts',
-        model=Contact,
-        method=RequestConst.PUT,
-        query_parameters=UpdateContacts,
+        model=models.Contact,
+        method=constants.RequestConst.PUT,
+        query_parameters=query_params.UpdateContacts,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -44,8 +41,8 @@ class Contacts:
     )
     tags = bind_request(
         api_path='/contacts/tags',
-        model=ContactTag,
-        query_parameters=ListTags,
+        model=models.ContactTag,
+        query_parameters=query_params.ListTags,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -53,9 +50,9 @@ class Contacts:
     )
     update_tag = bind_request(
         api_path='/contacts/tags',
-        model=ContactTag,
-        method=RequestConst.PUT,
-        query_parameters=UpdateTag,
+        model=models.ContactTag,
+        method=constants.RequestConst.PUT,
+        query_parameters=query_params.UpdateTag,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -63,9 +60,9 @@ class Contacts:
     )
     create_tag = bind_request(
         api_path='/contacts/tags',
-        model=ContactTag,
-        method=RequestConst.POST,
-        query_parameters=ListTags,
+        model=models.ContactTag,
+        method=constants.RequestConst.POST,
+        query_parameters=query_params.ListTags,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -74,8 +71,8 @@ class Contacts:
     delete_tag = bind_request(
         api_path='/contacts/tags',
         model=ServerMessage,
-        method=RequestConst.DELETE,
-        query_parameters=DeleteTag,
+        method=constants.RequestConst.DELETE,
+        query_parameters=query_params.DeleteTag,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -83,8 +80,8 @@ class Contacts:
     )
     custom_fields = bind_request(
         api_path='/contacts/custom-fields',
-        model=CustomField,
-        query_parameters=ListCustomFields,
+        model=models.CustomField,
+        query_parameters=query_params.ListCustomFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -92,9 +89,9 @@ class Contacts:
     )
     create_custom_field = bind_request(
         api_path='/contacts/custom-fields',
-        model=CustomField,
-        method=RequestConst.POST,
-        query_parameters=CreateCustomFields,
+        model=models.CustomField,
+        method=constants.RequestConst.POST,
+        query_parameters=query_params.CreateCustomFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -102,9 +99,9 @@ class Contacts:
     )
     update_custom_field = bind_request(
         api_path='/contacts/custom-fields',
-        model=CustomField,
-        method=RequestConst.PUT,
-        query_parameters=UpdateCustomFields,
+        model=models.CustomField,
+        method=constants.RequestConst.PUT,
+        query_parameters=query_params.UpdateCustomFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
@@ -113,8 +110,8 @@ class Contacts:
     delete_custom_field = bind_request(
         api_path='/contacts/custom-fields',
         model=ServerMessage,
-        method=RequestConst.DELETE,
-        query_parameters=DeleteCustomFields,
+        method=constants.RequestConst.DELETE,
+        query_parameters=query_params.DeleteCustomFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },

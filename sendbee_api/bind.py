@@ -91,16 +91,17 @@ def bind_request(**request_data):
                         constants.RequestConst.QUERY
                     ][_query_params[key]] = value
 
-            # transform all True and False param to 1 and 0
-            for key, value in self.parameters[
-                constants.RequestConst.QUERY
-            ].items():
-                if value is True:
-                    self.parameters[constants.RequestConst.QUERY][key] = \
-                        constants.BoolConst.TRUE
-                if value is False:
-                    self.parameters[constants.RequestConst.QUERY][key] = \
-                        constants.BoolConst.FALSE
+            if self.method == constants.RequestConst.GET:
+                # transform all True and False param to 1 and 0
+                for key, value in self.parameters[
+                    constants.RequestConst.QUERY
+                ].items():
+                    if value is True:
+                        self.parameters[constants.RequestConst.QUERY][key] = \
+                            constants.BoolConst.TRUE
+                    if value is False:
+                        self.parameters[constants.RequestConst.QUERY][key] = \
+                            constants.BoolConst.FALSE
 
             # set optional url path params
             for value in path_params:
