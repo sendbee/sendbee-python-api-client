@@ -20,7 +20,48 @@
 ![GitHub](https://img.shields.io/github/license/sendbee/sendbee-python-api-client.svg?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/sendbee/sendbee-python-api-client.svg?color=blue)
 
-## Installation  
+## Table of contents  
+
+[Installation](#installation)  
+[Initialization](#initialization)    
+
+#### Contacts  
+
+[Fetch contacts](#fetch-contacts)  
+[Subscribe contact](#subscribe-contact)  
+[Update contact](#update-contact)  
+
+#### Tags  
+
+[Fetch tags](#fetch-tags)  
+[Create tag](#create-tag)  
+[Update tag](#update-tag)  
+[Delete tag](#delete-tag)  
+
+#### Custom Fields  
+
+[Fetch custom fields](#fetch-custom-fields)  
+[Create custom field](#create-custom-field)  
+[Update custom field](#update-custom-field)  
+[Delete custom field](#delete-custom-field)  
+
+#### Template messages  
+
+[Fetch message templates](#fetch-message-templates)  
+[Send template message](#send-template-message)  
+
+#### Automation  
+
+[Toggle bot for conversation with contact on off](#Toggle-bot-for-conversation-with-contact-on-off)  
+
+#### Mics  
+
+[Exception handling](#exception-handling)  
+[Authenticate webhook request](#authenticate-webhook-request)  
+[Warnings](#warnings)  
+[Debugging](#debugging)  
+
+## <a href='installation'>Installation</a>  
 
 ```bash
 > pip install sendbee-api
@@ -28,7 +69,7 @@
 
 ## Usage  
 
-### Initialization  
+### <a href='initialization'>Initialization</a>  
 
 ```python
 from sendbee_api import SendbeeApi
@@ -39,7 +80,7 @@ api = SendbeeApi(
 )
 ```
 
-### Fetch contacts  
+### <a href='fetch-contacts'>Fetch contacts</a>  
 
 ```python
 contacts = api.contacts([tags=['...', ...]], [search_query='...'])
@@ -68,7 +109,7 @@ for contact in contacts:
         custom_field.value
 ```
 
-### Subscribe contact  
+### <a href='subscribe-contact'>Subscribe contact</a>  
 
 ```python
 contact = api.subscribe_contact(
@@ -130,7 +171,7 @@ for custom_field in contact.custom_fields:
     custom_field.value
 ```
 
-### Update contact  
+### <a href='update-contact'>Update contact</a>  
 
 ```python
 contact = api.update_contact(
@@ -189,7 +230,7 @@ for custom_field in contact.custom_fields:
     custom_field.value
 ```
 
-### Fetch tags  
+### <a href='fetch-tags'>Fetch tags</a>  
 
 ```python
 tags = api.tags([name='...'])
@@ -199,7 +240,7 @@ for tag in tags:
     tag.name
 ```
 
-### Create tag  
+### <a href='create-tag'>Create tag</a>  
 
 ```python
 tag = api.create_tag(name='...')
@@ -208,7 +249,7 @@ tag.id
 tag.name
 ```
 
-### Update tag  
+### <a href='update-tag'>Update tag</a>  
 
 ```python
 tag = api.update_tag(id='...', name='...')
@@ -217,7 +258,7 @@ tag.id
 tag.name
 ```
 
-### Delete tag  
+### <a href='update-tag'>Update tag</a>  
 
 ```python
 response = api.delete_tag(id='...')
@@ -225,7 +266,7 @@ response = api.delete_tag(id='...')
 response.message
 ```
 
-### Fetch custom fields  
+### <a href='fetch-custom-fields'>Fetch custom fields</a>  
 
 ```python
 custom_fields = api.custom_fields([search_query='...'])
@@ -236,7 +277,7 @@ for custom_field in custom_fields:
     custom_field.type
 ```
 
-### Create custom field  
+### <a href='create-custom-field'>Create custom field</a>  
 
 ```python
 custom_field = api.create_custom_field(
@@ -248,7 +289,7 @@ custom_field.name
 custom_field.type
 ```
 
-### Update custom field  
+### <a href='update-custom-field'>Update custom field</a>  
 
 ```python
 custom_field = api.update_custom_field(
@@ -260,7 +301,7 @@ custom_field.name
 custom_field.type
 ```
 
-### Delete custom field  
+### <a href='delete-custom-field'>Delete custom field</a>  
 
 ```python
 response = api.delete_custom_field(slug='...')
@@ -268,7 +309,7 @@ response = api.delete_custom_field(slug='...')
 response.message
 ```
 
-### Fetch message templates  
+### <a href='fetch-message-templates'>Fetch message templates</a>  
 
 ```python
 templates = api.message_templates([search_query='...'])
@@ -282,7 +323,7 @@ for template in templates:
     template.approved
 ```
 
-### Send template message  
+### <a href='send-template-message'>Send template message</a>  
 
 ```python
 response = api.send_template_message(
@@ -310,7 +351,7 @@ response.conversation_id
 
 ```
 
-### Toggle bot for conversation with contact on off  
+### <a href='toggle-bot-for-conversation-with-contact-on-off'>Toggle bot for conversation with contact on off</a>  
 
 Every contact is linked with conversation with an agent.  
 Conversation could be handled by an agent or a bot (automation).  
@@ -322,7 +363,7 @@ api.bot_on(contact_id='...')
 api.bot_off(contact_id='...')
 ```
 
-### Exception handling  
+### <a href='exception-handling'>Exception handling</a>  
 
 Every time something is not as it should be, like parameter is missing, parameter value is invalid, authentication fails, etc, API returns a http status code accordingly and an error message.  
 By using this client library, an error message is detected and taken, and an exception is raised, so you can handle it like this:  
@@ -336,7 +377,7 @@ except SendbeeRequestApiException as e:
     print(e)
 ```    
 
-### Authenticate webhook request  
+### <a href='authenticate-webhook-request'>Authenticate webhook request</a>  
 
 After activating your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending on which webhook type is linked with that webhook URL.  
 Every request that we make will have authorization token in header, like this:  
@@ -361,14 +402,14 @@ if api.auth.check_auth_token(token):
     print('Weeee... Sendbee sent me the data on my webhook URL \o/ :)')
 ```  
 
-### Warnings  
+### <a href='warnings'>Warnings</a>  
 
 Sometimes APi returns a worning so you could be warned about something.  
 The waning is displayed in standard output:  
 
 ![Debugging](docs/images/warning.png)  
 
-### Debugging  
+### <a href='debugging'>Debugging</a>  
 
 This library has it's own internal debugging tool.  
 By default it is disabled, and to enable it, pass the `debug` parameter:  
