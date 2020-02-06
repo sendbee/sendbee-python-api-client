@@ -20,6 +20,16 @@ class Messages:
         api_path='/message/templates/send',
         model=models.SentMessage,
         method=constants.RequestConst.POST,
+        query_parameters=query_params.SendTemplateMessage,
+        default_parameters={
+            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
+        },
+        description='Api client for sending template messages'
+    )
+    send_message = bind_request(
+        api_path='/message/send',
+        model=models.SentMessage,
+        method=constants.RequestConst.POST,
         query_parameters=query_params.SendMessage,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON

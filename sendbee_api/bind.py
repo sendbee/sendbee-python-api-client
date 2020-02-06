@@ -231,7 +231,10 @@ def bind_request(**request_data):
 
             if status_code >= constants.ResponseCode.BAD_REQUEST:
 
-                if constants.ErrorConst.ERROR not in formatted_data:
+                if status_code == constants.ResponseCode.NOT_FOUND:
+                    error_msg = \
+                        constants.ErrorConst.NOT_FOUND
+                elif constants.ErrorConst.ERROR not in formatted_data:
                     error_msg = \
                         constants.ResponseConst.DEFAULT_ERROR_MESSAGE
                 else:

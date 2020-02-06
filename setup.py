@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='sendbee_api',
-    version='0.6.0',
+    version='0.7.0',
 
     description='Python client SDK for Sendbee Public API',
     long_description=readme(),
