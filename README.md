@@ -31,7 +31,7 @@
 -   [Subscribe contact](#subscribe-contact)  
 -   [Update contact](#update-contact)  
 
-#### Tags  
+#### Contact Tags  
 
 -   [Fetch tags](#fetch-tags)  
 -   [Create tag](#create-tag)  
@@ -45,10 +45,11 @@
 -   [Update custom field](#update-custom-field)  
 -   [Delete custom field](#delete-custom-field)  
 
-#### Template messages  
+#### Messages  
 
 -   [Fetch message templates](#fetch-message-templates)  
 -   [Send template message](#send-template-message)  
+-   [Send message](#send-message)  
 
 #### Automation  
 
@@ -343,6 +344,33 @@ response = api.send_template_message(
     # example:
     # template message: "Welcome {name}! How can we help you?"
     # tags: {"name": contact.name}
+)
+
+response.conversation_id
+# save this id, and when you get sent message status requests on
+# your webhook, you'll get this same id to identify the conversation
+
+```
+
+### <a href='send-message'>Send message</a>  
+
+You can send either text message or media message.  
+For media message, following formats are supported:  
+Audio: AAC, M4A, AMR, MP3, OGG OPUS  
+video: MP4, 3GPP  
+Image: JPG/JPEG, PNG  
+Documents: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX  
+
+```python
+response = api.send_message(
+    phone='+...',
+    
+    [text='...'],
+    # any kind of message text
+    
+    [media_url='...']
+    # URL to a media. 
+    # you need to upload it your self and send us the URL
 )
 
 response.conversation_id

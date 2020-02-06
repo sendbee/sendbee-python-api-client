@@ -7,10 +7,18 @@ class ListMessageTemplates(QueryParams):
     search_query = 'search_query', 'Filter contacts by query string'
 
 
-class SendMessage(QueryParams):
+class SendTemplateMessage(QueryParams):
     """Parameters for sending template message"""
 
     tags = 'tags', 'Template message tags'
     phone = 'phone', 'Contact\'s phone number'
     language = 'language', 'Template message language'
     template_keyword = 'template_keyword', 'Template message keyword'
+
+
+class SendMessage(QueryParams):
+    """Parameters for sending message"""
+
+    phone = 'phone', 'Contact\'s phone number'
+    text = 'text', 'Message text'
+    media_url = 'media_url', 'Media URL for media message'

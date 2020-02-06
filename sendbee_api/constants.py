@@ -15,8 +15,8 @@ RequestConst = namedtuple(
 )
 
 ErrorConst = namedtuple(
-    'ErrorConst', ['ERROR', 'UNRECOGNIZED_ERROR', 'DETAIL']
-)('error', 'Unrecognized error', 'detail')
+    'ErrorConst', ['ERROR', 'UNRECOGNIZED_ERROR', 'DETAIL', 'NOT_FOUND']
+)('error', 'Unrecognized error', 'detail', 'Endpoint not found')
 
 WarningConst = namedtuple(
     'WarningConst', ['WARNING', 'MESSAGE']
