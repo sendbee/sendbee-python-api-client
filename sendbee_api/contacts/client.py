@@ -78,42 +78,42 @@ class Contacts:
         },
         description='Api client for deleting tags'
     )
-    custom_fields = bind_request(
-        api_path='/contacts/custom-fields',
-        model=models.CustomField,
-        query_parameters=query_params.ListCustomFields,
+    contact_fields = bind_request(
+        api_path='/contacts/contact-fields',
+        model=models.ContactField,
+        query_parameters=query_params.ListContactFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
-        description='Api client for custom fields'
+        description='Api client for contact fields'
     )
-    create_custom_field = bind_request(
-        api_path='/contacts/custom-fields',
-        model=models.CustomField,
+    create_contact_field = bind_request(
+        api_path='/contacts/contact-fields',
+        model=models.ContactField,
         method=constants.RequestConst.POST,
-        query_parameters=query_params.CreateCustomFields,
+        query_parameters=query_params.CreateContactFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
-        description='Api client for creating contact custom fields'
+        description='Api client for creating contact contact fields'
     )
-    update_custom_field = bind_request(
-        api_path='/contacts/custom-fields',
-        model=models.CustomField,
+    update_contact_field = bind_request(
+        api_path='/contacts/contact-fields',
+        model=models.ContactField,
         method=constants.RequestConst.PUT,
-        query_parameters=query_params.UpdateCustomFields,
+        query_parameters=query_params.UpdateContactFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
-        description='Api client for updating contact custom fields'
+        description='Api client for updating contact contact fields'
     )
-    delete_custom_field = bind_request(
-        api_path='/contacts/custom-fields',
+    delete_contact_field = bind_request(
+        api_path='/contacts/contact-fields',
         model=ServerMessage,
         method=constants.RequestConst.DELETE,
-        query_parameters=query_params.DeleteCustomFields,
+        query_parameters=query_params.DeleteContactFields,
         default_parameters={
             constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
         },
-        description='Api client for deleting contact custom fields'
+        description='Api client for deleting contact contact fields'
     )

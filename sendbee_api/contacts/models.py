@@ -9,8 +9,8 @@ class ContactTag(Model):
     _name = TextField(index='name', desc="Name")
 
 
-class CustomField(Model):
-    """Data model for contact custom fields"""
+class ContactField(Model):
+    """Data model for contact contact fields"""
 
     _slug = TextField(index='slug', desc="Slug")
     _type = TextField(index='type', desc="Type")
@@ -23,11 +23,11 @@ class Note(Model):
     _note = TextField(index='note', desc="Note")
 
 
-class ContactCustomField(Model):
-    """Data model for contact custom fields"""
+class ContactContactField(Model):
+    """Data model for contact contact fields"""
 
-    _key = TextField(index='key', desc="Custom field key")
-    _value = TextField(index='value', desc="Custom field value")
+    _key = TextField(index='key', desc="Contact field key")
+    _value = TextField(index='value', desc="Contact field value")
 
 
 class ContactNote(Model):
@@ -51,7 +51,7 @@ class Contact(Model):
     _folder = TextField(index='folder', desc="Conversation folder")
     _facebook_link = TextField(index='facebook_link', desc="Facebook link")
     _twitter_link = TextField(index='twitter_link', desc="Twitter link")
-    _custom_fields = ModelField(
-        ContactCustomField, index='custom_fields', desc="Custom fields"
+    _contact_fields = ModelField(
+        ContactContactField, index='contact_fields', desc="Contact fields"
     )
     _notes = ModelField(ContactNote, index='notes', desc="Notes")
