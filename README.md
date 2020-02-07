@@ -38,12 +38,12 @@
 -   [Update tag](#update-tag)  
 -   [Delete tag](#delete-tag)  
 
-#### Custom Fields  
+#### Contact Fields  
 
--   [Fetch custom fields](#fetch-custom-fields)  
--   [Create custom field](#create-custom-field)  
--   [Update custom field](#update-custom-field)  
--   [Delete custom field](#delete-custom-field)  
+-   [Fetch contact fields](#fetch-contact-fields)  
+-   [Create contact field](#create-contact-field)  
+-   [Update contact field](#update-contact-field)  
+-   [Delete contact field](#delete-contact-field)  
 
 #### Messages  
 
@@ -53,7 +53,7 @@
 
 #### Automation  
 
--   [Toggle bot for conversation with contact on off](#Toggle-bot-for-conversation-with-contact-on-off)  
+-   [Managing chatbot (automated responses) status settings](#bot-on-off)  
 
 #### Mics  
 
@@ -61,6 +61,7 @@
 -   [Authenticate webhook request](#authenticate-webhook-request)  
 -   [Warnings](#warnings)  
 -   [Debugging](#debugging)  
+-   [Official Documentation](http://developer.sendbee.io)  
 
 ## <a href='installation'>Installation</a>  
 
@@ -105,9 +106,9 @@ for contact in contacts:
     for note in contact.notes:
         note.value
     
-    for custom_field in contact.custom_fields:
-        custom_field.key
-        custom_field.value
+    for contact_field in contact.contact_fields:
+        contact_field.key
+        contact_field.value
 ```
 
 ### <a href='subscribe-contact'>Subscribe contact</a>  
@@ -133,9 +134,9 @@ contact = api.subscribe_contact(
     [notes=[...]], 
     # write notes about your new subscriber
     
-    [custom_fields={'__field_name__': '__field_value__', ...}],
-    # fill custom fields with your data (value part)
-    # custom fields must be pre-created in Sendbee Dashboard
+    [contact_fields={'__field_name__': '__field_value__', ...}],
+    # fill contact fields with your data (value part)
+    # contact fields must be pre-created in Sendbee Dashboard
     # any non-existent field will be ignored 
     
     [block_notifications=[True|False]],
@@ -167,9 +168,9 @@ for tag in contact.tags:
 for note in contact.notes:
     note.value
 
-for custom_field in contact.custom_fields:
-    custom_field.key
-    custom_field.value
+for contact_field in contact.contact_fields:
+    contact_field.key
+    contact_field.value
 ```
 
 ### <a href='update-contact'>Update contact</a>  
@@ -200,9 +201,9 @@ contact = api.update_contact(
     # if there are notes already saved for this contact
     # new notes will be appended
     
-    [custom_fields={'__field_name__': '__field_value__', ...}],
-    # fill custom fields with your data (value part)
-    # custom fields must be pre-created in Sendbee Dashboard
+    [contact_fields={'__field_name__': '__field_value__', ...}],
+    # fill contact fields with your data (value part)
+    # contact fields must be pre-created in Sendbee Dashboard
     # any non-existent field will be ignored 
     # if there are fields already filled with data for this contact
     # it will be overwritten with new data 
@@ -226,9 +227,9 @@ for tag in contact.tags:
 for note in contact.notes:
     note.value
 
-for custom_field in contact.custom_fields:
-    custom_field.key
-    custom_field.value
+for contact_field in contact.contact_fields:
+    contact_field.key
+    contact_field.value
 ```
 
 ### <a href='fetch-tags'>Fetch tags</a>  
@@ -267,45 +268,45 @@ response = api.delete_tag(id='...')
 response.message
 ```
 
-### <a href='fetch-custom-fields'>Fetch custom fields</a>  
+### <a href='fetch-contact-fields'>Fetch contact fields</a>  
 
 ```python
-custom_fields = api.custom_fields([search_query='...'])
+contact_fields = api.contact_fields([search_query='...'])
 
-for custom_field in custom_fields:
-    custom_field.slug
-    custom_field.name
-    custom_field.type
+for contact_field in contact_fields:
+    contact_field.slug
+    contact_field.name
+    contact_field.type
 ```
 
-### <a href='create-custom-field'>Create custom field</a>  
+### <a href='create-contact-field'>Create contact field</a>  
 
 ```python
-custom_field = api.create_custom_field(
+contact_field = api.create_contact_field(
     name='...', type='text|number|list|date|boolean'
 )
 
-custom_field.slug
-custom_field.name
-custom_field.type
+contact_field.slug
+contact_field.name
+contact_field.type
 ```
 
-### <a href='update-custom-field'>Update custom field</a>  
+### <a href='update-contact-field'>Update contact field</a>  
 
 ```python
-custom_field = api.update_custom_field(
+contact_field = api.update_contact_field(
     slug='...', [name='...'], [type='text|number|list|date|boolean']
 )
 
-custom_field.slug
-custom_field.name
-custom_field.type
+contact_field.slug
+contact_field.name
+contact_field.type
 ```
 
-### <a href='delete-custom-field'>Delete custom field</a>  
+### <a href='delete-contact-field'>Delete contact field</a>  
 
 ```python
-response = api.delete_custom_field(slug='...')
+response = api.delete_contact_field(slug='...')
 
 response.message
 ```
@@ -379,12 +380,13 @@ response.conversation_id
 
 ```
 
-### <a href='toggle-bot-for-conversation-with-contact-on-off'>Toggle bot for conversation with contact on off</a>  
+### <a href='toggle-bot-for-conversation-with-contact-on-off'>Managing chatbot (automated responses) status settings</a>  
 
-Every contact is linked with conversation with an agent.  
-Conversation could be handled by an agent or a bot (automation).  
-Every time a message has been sent to a contact by an agent or using the API, the bot is automatically turned off for that conversation.  
-But there is always a use case when you need to turn it on or off manually.  
+Managing chatbot (automated responses) status settings  
+Every contact is linked to a conversation with an agent.  
+Conversation could be handled by an agent or a chatbot (automated responses).  
+Every time a message has been sent to a contact by an agent or using the API, the chatbot will automatically be turned off for that conversation.  
+Use the example below to change the chatbot status based on your use case.    
 
 ```python
 api.bot_on(contact_id='...')

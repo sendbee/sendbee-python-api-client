@@ -18,7 +18,7 @@ class UpdateContacts(QueryParams):
     name = 'name', 'Subscriber name'
     email = 'email', 'Subscriber email'
     address = 'address', 'Subscriber address'
-    custom_fields = 'custom_fields', 'Custom data fields'
+    contact_fields = 'contact_fields', 'Contact data fields'
     facebook_link = 'facebook_link', 'Subscriber Facebook link'
     twitter_link = 'twitter_link', 'Subscriber Twitter link'
     notes = 'notes', 'Notes about subscriber'
@@ -45,28 +45,28 @@ class DeleteTag(QueryParams):
     id = 'id', 'ID of the tag'
 
 
-class ListCustomFields(QueryParams):
-    """Get the list of contact custom fields"""
+class ListContactFields(QueryParams):
+    """Get the list of contact contact fields"""
 
-    search_query = 'search_query', 'Filter contact custom fields by query string'
-
-
-class CreateCustomFields(QueryParams):
-    """Create contact custom fields"""
-
-    name = 'name', 'Name of the custom field'
-    type = 'type', 'Type of the custom field'
+    search_query = 'search_query', 'Filter contact contact fields by query string'
 
 
-class UpdateCustomFields(QueryParams):
-    """Update contact custom fields"""
+class CreateContactFields(QueryParams):
+    """Create contact contact fields"""
 
-    slug = 'slug', 'Slug of the custom field'
-    name = 'name', 'Name of the custom field'
-    type = 'type', 'Type of the custom field'
+    name = 'name', 'Name of the contact field'
+    type = 'type', 'Type of the contact field'
 
 
-class DeleteCustomFields(QueryParams):
+class UpdateContactFields(QueryParams):
+    """Update contact contact fields"""
+
+    slug = 'slug', 'Slug of the contact field'
+    name = 'name', 'Name of the contact field'
+    type = 'type', 'Type of the contact field'
+
+
+class DeleteContactFields(QueryParams):
     """Delete tag"""
 
-    slug = 'slug', 'Custom field tag'
+    slug = 'slug', 'Contact field tag'
