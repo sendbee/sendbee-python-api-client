@@ -33,10 +33,10 @@
 
 #### Contact Tags  
 
--   [Fetch tags](#fetch-tags)  
--   [Create tag](#create-tag)  
--   [Update tag](#update-tag)  
--   [Delete tag](#delete-tag)  
+-   [Fetch contact tags](#fetch-contact-tags)  
+-   [Create contact tag](#create-contact-tag)  
+-   [Update contact tag](#update-contact-tag)  
+-   [Delete contact tag](#delete-contact-tag)  
 
 #### Contact Fields  
 
@@ -45,8 +45,10 @@
 -   [Update contact field](#update-contact-field)  
 -   [Delete contact field](#delete-contact-field)  
 
-#### Messages  
+#### Conversations  
 
+-   [Fetch conversations](#fetch-conversations)
+-   [Fetch conversation messages](#fetch-conversation-mesages)
 -   [Fetch message templates](#fetch-message-templates)  
 -   [Send template message](#send-template-message)  
 -   [Send message](#send-message)  
@@ -63,24 +65,21 @@
 -   [Debugging](#debugging)  
 -   [Official Documentation](http://developer.sendbee.io)  
 
-## <a href='installation'>Installation</a>  
+### <a href='installation'>Installation</a>  
 
 ```bash
 > pip install sendbee-api
 ```
-
-## Usage  
 
 ### <a href='initialization'>Initialization</a>  
 
 ```python
 from sendbee_api import SendbeeApi
 
-api = SendbeeApi(
-    '__your_api_key_here__', '__your_secret_key_here__',
-    '__business_id_here__'
-)
+api = SendbeeApi('__your_secret_key_here__', '__business_id_here__')
 ```
+
+## Contacts
 
 ### <a href='fetch-contacts'>Fetch contacts</a>  
 
@@ -232,7 +231,9 @@ for contact_field in contact.contact_fields:
     contact_field.value
 ```
 
-### <a href='fetch-tags'>Fetch tags</a>  
+## Contact tags
+
+### <a href='fetch-tags'>Fetch contact tags</a>  
 
 ```python
 tags = api.tags([name='...'])
@@ -242,7 +243,7 @@ for tag in tags:
     tag.name
 ```
 
-### <a href='create-tag'>Create tag</a>  
+### <a href='create-contact-tag'>Create contact tag</a>  
 
 ```python
 tag = api.create_tag(name='...')
@@ -251,7 +252,7 @@ tag.id
 tag.name
 ```
 
-### <a href='update-tag'>Update tag</a>  
+### <a href='update-contact-tag'>Update contact tag</a>  
 
 ```python
 tag = api.update_tag(id='...', name='...')
@@ -260,13 +261,15 @@ tag.id
 tag.name
 ```
 
-### <a href='update-tag'>Update tag</a>  
+### <a href='update-contact-tag'>Update contact tag</a>  
 
 ```python
 response = api.delete_tag(id='...')
 
 response.message
 ```
+
+## Contact fields
 
 ### <a href='fetch-contact-fields'>Fetch contact fields</a>  
 
@@ -309,6 +312,45 @@ contact_field.type
 response = api.delete_contact_field(slug='...')
 
 response.message
+```
+
+## Conversations
+
+### <a href='fetch-conversations'>Fetch conversations</a>  
+
+```python
+conversations = api.conversations([folder='open|done|spam|notified'], [search_query='...'])
+
+for conversation in conversations:
+    conversation.id
+    conversation.folder
+    conversation.chatbot_active
+    conversation.platform
+    conversation.created_at
+    
+    conversation.contact.id
+    conversation.contact.name
+    conversation.contact.phone
+    
+    conversation.last_message.direction
+    conversation.last_message.status
+    conversation.last_message.inbound_sent_at
+    conversation.last_message.outbound_sent_at
+```
+
+### <a href='fetch-conversation-messages'>Fetch conversation messages</a>  
+
+```python
+messages = api.messages(conversation_id='...')
+
+for message in messages:
+    message.type
+    message.body
+    message.media_type
+    message.media_url
+    message.status
+    message.direction
+    message.sent_at
 ```
 
 ### <a href='fetch-message-templates'>Fetch message templates</a>  
@@ -357,10 +399,13 @@ response.conversation_id
 
 You can send either text message or media message.  
 For media message, following formats are supported:  
-Audio: AAC, M4A, AMR, MP3, OGG OPUS  
-video: MP4, 3GPP  
-Image: JPG/JPEG, PNG  
-Documents: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX  
+
+Category | Formats
+-------- | -------
+Audio | AAC, M4A, AMR, MP3, OGG OPUS
+Video | MP4, 3GPP
+Image | JPG/JPEG, PNG
+Document | PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX  
 
 ```python
 response = api.send_message(
@@ -380,18 +425,20 @@ response.conversation_id
 
 ```
 
+## Automation
+
 ### <a href='toggle-bot-for-conversation-with-contact-on-off'>Managing chatbot (automated responses) status settings</a>  
 
-Managing chatbot (automated responses) status settings  
 Every contact is linked to a conversation with an agent.  
 Conversation could be handled by an agent or a chatbot (automated responses).  
 Every time a message has been sent to a contact by an agent or using the API, the chatbot will automatically be turned off for that conversation.  
 Use the example below to change the chatbot status based on your use case.    
 
 ```python
-api.bot_on(contact_id='...')
-api.bot_off(contact_id='...')
+api.chatbot_activity(conversation_id='...', active=True|False)
 ```
+
+## Misc
 
 ### <a href='exception-handling'>Exception handling</a>  
 
@@ -428,8 +475,8 @@ from sendbee_api import SendbeeApi
 api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
 
 token = '...'  # taken from the request header
-if api.auth.check_auth_token(token):
-    print('Weeee... Sendbee sent me the data on my webhook URL \o/ :)')
+if not api.auth.check_auth_token(token):
+    # error! authentication failed!
 ```  
 
 ### <a href='warnings'>Warnings</a>  

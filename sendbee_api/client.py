@@ -2,7 +2,7 @@ import click
 
 from sendbee_api.auth import SendbeeAuth
 from sendbee_api.contacts.client import Contacts
-from sendbee_api.messages.client import Messages
+from sendbee_api.convresations.client import Messages
 from sendbee_api.automation.client import Automation
 from sendbee_api.exceptions import SendbeeRequestApiException
 
@@ -13,18 +13,15 @@ class Client(Contacts, Messages, Automation):
     base_url = 'api-v2.sendbee.io'
     protocol = 'https'
 
-    def __init__(self, api_key, secret, business_id=None,
+    def __init__(self, secret, business_id=None,
                  debug=False, fake_response_path=None):
 
-        if not api_key:
-            raise SendbeeRequestApiException('API key missing!')
         if not secret:
             raise SendbeeRequestApiException('API secret key missing!')
 
         self.debug = debug
         self.request = None
         self.secret = secret
-        self.api_key = api_key
         self.business_id = business_id
         self.fake_response_path = fake_response_path
 

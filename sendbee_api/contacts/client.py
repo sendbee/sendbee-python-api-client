@@ -79,7 +79,7 @@ class Contacts:
         description='Api client for deleting tags'
     )
     contact_fields = bind_request(
-        api_path='/contacts/contact-fields',
+        api_path='/contacts/fields',
         model=models.ContactField,
         query_parameters=query_params.ListContactFields,
         default_parameters={
@@ -88,7 +88,7 @@ class Contacts:
         description='Api client for contact fields'
     )
     create_contact_field = bind_request(
-        api_path='/contacts/contact-fields',
+        api_path='/contacts/fields',
         model=models.ContactField,
         method=constants.RequestConst.POST,
         query_parameters=query_params.CreateContactFields,
@@ -98,7 +98,7 @@ class Contacts:
         description='Api client for creating contact contact fields'
     )
     update_contact_field = bind_request(
-        api_path='/contacts/contact-fields',
+        api_path='/contacts/fields',
         model=models.ContactField,
         method=constants.RequestConst.PUT,
         query_parameters=query_params.UpdateContactFields,
@@ -108,7 +108,7 @@ class Contacts:
         description='Api client for updating contact contact fields'
     )
     delete_contact_field = bind_request(
-        api_path='/contacts/contact-fields',
+        api_path='/contacts/fields',
         model=ServerMessage,
         method=constants.RequestConst.DELETE,
         query_parameters=query_params.DeleteContactFields,
