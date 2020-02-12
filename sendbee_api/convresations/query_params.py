@@ -22,3 +22,16 @@ class SendMessage(QueryParams):
     phone = 'phone', 'Contact\'s phone number'
     text = 'text', 'Message text'
     media_url = 'media_url', 'Media URL for media message'
+
+
+class ListConversations(QueryParams):
+    """Parameters for list of conversations"""
+
+    folder = 'folder', 'Filter conversation by folder'
+    search_query = 'search_query', 'Filter conversations by query string'
+
+
+class ListMessages(QueryParams):
+    """Parameters for list of messages"""
+
+    conversation_id = 'conversation_id', 'Conversation UUID'

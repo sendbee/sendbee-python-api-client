@@ -61,7 +61,3 @@ MiscConst = namedtuple(
 ResponseDataConst = namedtuple(
     'ResponseDataConst', ['DATA', 'META']
 )('data', 'meta')
-
-AutomationConst = namedtuple(
-    'AutomationConst', ['TOGGLE_BOT']
-)('toggle_bot')

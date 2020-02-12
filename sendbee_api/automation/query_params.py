@@ -1,7 +1,8 @@
 from sendbee_api.query_params import QueryParams
 
 
-class TootleBotOnOff(QueryParams):
-    """Parameters for toggling the bot on or off"""
+class ChatbotActivity(QueryParams):
+    """Parameters for turning the chatbot on or off for a conversation"""
 
-    contact_id = 'contact_id', 'Contact ID'
+    conversation_id = 'conversation_id', 'Conversation UUID'
+    active = 'active', 'Chatbot activity'
