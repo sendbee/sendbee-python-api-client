@@ -84,7 +84,9 @@ api = SendbeeApi('__your_secret_key_here__', '__business_id_here__')
 ### <a href='fetch-contacts'>Fetch contacts</a>  
 
 ```python
-contacts = api.contacts([tags=['...', ...]], [search_query='...'])
+contacts = api.contacts(
+    [tags=['...', ...]], [status='subscribed|unsubscribed'], [search_query='...']
+)
 
 for contact in contacts:
     contact.id
@@ -375,7 +377,9 @@ for message in messages:
 ### <a href='fetch-message-templates'>Fetch message templates</a>  
 
 ```python
-templates = api.message_templates([search_query='...'])
+templates = api.message_templates(
+    [approved=True|False], [search_query='...']
+)
 
 for template in templates:
     template.id
@@ -446,7 +450,7 @@ response.conversation_id
 
 ## Automation
 
-### <a href='toggle-bot-for-conversation-with-contact-on-off'>Managing chatbot (automated responses) status settings</a>  
+### <a href='#bot-on-off'>Managing chatbot (automated responses) status settings</a>  
 
 Every contact is linked to a conversation with an agent.  
 Conversation could be handled by an agent or a chatbot (automated responses).  
