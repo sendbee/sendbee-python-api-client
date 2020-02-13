@@ -412,6 +412,7 @@ response = api.send_template_message(
     # tags: {"name": contact.name}
 )
 
+response.status
 response.conversation_id
 # save this id, and when you get sent message status requests on
 # your webhook, you'll get this same id to identify the conversation
@@ -442,6 +443,7 @@ response = api.send_message(
     # you need to upload it your self and send us the URL
 )
 
+response.status
 response.conversation_id
 # save this id, and when you get sent message status requests on
 # your webhook, you'll get this same id to identify the conversation

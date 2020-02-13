@@ -24,6 +24,7 @@ class SentMessage(Model):
     """Data model for sent message"""
 
     _conversation_id = TextField(index='id', desc='Message UUID')
+    _status = TextField(index='status', desc='Message status')
 
 
 class ConversationContact(Model):
