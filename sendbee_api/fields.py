@@ -79,12 +79,7 @@ class BooleanField(Field):
     def _convert_field_item(self, data, **kwargs):
         """Actual converting."""
 
-        if data is True or data == constants.BoolConst.TRUE:
-            return True
-        elif data is True or data == constants.BoolConst.FALSE:
-            return False
-        else:
-            return None
+        return bool(data)
 
 
 class DatetimeField(Field):
@@ -96,6 +91,18 @@ class DatetimeField(Field):
         try:
             _format = kwargs.get(constants.MiscConst.FORMAT)
             return datetime.strptime(data, _format)
+        except ValueError:
+            return data
+
+
+class ListField(Field):
+    """Converting item to list."""
+
+    def _convert_field_item(self, data, **kwargs):
+        """Actual converting."""
+
+        try:
+            return list(data)
         except ValueError:
             return data
 

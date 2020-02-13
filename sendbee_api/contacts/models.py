@@ -1,5 +1,5 @@
 from sendbee_api.models import Model
-from sendbee_api.fields import TextField, DatetimeField, ModelField
+from sendbee_api.fields import TextField, DatetimeField, ModelField, ListField
 
 
 class ContactTag(Model):
@@ -12,9 +12,11 @@ class ContactTag(Model):
 class ContactField(Model):
     """Data model for contact contact fields"""
 
+    _id = TextField(index='id', desc='Field UUID')
     _slug = TextField(index='slug', desc='Slug')
     _type = TextField(index='type', desc='Type')
     _name = TextField(index='name', desc='Name')
+    _options = ListField(index='options', desc='List type options')
 
 
 class Note(Model):

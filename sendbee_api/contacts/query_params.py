@@ -48,7 +48,8 @@ class DeleteTag(QueryParams):
 class ListContactFields(QueryParams):
     """Get the list of contact contact fields"""
 
-    search_query = 'search_query', 'Filter contact contact fields by query string'
+    search_query = 'search_query', 'Filter contact contact ' \
+                                   'fields by query string'
 
 
 class CreateContactFields(QueryParams):
@@ -56,17 +57,19 @@ class CreateContactFields(QueryParams):
 
     name = 'name', 'Name of the contact field'
     type = 'type', 'Type of the contact field'
+    options = 'options', 'List type options'
 
 
 class UpdateContactFields(QueryParams):
     """Update contact contact fields"""
 
-    slug = 'slug', 'Slug of the contact field'
+    id = 'id', 'Contact field UUID'
     name = 'name', 'Name of the contact field'
     type = 'type', 'Type of the contact field'
+    options = 'options', 'List type options'
 
 
 class DeleteContactFields(QueryParams):
     """Delete tag"""
 
-    slug = 'slug', 'Contact field tag'
+    id = 'id', 'Contact field UUID'

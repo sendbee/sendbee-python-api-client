@@ -59,7 +59,7 @@ class Conversation(Model):
     )
     _contact = ModelField(ConversationContact, index='contact', desc='Contact')
     _chatbot_active = BooleanField(index='chatbot_active', desc='Approved')
-    _platform = BooleanField(index='platform', desc='Platform')
+    _platform = TextField(index='platform', desc='Platform')
     _created_at = DatetimeField(
         index='created_at', desc='Created at', format='%Y-%m-%d %H:%M:%'
     )
