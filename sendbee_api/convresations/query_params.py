@@ -4,6 +4,7 @@ from sendbee_api.query_params import QueryParams
 class ListMessageTemplates(QueryParams):
     """Parameters for list of message templates API request"""
 
+    approved = 'approved', 'Fetch approved or unapproved templates'
     search_query = 'search_query', 'Filter contacts by query string'
 
 

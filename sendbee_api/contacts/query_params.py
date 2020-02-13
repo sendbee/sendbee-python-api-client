@@ -6,6 +6,7 @@ class ListContacts(QueryParams):
     """Get the list of business' contacts"""
 
     tags = 'tags', 'Filter contacts by tags'
+    status = 'status', 'Filter contacts by status'
     search_query = 'search_query', 'Filter contacts by query string'
 
 
@@ -23,7 +24,8 @@ class UpdateContacts(QueryParams):
     twitter_link = 'twitter_link', 'Subscriber Twitter link'
     notes = 'notes', 'Notes about subscriber'
     block_notifications = RequestConst.BLOCK_NOTIFICATIONS, \
-                          'Block sending notifications after subscribing contact'
+                          'Block sending notifications ' \
+                          'after subscribing contact'
 
 
 class ListTags(QueryParams):
