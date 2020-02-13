@@ -280,36 +280,55 @@ for contact_field in contact_fields:
     contact_field.slug
     contact_field.name
     contact_field.type
+    
+    if contact_field.type == 'list':
+        contact_field.options
 ```
 
 ### <a href='create-contact-field'>Create contact field</a>  
 
+If a contact field type is a list, then you need to send a list options.  
+List options is a list of option names: `['option1', 'option2', ...]`  
+
 ```python
 contact_field = api.create_contact_field(
-    name='...', type='text|number|list|date|boolean'
+    name='...', type='text|number|list|date|boolean',
+    [options=['...'. ...]] # if contact field type is list
 )
 
+contact_field.id
 contact_field.slug
 contact_field.name
 contact_field.type
+
+if contact_field.type == 'list':
+    contact_field.options
 ```
 
 ### <a href='update-contact-field'>Update contact field</a>  
 
+If a contact field type is a list, then you need to send a list options.  
+List options is a list of option names: `['option1', 'option2', ...]`  
+
 ```python
 contact_field = api.update_contact_field(
-    slug='...', [name='...'], [type='text|number|list|date|boolean']
+    id='...', [name='...'], [type='text|number|list|date|boolean'],
+    [options=['...'. ...]] # if contact field type is list
 )
 
+contact_field.id
 contact_field.slug
 contact_field.name
 contact_field.type
+
+if contact_field.type == 'list':
+    contact_field.options
 ```
 
 ### <a href='delete-contact-field'>Delete contact field</a>  
 
 ```python
-response = api.delete_contact_field(slug='...')
+response = api.delete_contact_field(id='...')
 
 response.message
 ```
