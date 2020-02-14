@@ -21,11 +21,9 @@ class SendbeeAuth:
         if isinstance(timestamp, str):
             timestamp = timestamp.encode('utf-8')
 
-        return base64.b64encode(
-            hmac.new(
-                self._private_key, base64.b64encode(timestamp), hashlib.sha256
-            ).digest()
-        ).decode("utf-8")
+        return hmac.new(
+            self._private_key, timestamp, hashlib.sha256
+        ).hexdigest()
 
     def get_auth_token(self):
         """Generates auth token from timestamp and encrypted key
