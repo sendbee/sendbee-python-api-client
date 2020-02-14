@@ -59,6 +59,7 @@
 
 #### Mics  
 
+-   [Pagination](#pagination)
 -   [Exception handling](#exception-handling)  
 -   [Authenticate webhook request](#authenticate-webhook-request)  
 -   [Warnings](#warnings)  
@@ -85,7 +86,8 @@ api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
 
 ```python
 contacts = api.contacts(
-    [tags=['...', ...]], [status='subscribed|unsubscribed'], [search_query='...']
+    [tags=['...', ...]], [status='subscribed|unsubscribed'], 
+    [search_query='...'], [page=...]
 )
 
 for contact in contacts:
@@ -238,7 +240,7 @@ for contact_field in contact.contact_fields:
 ### <a href='fetch-tags'>Fetch contact tags</a>  
 
 ```python
-tags = api.tags([name='...'])
+tags = api.tags([name='...'], [page=...])
 
 for tag in tags:
     tag.id
@@ -263,7 +265,7 @@ tag.id
 tag.name
 ```
 
-### <a href='update-contact-tag'>Update contact tag</a>  
+### <a href='delete-contact-tag'>Delete contact tag</a>  
 
 ```python
 response = api.delete_tag(id='...')
@@ -276,7 +278,7 @@ response.message
 ### <a href='fetch-contact-fields'>Fetch contact fields</a>  
 
 ```python
-contact_fields = api.contact_fields([search_query='...'])
+contact_fields = api.contact_fields([search_query='...'], [page=...])
 
 for contact_field in contact_fields:
     contact_field.slug
@@ -340,7 +342,9 @@ response.message
 ### <a href='fetch-conversations'>Fetch conversations</a>  
 
 ```python
-conversations = api.conversations([folder='open|done|spam|notified'], [search_query='...'])
+conversations = api.conversations(
+    [folder='open|done|spam|notified'], [search_query='...'], [page=...]
+)
 
 for conversation in conversations:
     conversation.id
@@ -362,7 +366,7 @@ for conversation in conversations:
 ### <a href='fetch-conversation-messages'>Fetch conversation messages</a>  
 
 ```python
-messages = api.messages(conversation_id='...')
+messages = api.messages(conversation_id='...', [page=...])
 
 for message in messages:
     message.type
@@ -378,7 +382,7 @@ for message in messages:
 
 ```python
 templates = api.message_templates(
-    [approved=True|False], [search_query='...']
+    [approved=True|False], [search_query='...'], [page=...]
 )
 
 for template in templates:
@@ -463,7 +467,41 @@ Use the example below to change the chatbot status based on your use case.
 api.chatbot_activity(conversation_id='...', active=True|False)
 ```
 
-## Misc
+## Misc  
+
+### <a href='pagination'>Pagination</a>  
+
+> Paginate using .next_page() and PaginationException:   
+
+```python
+from sendbee_api import PaginationException
+
+messages = api.messages(conversation_id='...') # first page
+while True:
+    try:
+        messages = api.messages(
+            conversation_id='...', page=messages.next_page()
+        )
+    except PaginationException as e:
+        break
+```  
+
+> Paginate using .next_page() and .has_next() methods:   
+
+```python
+messages = api.messages(conversation_id='...') # first page
+while True:
+    if not messages.has_next():
+        break
+    messages = api.messages(
+        conversation_id='...', page=messages.next_page()
+    )
+```   
+
+You can paginate on every endpoint/method where a list of something is fetching.  
+Wherever you see `[page=...]` it means you can paginate like `page=2`, `page=3`, etc. The best way to do that is to use `.next_page()` method.  
+
+There are two ways to detect that pagination ended, using `PaginationException` and using `.has_next()` method.  
 
 ### <a href='exception-handling'>Exception handling</a>  
 
@@ -476,7 +514,7 @@ from sendbee_api import SendbeeRequestApiException
 try:
     api.send_template_message(...)
 except SendbeeRequestApiException as e:
-    print(e)
+    # handle exception
 ```    
 
 ### <a href='authenticate-webhook-request'>Authenticate webhook request</a>  

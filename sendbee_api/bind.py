@@ -7,7 +7,7 @@ from sendbee_api.debug import Debug
 from sendbee_api.auth import SendbeeAuth
 from sendbee_api.response import Response
 from sendbee_api.formatter import FormatterFactory
-from sendbee_api.exceptions import SendbeeRequestApiException
+from sendbee_api.exceptions import SendbeeRequestApiException, PaginationException
 
 
 class Api(metaclass=ABCMeta):
@@ -249,6 +249,11 @@ def bind_request(**request_data):
             else:
                 self.debug.ok(constants.ResponseConst.STATUS_CODE, status_code)
                 self.debug.ok(constants.ResponseConst.RESPONSE, response.raw_data)
+
+                if response.meta.current_page > 1 and len(response.models) == 0:
+                    raise PaginationException(
+                        f'Page {response.meta.current_page} has no data'
+                    )
 
             if response.warning:
                 click.secho(

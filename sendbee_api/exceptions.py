@@ -8,3 +8,7 @@ class SendbeeRequestApiException(SendbeeException):
 
 class SendbeeFormatterException(SendbeeException):
 	"""Handle Formatter Exceptions"""
+
+
+class PaginationException(SendbeeException):
+	"""Handle Pagination Exceptions"""
