@@ -6,6 +6,7 @@ class ListMessageTemplates(QueryParams):
 
     approved = 'approved', 'Fetch approved or unapproved templates'
     search_query = 'search_query', 'Filter contacts by query string'
+    page = 'page', 'Page number for pagination'
 
 
 class SendTemplateMessage(QueryParams):
@@ -30,9 +31,11 @@ class ListConversations(QueryParams):
 
     folder = 'folder', 'Filter conversation by folder'
     search_query = 'search_query', 'Filter conversations by query string'
+    page = 'page', 'Page number for pagination'
 
 
 class ListMessages(QueryParams):
     """Parameters for list of messages"""
 
     conversation_id = 'conversation_id', 'Conversation UUID'
+    page = 'page', 'Page number for pagination'

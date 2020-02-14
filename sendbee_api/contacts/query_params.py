@@ -8,6 +8,7 @@ class ListContacts(QueryParams):
     tags = 'tags', 'Filter contacts by tags'
     status = 'status', 'Filter contacts by status'
     search_query = 'search_query', 'Filter contacts by query string'
+    page = 'page', 'Page number for pagination'
 
 
 class UpdateContacts(QueryParams):
@@ -32,6 +33,7 @@ class ListTags(QueryParams):
     """Get the list of contact tags"""
 
     name = 'name', 'Name of the tag'
+    page = 'page', 'Page number for pagination'
 
 
 class UpdateTag(QueryParams):
@@ -50,6 +52,7 @@ class DeleteTag(QueryParams):
 class ListContactFields(QueryParams):
     """Get the list of contact contact fields"""
 
+    page = 'page', 'Page number for pagination'
     search_query = 'search_query', 'Filter contact contact ' \
                                    'fields by query string'
 
