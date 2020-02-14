@@ -217,10 +217,8 @@ def bind_request(**request_data):
 
             formatter = self.formatter
             if not formatter:
-                formatter = FormatterFactory(
-                    self.parameters[
-                        constants.RequestConst.QUERY
-                    ][constants.RequestConst.PROTOCOL]).get_formatter()
+                formatter = FormatterFactory(constants.FormatterConst.JSON)\
+                    .get_formatter()
 
             response = Response(response, status_code, formatter, self)
             formatted_data = response.formatted_data
