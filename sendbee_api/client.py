@@ -13,7 +13,7 @@ class Client(Contacts, Messages, Automation):
     base_url = 'api-v2.sendbee.io'
     protocol = 'https'
 
-    def __init__(self, api_key, api_secret, business_id=None,
+    def __init__(self, api_key, api_secret,
                  debug=False, fake_response_path=None):
 
         if not api_secret:
@@ -23,7 +23,6 @@ class Client(Contacts, Messages, Automation):
         self.request = None
         self.api_key = api_key
         self.api_secret = api_secret
-        self.business_id = business_id
         self.fake_response_path = fake_response_path
 
     @classmethod

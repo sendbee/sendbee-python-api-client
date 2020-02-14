@@ -76,7 +76,7 @@
 ```python
 from sendbee_api import SendbeeApi
 
-api = SendbeeApi('__your_secret_key_here__', '__business_id_here__')
+api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
 ```
 
 ## Contacts
@@ -520,8 +520,7 @@ By default it is disabled, and to enable it, pass the `debug` parameter:
 from sendbee_api import SendbeeApi
 
 api = SendbeeApi(
-    '__your_api_key_here__', '__your_secret_key_here__',
-    '__business_id_here__', debug=True
+    '__your_api_key_here__', '__your_secret_key_here__', debug=True
 )
 ```  
 

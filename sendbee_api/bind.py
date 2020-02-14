@@ -107,11 +107,6 @@ def bind_request(**request_data):
             for value in path_params:
                 self.parameters[constants.RequestConst.PATH].append(value)
 
-            # set business_id param if one is provided
-            if self.client.business_id:
-                self.parameters[constants.RequestConst.QUERY]['business_id'] = \
-                    self.client.business_id
-
         def _prepare_url(self):
             """
             Prepares url and query parameters for the request
