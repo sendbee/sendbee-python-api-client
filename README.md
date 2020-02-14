@@ -471,6 +471,11 @@ api.chatbot_activity(conversation_id='...', active=True|False)
 
 ### <a href='pagination'>Pagination</a>  
 
+You can paginate on every endpoint/method where a list of something is fetching.  
+Wherever you see `[page=...]` it means you can paginate like `page=2`, `page=3`, etc. The best way to do that is to use `.next_page()` method.  
+
+There are two ways to detect that pagination ended, using `PaginationException` and using `.has_next()` method.
+
 > Paginate using .next_page() and PaginationException:   
 
 ```python
@@ -496,12 +501,7 @@ while True:
     messages = api.messages(
         conversation_id='...', page=messages.next_page()
     )
-```   
-
-You can paginate on every endpoint/method where a list of something is fetching.  
-Wherever you see `[page=...]` it means you can paginate like `page=2`, `page=3`, etc. The best way to do that is to use `.next_page()` method.  
-
-There are two ways to detect that pagination ended, using `PaginationException` and using `.has_next()` method.  
+```     
 
 ### <a href='exception-handling'>Exception handling</a>  
 

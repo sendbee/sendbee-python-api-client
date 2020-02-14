@@ -250,10 +250,11 @@ def bind_request(**request_data):
                 self.debug.ok(constants.ResponseConst.STATUS_CODE, status_code)
                 self.debug.ok(constants.ResponseConst.RESPONSE, response.raw_data)
 
-                if response.meta.current_page > 1 and len(response.models) == 0:
-                    raise PaginationException(
-                        f'Page {response.meta.current_page} has no data'
-                    )
+                if response.meta.current_page:
+                    if response.meta.current_page > 1 and len(response.models) == 0:
+                        raise PaginationException(
+                            f'Page {response.meta.current_page} has no data'
+                        )
 
             if response.warning:
                 click.secho(
