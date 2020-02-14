@@ -8,4 +8,4 @@ from sendbee_api.client import Contacts
 from sendbee_api.auth import SendbeeAuth
 
 # Exception classes
-from sendbee_api.exceptions import SendbeeRequestApiException
+from sendbee_api.exceptions import SendbeeRequestApiException, PaginationException

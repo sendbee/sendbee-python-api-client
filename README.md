@@ -59,6 +59,7 @@
 
 #### Mics  
 
+-   [Pagination](#pagination)
 -   [Exception handling](#exception-handling)  
 -   [Authenticate webhook request](#authenticate-webhook-request)  
 -   [Warnings](#warnings)  
@@ -466,7 +467,41 @@ Use the example below to change the chatbot status based on your use case.
 api.chatbot_activity(conversation_id='...', active=True|False)
 ```
 
-## Misc
+## Misc  
+
+### <a href='pagination'>Pagination</a>  
+
+> Paginate using .next_page() and PaginationException:   
+
+```python
+from sendbee_api import PaginationException
+
+messages = api.messages(conversation_id='...') # first page
+while True:
+    try:
+        messages = api.messages(
+            conversation_id='...', page=messages.next_page()
+        )
+    except PaginationException as e:
+        break
+```  
+
+> Paginate using .next_page() and .has_next() methods:   
+
+```python
+messages = api.messages(conversation_id='...') # first page
+while True:
+    if not messages.has_next():
+        break
+    messages = api.messages(
+        conversation_id='...', page=messages.next_page()
+    )
+```   
+
+You can paginate on every endpoint/method where a list of something is fetching.  
+Wherever you see `[page=...]` it means you can paginate like `page=2`, `page=3`, etc. The best way to do that is to use `.next_page()` method.  
+
+There are two ways to detect that pagination ended, using `PaginationException` and using `.has_next()` method.  
 
 ### <a href='exception-handling'>Exception handling</a>  
 
@@ -479,7 +514,7 @@ from sendbee_api import SendbeeRequestApiException
 try:
     api.send_template_message(...)
 except SendbeeRequestApiException as e:
-    print(e)
+    # handle exception
 ```    
 
 ### <a href='authenticate-webhook-request'>Authenticate webhook request</a>  

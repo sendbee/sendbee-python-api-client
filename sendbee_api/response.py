@@ -72,3 +72,13 @@ class Response:
                 self.formatter.format_warning(self._data)
 
         return self._response_data[constants.WarningConst.WARNING]
+
+    def has_next(self):
+        """Does endpoint has another page to fetch."""
+
+        return self.meta.current_page < self.meta.last_page
+
+    def next_page(self):
+        """Get next page number."""
+
+        return self.meta.current_page + 1
