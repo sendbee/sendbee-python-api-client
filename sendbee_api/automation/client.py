@@ -12,9 +12,6 @@ class Automation:
         model=ServerMessage,
         query_parameters=query_params.ChatbotActivity,
         method=constants.RequestConst.PUT,
-        default_parameters={
-            constants.RequestConst.PROTOCOL: constants.FormatterConst.JSON
-        },
         description='Api client for turning the '
                     'chatbot on or off for a conversation'
     )

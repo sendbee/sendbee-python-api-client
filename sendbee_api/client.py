@@ -16,8 +16,10 @@ class Client(Contacts, Messages, Automation):
     def __init__(self, api_key, api_secret,
                  debug=False, fake_response_path=None):
 
+        if not api_key:
+            raise SendbeeRequestApiException('API key missing!')
         if not api_secret:
-            raise SendbeeRequestApiException('API secret key missing!')
+            raise SendbeeRequestApiException('API secret missing!')
 
         self.debug = debug
         self.request = None
