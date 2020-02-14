@@ -148,9 +148,10 @@ def bind_request(**request_data):
         def _headers(self):
             """Construct headers data with authentication part"""
 
-            auth_token = SendbeeAuth(self.client.secret).get_auth_token()
+            auth_token = SendbeeAuth(self.client.api_secret).get_auth_token()
             headers = {
-                'X-Authorization': auth_token,
+                'X-Auth-Token': auth_token,
+                'X-Api-Key': self.client.api_key,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
