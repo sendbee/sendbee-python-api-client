@@ -148,7 +148,8 @@ def bind_request(**request_data):
                 'X-Auth-Token': auth_token,
                 'X-Api-Key': self.client.api_key,
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'User-Agent': 'Sendbee Python API Client'
             }
             self.debug.ok('headers', headers)
 

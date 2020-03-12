@@ -2,7 +2,7 @@ import click
 
 from sendbee_api.auth import SendbeeAuth
 from sendbee_api.contacts.client import Contacts
-from sendbee_api.convresations.client import Messages
+from sendbee_api.conversations.client import Messages
 from sendbee_api.automation.client import Automation
 from sendbee_api.exceptions import SendbeeRequestApiException
 

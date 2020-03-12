@@ -60,6 +60,7 @@
 #### Mics  
 
 -   [Pagination](#pagination)
+-   [Raw response](#raw-response)
 -   [Exception handling](#exception-handling)  
 -   [Authenticate webhook request](#authenticate-webhook-request)  
 -   [Warnings](#warnings)  
@@ -502,6 +503,21 @@ while True:
         conversation_id='...', page=messages.next_page()
     )
 ```     
+
+### <a href='raw-response'>Raw response</a>  
+
+If you prefer to deal with the raw server response, response string is available under raw_data
+
+```python
+from sendbee_api import SendbeeApi
+
+api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
+
+response = api.contacts()
+
+print(response.raw_data)
+```
+
 
 ### <a href='exception-handling'>Exception handling</a>  
 

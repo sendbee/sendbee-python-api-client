@@ -1,11 +1,11 @@
 from sendbee_api import constants
-from sendbee_api.convresations import models
+from sendbee_api.conversations import models
 from sendbee_api.bind import bind_request
-from sendbee_api.convresations import query_params
+from sendbee_api.conversations import query_params
 
 
 class Messages:
-    """Api client for convresations"""
+    """Api client for conversations"""
 
     message_templates = bind_request(
         api_path='/conversations/messages/templates',
