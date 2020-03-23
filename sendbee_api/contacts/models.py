@@ -13,7 +13,6 @@ class ContactField(Model):
     """Data model for contact contact fields"""
 
     _id = TextField(index='id', desc='Field UUID')
-    _slug = TextField(index='slug', desc='Slug')
     _type = TextField(index='type', desc='Type')
     _name = TextField(index='name', desc='Name')
     _options = ListField(index='options', desc='List type options')
@@ -44,15 +43,12 @@ class Contact(Model):
     _id = TextField(index='id', desc='UUID')
     _name = TextField(index='name', desc='Name')
     _phone = TextField(index='phone', desc='Phone number')
-    _email = TextField(index='email', desc='Email address')
     _created_at = DatetimeField(
         index='created_at', desc='Name', format='%Y-%m-%d %H:%M:%'
     )
     _tags = ModelField(ContactTag, index='tags', desc='Tags')
     _status = TextField(index='status', desc='Subscription status')
     _folder = TextField(index='folder', desc='Conversation folder')
-    _facebook_link = TextField(index='facebook_link', desc='Facebook link')
-    _twitter_link = TextField(index='twitter_link', desc='Twitter link')
     _contact_fields = ModelField(
         ContactContactField, index='contact_fields', desc='Contact field'
     )
