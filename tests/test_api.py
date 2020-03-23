@@ -1,7 +1,7 @@
 import unittest
 
 
-class AendbeeApi(unittest.TestCase):
+class SendbeeApi(unittest.TestCase):
 
     def test_fake(self):
         pass

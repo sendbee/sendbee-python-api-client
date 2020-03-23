@@ -18,11 +18,7 @@ class UpdateContacts(QueryParams):
     phone = 'phone', 'Contact phone number'
     tags = 'tags', 'Tag contact while subscribing it'
     name = 'name', 'Subscriber name'
-    email = 'email', 'Subscriber email'
-    address = 'address', 'Subscriber address'
     contact_fields = 'contact_fields', 'Contact data fields'
-    facebook_link = 'facebook_link', 'Subscriber Facebook link'
-    twitter_link = 'twitter_link', 'Subscriber Twitter link'
     notes = 'notes', 'Notes about subscriber'
     block_notifications = RequestConst.BLOCK_NOTIFICATIONS, \
                           'Block sending notifications ' \
