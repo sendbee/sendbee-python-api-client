@@ -99,9 +99,6 @@ for contact in contacts:
     
     contact.name
     contact.phone
-    contact.email
-    contact.twitter_link
-    contact.facebook_link
     
     for tag in contact.tags:
         tag.id
@@ -127,13 +124,7 @@ contact = api.subscribe_contact(
     # tag new contact
     # if tag doesn't exist, it will be created
     
-    [name='...'], [email='...'],
-    [facebook_link='...'],[twitter_link='...'],
-    [address={
-        'line': '...',
-        'city': '...',
-        'postal_code': '...'
-    }],
+    [name='...'], 
     
     [notes=[...]], 
     # write notes about your new subscriber
@@ -161,9 +152,6 @@ contact.created_at
 
 contact.name
 contact.phone
-contact.email
-contact.twitter_link
-contact.facebook_link
 
 for tag in contact.tags:
     tag.id
@@ -192,13 +180,7 @@ contact = api.update_contact(
     # tag new contact
     # if tag doesn't exist, it will be created
     
-    [name='...'], [email='...'],
-    [facebook_link='...'],[twitter_link='...'],
-    [address={
-        'line': '...',
-        'city': '...',
-        'postal_code': '...'
-    }],
+    [name='...'],
     
     [notes=[...]], 
     # write notes about your new subscriber
@@ -220,9 +202,6 @@ contact.created_at
 
 contact.name
 contact.phone
-contact.email
-contact.twitter_link
-contact.facebook_link
 
 for tag in contact.tags:
     tag.id
@@ -282,7 +261,6 @@ response.message
 contact_fields = api.contact_fields([search_query='...'], [page=...])
 
 for contact_field in contact_fields:
-    contact_field.slug
     contact_field.name
     contact_field.type
     
@@ -302,7 +280,6 @@ contact_field = api.create_contact_field(
 )
 
 contact_field.id
-contact_field.slug
 contact_field.name
 contact_field.type
 
@@ -322,7 +299,6 @@ contact_field = api.update_contact_field(
 )
 
 contact_field.id
-contact_field.slug
 contact_field.name
 contact_field.type
 
