@@ -391,6 +391,10 @@ response = api.send_template_message(
     # example:
     # template message: "Welcome {name}! How can we help you?"
     # tags: {"name": contact.name}
+    
+    [prevent_bot_off=True|False]
+    # if set to True, will prevent turning-off chatbot for the conversation
+    # default system behaviour is that chatbot is turned-off
 )
 
 response.status

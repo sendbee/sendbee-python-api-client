@@ -16,6 +16,7 @@ class SendTemplateMessage(QueryParams):
     phone = 'phone', 'Contact\'s phone number'
     language = 'language', 'Template message language'
     template_keyword = 'template_keyword', 'Template message keyword'
+    prevent_bot_off = 'prevent_bot_off', 'Prevent turning-off chatbot'
 
 
 class SendMessage(QueryParams):
