@@ -391,6 +391,10 @@ response = api.send_template_message(
     # example:
     # template message: "Welcome {name}! How can we help you?"
     # tags: {"name": contact.name}
+    
+    [prevent_bot_off=True|False]
+    # if set to True, will prevent turning-off chatbot for the conversation
+    # default system behaviour is that chatbot is turned-off
 )
 
 response.status
@@ -419,9 +423,13 @@ response = api.send_message(
     [text='...'],
     # any kind of message text
     
-    [media_url='...']
+    [media_url='...'],
     # URL to a media. 
     # you need to upload it your self and send us the URL
+    
+    [prevent_bot_off=True|False]
+    # if set to True, will prevent turning-off chatbot for the conversation
+    # default system behaviour is that chatbot is turned-off
 )
 
 response.status
@@ -437,7 +445,9 @@ response.conversation_id
 
 Every contact is linked to a conversation with an agent.  
 Conversation could be handled by an agent or a chatbot (automated responses).  
-Every time a message has been sent to a contact by an agent or using the API, the chatbot will automatically be turned off for that conversation.  
+Every time a message has been sent to a contact by an agent or using the API, 
+the chatbot will automatically be turned off for that conversation - 
+except when you set 'prevent_bot_off' to true via API call (see [Send message](#send-message)).  
 Use the example below to change the chatbot status based on your use case.    
 
 ```python
