@@ -48,15 +48,15 @@
 #### Conversations  
 
 -   [Fetch conversations](#fetch-conversations)
--   [Fetch conversation messages](#fetch-conversation-mesages)
+-   [Fetch conversation messages](#fetch-conversation-messages)
 -   [Fetch message templates](#fetch-message-templates)  
 -   [Send template message](#send-template-message)  
 -   [Send message](#send-message)  
 
 #### Automation  
 
--   [Managing chatbot (automated responses) status settings](#bot-on-off)  
--   [Get chatbot (automated responses) status](#bot-status)  
+-   [Managing chatbot (automated responses) status settings](#bot-on-off)
+-   [Get chatbot (automated responses) status](#bot-status)
 
 #### Mics  
 
@@ -456,6 +456,7 @@ api.chatbot_activity(conversation_id='...', active=True|False)
 ```
 
 ### <a href='bot-status'>Get chatbot (automated responses) status</a>
+
 You can also check if chatbot is turned on or off for a conversation.    
 
 ```python
