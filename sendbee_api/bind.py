@@ -35,6 +35,14 @@ def bind_request(**request_data):
         default_parameters = request_data.get(
             constants.RequestConst.DEFAULT_PARAMETERS, {}
         )
+        # immediately determine type of response
+        single_model_response = request_data.get(
+            constants.ClientConst.FORCE_SINGLE_MODEL_RESPONSE, False
+        ) or method in [
+            constants.RequestConst.POST,
+            constants.RequestConst.PUT,
+            constants.RequestConst.DELETE
+        ]
 
         def __init__(self, client, debug: 'Debug',
                      *path_params, **query_params):
@@ -263,11 +271,7 @@ def bind_request(**request_data):
                     fg='yellow'
                 )
 
-            if self.method in [
-                constants.RequestConst.POST,
-                constants.RequestConst.PUT,
-                constants.RequestConst.DELETE
-            ]:
+            if self.single_model_response:
                 if response.models:
                     return response.models[0]
                 else:

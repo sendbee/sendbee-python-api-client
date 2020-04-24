@@ -38,9 +38,9 @@ ResponseConst = namedtuple(
 
 ClientConst = namedtuple(
     'ClientConst', [
-        'META', 'MODEL', 'MODELS', 'FORMATTER', 'DESCRIPTION'
+        'META', 'MODEL', 'MODELS', 'FORMATTER', 'DESCRIPTION', 'FORCE_SINGLE_MODEL_RESPONSE'
     ]
-)('meta', 'model', 'models', 'formatter', 'description')
+)('meta', 'model', 'models', 'formatter', 'description', 'force_single_model_response')
 
 FormatterConst = namedtuple(
     'FormatterConst', ['JSON', 'FORMATTED']

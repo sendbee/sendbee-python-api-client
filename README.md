@@ -56,6 +56,7 @@
 #### Automation  
 
 -   [Managing chatbot (automated responses) status settings](#bot-on-off)  
+-   [Get chatbot (automated responses) status](#bot-status)  
 
 #### Mics  
 
@@ -452,6 +453,17 @@ Use the example below to change the chatbot status based on your use case.
 
 ```python
 api.chatbot_activity(conversation_id='...', active=True|False)
+```
+
+### <a href='#bot-status'>Get chatbot (automated responses) status</a>
+You can also check if chatbot is turned on or off for a conversation.    
+
+```python
+response = api.chatbot_activity_status(conversation_id='...')
+
+response.conversation_id
+response.chatbot_active # True/False
+
 ```
 
 ## Misc  
