@@ -442,7 +442,7 @@ response.conversation_id
 
 ## Automation
 
-### <a href='#bot-on-off'>Managing chatbot (automated responses) status settings</a>  
+### <a href='bot-on-off'>Managing chatbot (automated responses) status settings</a>
 
 Every contact is linked to a conversation with an agent.  
 Conversation could be handled by an agent or a chatbot (automated responses).  
@@ -455,7 +455,7 @@ Use the example below to change the chatbot status based on your use case.
 api.chatbot_activity(conversation_id='...', active=True|False)
 ```
 
-### <a href='#bot-status'>Get chatbot (automated responses) status</a>
+### <a href='bot-status'>Get chatbot (automated responses) status</a>
 You can also check if chatbot is turned on or off for a conversation.    
 
 ```python
