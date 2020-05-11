@@ -73,13 +73,13 @@
 -   [Debugging](#debugging)  
 -   [Official Documentation](http://developer.sendbee.io)  
 
-### <a href='installation'>Installation</a>  
+### <a href='#installation'>Installation</a>
 
 ```bash
 > pip install sendbee-api
 ```
 
-### <a href='initialization'>Initialization</a>  
+### <a href='#initialization'>Initialization</a>
 
 ```python
 from sendbee_api import SendbeeApi
@@ -89,7 +89,7 @@ api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
 
 ## Contacts
 
-### <a href='fetch-contacts'>Fetch contacts</a>  
+### <a href='#fetch-contacts'>Fetch contacts</a>
 
 ```python
 contacts = api.contacts(
@@ -118,7 +118,7 @@ for contact in contacts:
         contact_field.value
 ```
 
-### <a href='subscribe-contact'>Subscribe contact</a>  
+### <a href='#subscribe-contact'>Subscribe contact</a>
 
 ```python
 contact = api.subscribe_contact(
@@ -171,7 +171,7 @@ for contact_field in contact.contact_fields:
     contact_field.value
 ```
 
-### <a href='update-contact'>Update contact</a>  
+### <a href='#update-contact'>Update contact</a>
 
 ```python
 contact = api.update_contact(
@@ -223,7 +223,7 @@ for contact_field in contact.contact_fields:
 
 ## Contact tags
 
-### <a href='fetch-tags'>Fetch contact tags</a>  
+### <a href='#fetch-tags'>Fetch contact tags</a>
 
 ```python
 tags = api.tags([name='...'], [page=...])
@@ -233,7 +233,7 @@ for tag in tags:
     tag.name
 ```
 
-### <a href='create-contact-tag'>Create contact tag</a>  
+### <a href='#create-contact-tag'>Create contact tag</a>
 
 ```python
 tag = api.create_tag(name='...')
@@ -242,7 +242,7 @@ tag.id
 tag.name
 ```
 
-### <a href='update-contact-tag'>Update contact tag</a>  
+### <a href='#update-contact-tag'>Update contact tag</a>
 
 ```python
 tag = api.update_tag(id='...', name='...')
@@ -251,7 +251,7 @@ tag.id
 tag.name
 ```
 
-### <a href='delete-contact-tag'>Delete contact tag</a>  
+### <a href='#delete-contact-tag'>Delete contact tag</a>
 
 ```python
 response = api.delete_tag(id='...')
@@ -261,7 +261,7 @@ response.message
 
 ## Contact fields
 
-### <a href='fetch-contact-fields'>Fetch contact fields</a>  
+### <a href='#fetch-contact-fields'>Fetch contact fields</a>
 
 ```python
 contact_fields = api.contact_fields([search_query='...'], [page=...])
@@ -274,7 +274,7 @@ for contact_field in contact_fields:
         contact_field.options
 ```
 
-### <a href='create-contact-field'>Create contact field</a>  
+### <a href='#create-contact-field'>Create contact field</a>
 
 If a contact field type is a list, then you need to send a list options.  
 List options is a list of option names: `['option1', 'option2', ...]`  
@@ -293,7 +293,7 @@ if contact_field.type == 'list':
     contact_field.options
 ```
 
-### <a href='update-contact-field'>Update contact field</a>  
+### <a href='#update-contact-field'>Update contact field</a>
 
 If a contact field type is a list, then you need to send a list options.  
 List options is a list of option names: `['option1', 'option2', ...]`  
@@ -312,7 +312,7 @@ if contact_field.type == 'list':
     contact_field.options
 ```
 
-### <a href='delete-contact-field'>Delete contact field</a>  
+### <a href='#delete-contact-field'>Delete contact field</a>
 
 ```python
 response = api.delete_contact_field(id='...')
@@ -322,7 +322,7 @@ response.message
 
 ## Conversations
 
-### <a href='fetch-conversations'>Fetch conversations</a>  
+### <a href='#fetch-conversations'>Fetch conversations</a>
 
 ```python
 conversations = api.conversations(
@@ -346,7 +346,7 @@ for conversation in conversations:
     conversation.last_message.outbound_sent_at
 ```
 
-### <a href='fetch-conversation-messages'>Fetch conversation messages</a>  
+### <a href='#fetch-conversation-messages'>Fetch conversation messages</a>
 
 ```python
 messages = api.messages(conversation_id='...', [page=...])
@@ -377,7 +377,7 @@ for template in templates:
     template.approved
 ```
 
-### <a href='send-template-message'>Send template message</a>  
+### <a href='#send-template-message'>Send template message</a>
 
 ```python
 response = api.send_template_message(
@@ -410,7 +410,7 @@ response.conversation_id
 
 ```
 
-### <a href='send-message'>Send message</a>  
+### <a href='#send-message'>Send message</a>
 
 You can send either text message or media message.  
 For media message, following formats are supported:  
@@ -447,7 +447,7 @@ response.conversation_id
 
 ## Teams
 
-### <a href='fetch-teams'>Fetch teams</a>
+### <a href='#fetch-teams'>Fetch teams</a>
 
 > Fetch all teams:
 
@@ -483,7 +483,7 @@ for team in teams:
         member.available
 ```
 
-### <a href='fetch-team-members'>Fetch team members</a>
+### <a href='#fetch-team-members'>Fetch team members</a>
 
 > Fetch all team members:
 
@@ -521,7 +521,7 @@ for member in members:
 
 ## Automation
 
-### <a href='bot-on-off'>Managing chatbot (automated responses) status settings</a>
+### <a href='#bot-on-off'>Managing chatbot (automated responses) status settings</a>
 
 Every contact is linked to a conversation with an agent.  
 Conversation could be handled by an agent or a chatbot (automated responses).  
@@ -534,7 +534,7 @@ Use the example below to change the chatbot status based on your use case.
 api.chatbot_activity(conversation_id='...', active=True|False)
 ```
 
-### <a href='bot-status'>Get chatbot (automated responses) status</a>
+### <a href='#bot-status'>Get chatbot (automated responses) status</a>
 You can also check if chatbot is turned on or off for a conversation.    
 
 ```python
