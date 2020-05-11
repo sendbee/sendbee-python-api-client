@@ -51,7 +51,12 @@
 -   [Fetch conversation messages](#fetch-conversation-mesages)
 -   [Fetch message templates](#fetch-message-templates)  
 -   [Send template message](#send-template-message)  
--   [Send message](#send-message)  
+-   [Send message](#send-message)
+
+#### Teams
+
+-   [Fetch teams](#fetch-teams)
+-   [Fetch team members](#fetch-team-members)
 
 #### Automation  
 
@@ -438,6 +443,80 @@ response.conversation_id
 # save this id, and when you get sent message status requests on
 # your webhook, you'll get this same id to identify the conversation
 
+```
+
+## Teams
+
+### <a href='fetch-teams'>Fetch teams</a>
+
+> Fetch all teams:
+
+```python
+teams = api.teams()
+
+for team in teams:
+    team.id
+    team.name
+
+    for member in team.members:
+        member.id
+        member.name
+        member.role
+        member.online
+        member.available
+```
+
+> Fetch teams for one member (one member/agent can be in more then one team):
+
+```python
+teams = api.teams(member_id='...')
+
+for team in teams:
+    team.id
+    team.name
+
+    for member in team.members:
+        member.id
+        member.name
+        member.role
+        member.online
+        member.available
+```
+
+### <a href='fetch-team-members'>Fetch team members</a>
+
+> Fetch all team members:
+
+```python
+members = api.members()
+
+for member in members:
+    member.id
+    member.name
+    member.role
+    member.online
+    member.available
+
+    for team in member.teams:
+        team.id
+        team.name
+```
+
+> Fetch team members of one team:
+
+```python
+members = api.members(team_id='...')
+
+for member in members:
+    member.id
+    member.name
+    member.role
+    member.online
+    member.available
+
+    for team in member.teams:
+        team.id
+        team.name
 ```
 
 ## Automation
