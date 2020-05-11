@@ -547,7 +547,7 @@ response.chatbot_active # True/False
 
 ## Misc  
 
-### <a href='pagination'>Pagination</a>  
+### <a href='#pagination'>Pagination</a>
 
 You can paginate on every endpoint/method where a list of something is fetching.  
 Wherever you see `[page=...]` it means you can paginate like `page=2`, `page=3`, etc. The best way to do that is to use `.next_page()` method.  
@@ -581,7 +581,7 @@ while True:
     )
 ```     
 
-### <a href='raw-response'>Raw response</a>  
+### <a href='#raw-response'>Raw response</a>
 
 If you prefer to deal with the raw server response, response string is available under raw_data
 
@@ -596,7 +596,7 @@ print(response.raw_data)
 ```
 
 
-### <a href='exception-handling'>Exception handling</a>  
+### <a href='#exception-handling'>Exception handling</a>
 
 Every time something is not as it should be, like parameter is missing, parameter value is invalid, authentication fails, etc, API returns a http status code accordingly and an error message.  
 By using this client library, an error message is detected and taken, and an exception is raised, so you can handle it like this:  
@@ -610,7 +610,7 @@ except SendbeeRequestApiException as e:
     # handle exception
 ```    
 
-### <a href='authenticate-webhook-request'>Authenticate webhook request</a>  
+### <a href='#authenticate-webhook-request'>Authenticate webhook request</a>
 
 After activating your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending on which webhook type is linked with that webhook URL.  
 Every request that we make will have authorization token in header, like this:  
@@ -635,14 +635,14 @@ if not api.auth.check_auth_token(token):
     # error! authentication failed!
 ```  
 
-### <a href='warnings'>Warnings</a>  
+### <a href='#warnings'>Warnings</a>
 
 Sometimes APi returns a worning so you could be warned about something.  
 The waning is displayed in standard output:  
 
 ![Debugging](docs/images/warning.png)  
 
-### <a href='debugging'>Debugging</a>  
+### <a href='#debugging'>Debugging</a>
 
 This library has it's own internal debugging tool.  
 By default it is disabled, and to enable it, pass the `debug` parameter:  
