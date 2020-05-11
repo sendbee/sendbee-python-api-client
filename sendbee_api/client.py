@@ -1,13 +1,14 @@
 import click
 
 from sendbee_api.auth import SendbeeAuth
+from sendbee_api.teams.client import Teams
 from sendbee_api.contacts.client import Contacts
-from sendbee_api.conversations.client import Messages
 from sendbee_api.automation.client import Automation
+from sendbee_api.conversations.client import Messages
 from sendbee_api.exceptions import SendbeeRequestApiException
 
 
-class Client(Contacts, Messages, Automation):
+class Client(Contacts, Messages, Automation, Teams):
     """Main API class. Sets all API calls."""
 
     base_url = 'api-v2.sendbee.io'
