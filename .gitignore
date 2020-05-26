@@ -131,3 +131,4 @@ dmypy.json
 /docs/.DS_Store
 /.DS_Store
 /tests/example_.py
+/tests/example.py
