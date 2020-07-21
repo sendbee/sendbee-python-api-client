@@ -352,7 +352,6 @@ for conversation in conversations:
 messages = api.messages(conversation_id='...', [page=...])
 
 for message in messages:
-    message.type
     message.body
     message.media_type
     message.media_url
