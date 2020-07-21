@@ -69,7 +69,6 @@ class Conversation(Model):
 class Message(Model):
     """Data model for messages"""
 
-    _type = TextField(index='type', desc='Message type')
     _body = TextField(index='body', desc='Message body')
     _media_type = TextField(index='media_type', desc='Message media type')
     _media_url = TextField(index='media_url', desc='Media URL')
