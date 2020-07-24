@@ -18,6 +18,7 @@ class SendTemplateMessage(QueryParams):
     template_keyword = 'template_keyword', 'Template message keyword'
     prevent_bot_off = 'prevent_bot_off', 'Prevent turning-off chatbot'
     agent_id = 'agent_id', 'Assigned agent for the conversation'
+    attachment = 'attachment', 'Attachment URL for media templates'
 
 
 class SendMessage(QueryParams):

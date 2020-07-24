@@ -362,9 +362,13 @@ for message in messages:
 
 ### <a href='#fetch-message-templates'>Fetch message templates</a>
 
+Message templates must first be sent for approval.  
+Therefor every message template could have following status: `pending`, `approved`, `rejected`  
+If message template comms with `rejected` status, it also comes with `rejected_reason`.  
+
 ```python
 templates = api.message_templates(
-    [approved=True|False], [search_query='...'], [page=...]
+    [status="pending|approved|rejected"], [search_query='...'], [page=...]
 )
 
 for template in templates:
@@ -373,10 +377,23 @@ for template in templates:
     template.tags
     template.keyword
     template.language
-    template.approved
+    template.status
+    template.rejected_reason
 ```
 
 ### <a href='#send-template-message'>Send template message</a>
+
+Message template can be purely textual or textual with attachment.  
+If it is with attachment, that means you can send image, video or document URL together with text.  
+When you get a list of message templates, every template in that list has `attachment` field with it's value.  
+Attachment field value defines which type of attachment can be sent with message template:  
+
+Value | Description
+--------- | -------
+image | Message template can be sent with image URL: JPG/JPEG, PNG
+video | Message template can be sent with video URL: MP4, 3GPP
+document | Message template can be sent with document URL: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX
+null | Message template does not support attachment URL
 
 ```python
 response = api.send_template_message(
@@ -397,9 +414,11 @@ response = api.send_template_message(
     # template message: "Welcome {name}! How can we help you?"
     # tags: {"name": contact.name}
     
-    [prevent_bot_off=True|False]
+    [prevent_bot_off=True|False],
     # if set to True, will prevent turning-off chatbot for the conversation
     # default system behaviour is that chatbot is turned-off
+    
+    [attachment='http...']
 )
 
 response.status
