@@ -13,11 +13,15 @@ class MessageTemplate(Model):
     """Data model for message templates"""
 
     _id = TextField(index='id', desc='UUID')
-    _approved = BooleanField(index='approved', desc='Approved')
+    _status = TextField(index='status', desc='Status')
     _keyword = TextField(index='keyword', desc='Keyword')
     _tags = ModelField(TamplateTag, index='tags', desc='Tags')
     _text = TextField(index='text', desc='Text')
     _language = TextField(index='language', desc='Language')
+    _attachment = TextField(index='attachment', desc='Attachment')
+    _rejected_reason = TextField(
+        index='rejected_reason',
+        desc='Reason why Facebook didn\'t approve this template')
 
 
 class SentMessage(Model):
