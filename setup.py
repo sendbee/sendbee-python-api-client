@@ -38,7 +38,7 @@ setup(
         'dumpit>=0.5.0',
         'aenum>=2.1.2',
         'ujson==1.35',
-        'cryptography==2.8'
+        'cryptography==3.2'
     ],
 
     project_urls={
