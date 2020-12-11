@@ -1,12 +1,21 @@
 from sendbee_api.models import Model
 from sendbee_api.fields import TextField, ModelField, BooleanField, \
-    DatetimeField
+    DatetimeField, NumberField
 
 
-class TamplateTag(Model):
+class TemplateTag(Model):
     """Data model for template tags"""
 
     _name = TextField(index='name', desc='Name')
+
+
+class TemplateButton(Model):
+    """Data model for template button"""
+
+    _index = NumberField(index='index', desc='Index')
+    _type = TextField(index='type', desc='Type')
+    _title = TextField(index='title', desc='Title')
+    _value = TextField(index='value', desc='Value')
 
 
 class MessageTemplate(Model):
@@ -15,8 +24,9 @@ class MessageTemplate(Model):
     _id = TextField(index='id', desc='UUID')
     _status = TextField(index='status', desc='Status')
     _keyword = TextField(index='keyword', desc='Keyword')
-    _tags = ModelField(TamplateTag, index='tags', desc='Tags')
+    _tags = ModelField(TemplateTag, index='tags', desc='Tags')
     _text = TextField(index='text', desc='Text')
+    _buttons = ModelField(TemplateButton, index='buttons', desc='Buttons')
     _language = TextField(index='language', desc='Language')
     _attachment = TextField(index='attachment', desc='Attachment')
     _rejected_reason = TextField(
