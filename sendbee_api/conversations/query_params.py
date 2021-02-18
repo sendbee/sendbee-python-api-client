@@ -13,6 +13,7 @@ class SendTemplateMessage(QueryParams):
     """Parameters for sending template message"""
 
     tags = 'tags', 'Template message tags'
+    button_tags = 'button_tags', 'Template button tags'
     phone = 'phone', 'Contact\'s phone number'
     language = 'language', 'Template message language'
     template_keyword = 'template_keyword', 'Template message keyword'

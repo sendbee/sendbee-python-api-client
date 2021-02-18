@@ -25,6 +25,8 @@ class MessageTemplate(Model):
     _status = TextField(index='status', desc='Status')
     _keyword = TextField(index='keyword', desc='Keyword')
     _tags = ModelField(TemplateTag, index='tags', desc='Tags')
+    _button_tags = ModelField(
+        TemplateTag, index='button_tags', desc='Button tags')
     _text = TextField(index='text', desc='Text')
     _buttons = ModelField(TemplateButton, index='buttons', desc='Buttons')
     _language = TextField(index='language', desc='Language')
