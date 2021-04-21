@@ -180,6 +180,7 @@ def bind_request(**request_data):
                 response = requests.get(
                     url, headers=self._headers(), timeout=self._timeout
                 )
+                response.encoding = 'utf-8'
 
                 self.debug.ok(
                     constants.RequestConst.QUERY_PARAMETERS,
