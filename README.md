@@ -375,6 +375,7 @@ for template in templates:
     template.id
     template.text
     template.buttons # available for all Sendbee users onboarded after 11th of December 2020
+    template.button_tags # available for all Sendbee users onboarded after 11th of December 2020
     template.tags
     template.keyword
     template.language
