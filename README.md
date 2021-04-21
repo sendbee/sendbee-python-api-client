@@ -375,6 +375,7 @@ for template in templates:
     template.id
     template.text
     template.buttons # available for all Sendbee users onboarded after 11th of December 2020
+    template.button_tags # available for all Sendbee users onboarded after 11th of December 2020
     template.tags
     template.keyword
     template.language
@@ -408,12 +409,20 @@ response = api.send_template_message(
     # language keyword
     # example: en (for english)
     
-    tags={'__tag_key__': '__tag_value__', ...}
+    tags={'__tag_key__': '__tag_value__', ...},
     # tags for template messages are parts of the message that need
     # to be filled with your custom data
     # example:
-    # template message: "Welcome {name}! How can we help you?"
-    # tags: {"name": contact.name}
+    # template message: "Welcome {{1}}! How can we help you?"
+    # tags: {"1": "John"}
+    # Learn more: https://developer.sendbee.io/#send-message-template
+        
+    button_tags={'__tag_key__': '__tag_value__', ...}
+    # tags for call-to-action button with dynamic URL suffix that need
+    # to be filled with your custom data
+    # example:
+    # template message: https://example.com/{{1}}
+    # tags: {"1": "page/123"}
     
     [prevent_bot_off=True|False],
     # if set to True, will prevent turning-off chatbot for the conversation
