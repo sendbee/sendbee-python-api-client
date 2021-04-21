@@ -1,6 +1,6 @@
 from sendbee_api.models import Model
 from sendbee_api.fields import TextField, ModelField, BooleanField, \
-    DatetimeField, NumberField
+    DatetimeField, NumberField, RealNumberField
 
 
 class TemplateTag(Model):
@@ -25,6 +25,8 @@ class MessageTemplate(Model):
     _status = TextField(index='status', desc='Status')
     _keyword = TextField(index='keyword', desc='Keyword')
     _tags = ModelField(TemplateTag, index='tags', desc='Tags')
+    _button_tags = ModelField(
+        TemplateTag, index='button_tags', desc='Button tags')
     _text = TextField(index='text', desc='Text')
     _buttons = ModelField(TemplateButton, index='buttons', desc='Buttons')
     _language = TextField(index='language', desc='Language')
@@ -88,6 +90,4 @@ class Message(Model):
     _media_url = TextField(index='media_url', desc='Media URL')
     _status = TextField(index='status', desc='Message status')
     _direction = TextField(index='direction', desc='Message direction')
-    _sent_at = DatetimeField(
-        index='sent_at', desc='Message sent at', format='%Y-%m-%d %H:%M:%'
-    )
+    _sent_at = RealNumberField(index='sent_at', desc='Message sent at')
