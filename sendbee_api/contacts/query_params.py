@@ -9,6 +9,7 @@ class ListContacts(QueryParams):
     status = 'status', 'Filter contacts by status'
     search_query = 'search_query', 'Filter contacts by query string'
     page = 'page', 'Page number for pagination'
+    limit = 'limit', 'Number of items per page. Maximum is 100.'
 
 
 class UpdateContacts(QueryParams):
@@ -30,6 +31,7 @@ class ListTags(QueryParams):
 
     name = 'name', 'Name of the tag'
     page = 'page', 'Page number for pagination'
+    limit = 'limit', 'Number of items per page. Maximum is 100.'
 
 
 class UpdateTag(QueryParams):
@@ -48,9 +50,10 @@ class DeleteTag(QueryParams):
 class ListContactFields(QueryParams):
     """Get the list of contact contact fields"""
 
-    page = 'page', 'Page number for pagination'
     search_query = 'search_query', 'Filter contact contact ' \
                                    'fields by query string'
+    page = 'page', 'Page number for pagination'
+    limit = 'limit', 'Number of items per page. Maximum is 100.'
 
 
 class CreateContactFields(QueryParams):

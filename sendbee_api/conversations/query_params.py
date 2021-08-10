@@ -4,9 +4,10 @@ from sendbee_api.query_params import QueryParams
 class ListMessageTemplates(QueryParams):
     """Parameters for list of message templates API request"""
 
-    approved = 'approved', 'Fetch approved or unapproved templates'
+    status = 'status', 'Fetch templates with desired status'
     search_query = 'search_query', 'Filter contacts by query string'
     page = 'page', 'Page number for pagination'
+    limit = 'limit', 'Number of items per page. Maximum is 100.'
 
 
 class SendTemplateMessage(QueryParams):
@@ -38,6 +39,7 @@ class ListConversations(QueryParams):
     folder = 'folder', 'Filter conversation by folder'
     search_query = 'search_query', 'Filter conversations by query string'
     page = 'page', 'Page number for pagination'
+    limit = 'limit', 'Number of items per page. Maximum is 100.'
 
 
 class ListMessages(QueryParams):

@@ -39,7 +39,8 @@ class MessageTemplate(Model):
 class SentMessage(Model):
     """Data model for sent message"""
 
-    _conversation_id = TextField(index='id', desc='Message UUID')
+    _conversation_id = TextField(index='id', desc='Conversation UUID')
+    _message_id = TextField(index='message_id', desc='Message UUID')
     _status = TextField(index='status', desc='Message status')
 
 
@@ -52,7 +53,7 @@ class ConversationContact(Model):
 
 
 class ConversationLastMessage(Model):
-    """Data model for contact in conversation"""
+    """Data model for last message in conversation"""
 
     _direction = TextField(index='direction', desc='Last message direction')
     _status = TextField(index='status', desc='Last message status')
