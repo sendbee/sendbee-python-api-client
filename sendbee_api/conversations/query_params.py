@@ -36,6 +36,8 @@ class SendMessage(QueryParams):
 class ListConversations(QueryParams):
     """Parameters for list of conversations"""
 
+    date_from = 'date_from', 'Fetch all conversations from this date'
+    date_to = 'date_to', 'Fetch all conversations to this date'
     folder = 'folder', 'Filter conversation by folder'
     search_query = 'search_query', 'Filter conversations by query string'
     page = 'page', 'Page number for pagination'

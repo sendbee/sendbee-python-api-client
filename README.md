@@ -94,7 +94,7 @@ api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
 ```python
 contacts = api.contacts(
     [tags=['...', ...]], [status='subscribed|unsubscribed'], 
-    [search_query='...'], [page=...]
+    [search_query='...'], [page=...], [limit=...]
 )
 
 for contact in contacts:
@@ -226,7 +226,7 @@ for contact_field in contact.contact_fields:
 ### <a href='#fetch-contact-tags'>Fetch contact tags</a>
 
 ```python
-tags = api.tags([name='...'], [page=...])
+tags = api.tags([name='...'], [page=...], [limit=...])
 
 for tag in tags:
     tag.id
@@ -264,7 +264,7 @@ response.message
 ### <a href='#fetch-contact-fields'>Fetch contact fields</a>
 
 ```python
-contact_fields = api.contact_fields([search_query='...'], [page=...])
+contact_fields = api.contact_fields([search_query='...'], [page=...], [limit=...])
 
 for contact_field in contact_fields:
     contact_field.name
@@ -326,7 +326,8 @@ response.message
 
 ```python
 conversations = api.conversations(
-    [folder='open|done|spam|notified'], [search_query='...'], [page=...]
+    [folder='open|done|spam|notified'], [search_query='...'], 
+    [page=...], [limit=...], [date_from=__timestamp__], [date_to=__timestamp__]
 )
 
 for conversation in conversations:
@@ -368,7 +369,8 @@ If message template comms with `rejected` status, it also comes with `rejected_r
 
 ```python
 templates = api.message_templates(
-    [status="pending|approved|rejected"], [search_query='...'], [page=...]
+    [status="pending|approved|rejected"], [search_query='...'],  
+    [page=...], [limit=...]
 )
 
 for template in templates:
