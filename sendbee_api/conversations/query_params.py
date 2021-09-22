@@ -49,3 +49,14 @@ class ListMessages(QueryParams):
 
     conversation_id = 'conversation_id', 'Conversation UUID'
     page = 'page', 'Page number for pagination'
+
+
+class GetSingleConversation(QueryParams):
+    """Parameters for getting a single conversation"""
+    conversation_id = 'conversation_id', 'Conversation UUID'
+
+
+class UpdateSingleConversation(QueryParams):
+    """Parameters for updating a single conversation"""
+    conversation_id = 'conversation_id', 'Conversation UUID'
+    folder = 'folder', 'Assign conversation to specific folder, open|done'
