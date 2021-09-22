@@ -39,3 +39,20 @@ class Messages:
         query_parameters=query_params.ListMessages,
         description='Api client for fetching conversation messages'
     )
+
+    get_conversation = bind_request(
+        api_path='/conversations',
+        query_parameters=query_params.GetSingleConversation,
+        model=models.Conversation,
+        force_single_model_response=True,
+        description='Api client for fetching single conversation data'
+    )
+    update_conversation = bind_request(
+        api_path='/conversations',
+        method=constants.RequestConst.POST,
+        query_parameters=query_params.UpdateSingleConversation,
+        model=models.Conversation,
+        force_single_model_response=True,
+        # query_parameters=query_params.ListMessages,
+        description='Api client for updating a conversation'
+    )
