@@ -23,6 +23,9 @@ def bind_request(**request_data):
         model = request_data.get(constants.ClientConst.MODEL)
         api_path = request_data.get(constants.RequestConst.API_PATH)
         formatter = request_data.get(constants.ClientConst.FORMATTER)
+        ignore_error = request_data.get(
+            constants.ClientConst.IGNORE_ERROR, False
+        )
         method = request_data.get(
             constants.RequestConst.METHOD, constants.RequestConst.GET
         )
@@ -188,7 +191,7 @@ def bind_request(**request_data):
                 )
                 self.debug.ok(constants.ResponseConst.RESPONSE_OBJECT, response)
 
-                return response.status_code, response.text
+                return response.status_code, response.headers, response.text
 
             elif self.method in [
                 constants.RequestConst.POST,
@@ -212,12 +215,12 @@ def bind_request(**request_data):
                 ])
                 self.debug.ok(constants.ResponseConst.RESPONSE_OBJECT, response)
 
-                return response.status_code, response.text
+                return response.status_code, response.headers, response.text
 
             else:
                 return constants.ResponseCode.NOT_FOUND, {}
 
-        def _process_response(self, status_code, response):
+        def _process_response(self, status_code, response, headers):
             """
             Process response using models
             :status_code: Response status code
@@ -230,10 +233,11 @@ def bind_request(**request_data):
                 formatter = FormatterFactory(constants.FormatterConst.JSON)\
                     .get_formatter()
 
-            response = Response(response, status_code, formatter, self)
+            response = Response(response, headers, status_code, formatter, self)
             formatted_data = response.formatted_data
 
-            if status_code >= constants.ResponseCode.BAD_REQUEST:
+            if status_code >= constants.ResponseCode.BAD_REQUEST and \
+                    self.ignore_error is False:
 
                 if status_code == constants.ResponseCode.NOT_FOUND:
                     error_msg = \
@@ -242,12 +246,18 @@ def bind_request(**request_data):
                     error_msg = \
                         constants.ResponseConst.DEFAULT_ERROR_MESSAGE
                 else:
-                    error_msg = formatted_data.get(
-                        constants.ErrorConst.ERROR, {}
-                    ).get(
-                        constants.ErrorConst.DETAIL,
-                        constants.ErrorConst.UNRECOGNIZED_ERROR
-                    )
+                    try:
+                        error_msg = formatted_data.get(
+                            constants.ErrorConst.ERROR, {}
+                        ).get(
+                            constants.ErrorConst.DETAIL,
+                            constants.ErrorConst.UNRECOGNIZED_ERROR
+                        )
+                    except AttributeError:
+                        error_msg = formatted_data.get(
+                            constants.ErrorConst.DETAIL,
+                            constants.ErrorConst.UNRECOGNIZED_ERROR
+                        )
 
                 self.debug.error(
                     constants.ResponseConst.STATUS_CODE, status_code
@@ -255,7 +265,7 @@ def bind_request(**request_data):
                 self.debug.error(
                     constants.ResponseConst.RESPONSE, response.formatted_data
                 )
-                raise SendbeeRequestApiException(error_msg)
+                raise SendbeeRequestApiException(error_msg, response=response)
             else:
                 self.debug.ok(constants.ResponseConst.STATUS_CODE, status_code)
                 self.debug.ok(constants.ResponseConst.RESPONSE, response.raw_data)
@@ -287,8 +297,8 @@ def bind_request(**request_data):
             """
 
             self.url = self._prepare_url()
-            status_code, response = self._do_request(self.url)
-            return self._process_response(status_code, response)
+            status_code, headers, response = self._do_request(self.url)
+            return self._process_response(status_code, response, headers)
 
     def call(client, *path_params, **query_params):
         """

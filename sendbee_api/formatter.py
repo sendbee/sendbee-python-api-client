@@ -29,6 +29,12 @@ class Formatter(metaclass=ABCMeta):
 
         return data
 
+    @abstractmethod
+    def _format_headers(self, data):
+        """Format method in formatter classes."""
+
+        return data
+
     def format_data(self, data):
         """Main format method."""
 
@@ -43,6 +49,11 @@ class Formatter(metaclass=ABCMeta):
         """Main format method."""
 
         return self._format_warning(data)
+
+    def format_headers(self, data):
+        """Main format method."""
+
+        return self._format_headers(data)
 
     @staticmethod
     def _default_meta_data(total_results):
@@ -105,6 +116,11 @@ class Json(Formatter):
         formatted_data = self._unpack_response(data)
         if isinstance(formatted_data, dict):
             return formatted_data.get(constants.WarningConst.WARNING)
+
+    def _format_headers(self, data):
+        """Transform raw data from server into python native type."""
+
+        return data
 
 
 class FormatterFactory:

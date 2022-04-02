@@ -1,6 +1,7 @@
 from sendbee_api.models import Model
 from sendbee_api.fields import TextField, BooleanField
 
+
 class ChatbotActivityStatus(Model):
     """Data model for chatbot status"""
 
