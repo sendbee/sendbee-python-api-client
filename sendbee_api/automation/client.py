@@ -1,8 +1,8 @@
 from sendbee_api import constants
 from sendbee_api.bind import bind_request
 from sendbee_api.models import ServerMessage
-from sendbee_api.automation.models import ChatbotActivityStatus
 from sendbee_api.automation import query_params
+from sendbee_api.automation.models import ChatbotActivityStatus
 
 
 class Automation:

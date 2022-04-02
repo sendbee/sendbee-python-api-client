@@ -4,8 +4,9 @@ from sendbee_api import constants
 class Response:
     """Response object returned from API call."""
 
-    def __init__(self, data, status_code, formatter, api_request):
+    def __init__(self, data, headers, status_code, formatter, api_request):
         self._data = data
+        self._headers = headers
         self._model = api_request.model
 
         self.api_reguest = api_request
@@ -16,7 +17,8 @@ class Response:
             constants.FormatterConst.FORMATTED: None,
             constants.ClientConst.MODELS: None,
             constants.ClientConst.META: None,
-            constants.WarningConst.WARNING: None
+            constants.WarningConst.WARNING: None,
+            constants.ClientConst.HEADERS: None,
         }
 
     def __iter__(self):
@@ -62,6 +64,16 @@ class Response:
                 Meta.process([formatted_data])[0]
 
         return self._response_data[constants.ClientConst.META]
+
+    @property
+    def headers(self):
+        """Response headers."""
+
+        if not self._response_data[constants.ClientConst.HEADERS]:
+            self._response_data[constants.ClientConst.HEADERS] = \
+                self.formatter.format_headers(self._headers)
+
+        return self._response_data[constants.ClientConst.HEADERS]
 
     @property
     def warning(self):

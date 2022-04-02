@@ -66,6 +66,7 @@
 #### Mics  
 
 -   [Pagination](#pagination)
+-   [API Rate Limit](#api-rate-limit)
 -   [Raw response](#raw-response)
 -   [Exception handling](#exception-handling)  
 -   [Authenticate webhook request](#authenticate-webhook-request)  
@@ -573,7 +574,25 @@ while True:
     messages = api.messages(
         conversation_id='...', page=messages.next_page()
     )
-```     
+```  
+
+### <a href='#api-rate-limit'>API Rate Limit</a>  
+
+A rate limit is the number of API calls a business number can make 
+within a given time period. If this limit is exceeded, 
+API requests are throttled, and will fail with 429 error response.  
+
+No matter how many API keys you make in your Sendbee account, 
+rate limit will always be counted within a business number.  
+
+```python
+from sendbee_api import SendbeeRequestApiException
+
+try:
+    api.rate_limit_request_test()
+except SendbeeRequestApiException as ex:
+    retry_after = ex.response.headers.get('Retry-After')
+```
 
 ### <a href='#raw-response'>Raw response</a>
 
