@@ -41,6 +41,8 @@ class SentMessage(Model):
 
     _conversation_id = TextField(index='id', desc='Conversation UUID')
     _message_id = TextField(index='message_id', desc='Message UUID')
+    _message_reference_id = TextField(index='message_reference_id',
+                                      desc='Message Reference UUID')
     _status = TextField(index='status', desc='Message status')
 
 
