@@ -21,6 +21,7 @@ class SendTemplateMessage(QueryParams):
     prevent_bot_off = 'prevent_bot_off', 'Prevent turning-off chatbot'
     agent_id = 'agent_id', 'Assigned agent for the conversation'
     attachment = 'attachment', 'Attachment URL for media templates'
+    live_inbox = 'live_inbox', 'Trigger real-time events after sending'
 
 
 class SendMessage(QueryParams):
@@ -31,6 +32,7 @@ class SendMessage(QueryParams):
     media_url = 'media_url', 'Media URL for media message'
     prevent_bot_off = 'prevent_bot_off', 'Prevent turning-off chatbot'
     agent_id = 'agent_id', 'Assigned agent for the conversation'
+    live_inbox = 'live_inbox', 'Trigger real-time events after sending'
 
 
 class ListConversations(QueryParams):

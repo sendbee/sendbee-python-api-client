@@ -1,3 +1,4 @@
+from abc import ABCMeta
 from collections import namedtuple
 
 
@@ -64,3 +65,23 @@ ResponseDataConst = namedtuple(
     'ResponseDataConst', ['DATA', 'META']
 )('data', 'meta')
 
+
+class ConstMeta(ABCMeta):
+    def __setattr__(self, name, value):
+        pass
+
+
+class Const(metaclass=ConstMeta):
+    """Helper class """
+    __slots__ = ()
+
+
+class DebugConst(Const):
+    PARAMETERS = 'parameters'
+    RESPONSE = 'response'
+    STATUS_CODE = 'status code'
+    FINAL_URL = 'final url'
+    HEADERS = 'headers'
+    METHOD = 'method'
+    QUERY_PARAMETERS = 'query parameters'
+    CURL = 'curl'

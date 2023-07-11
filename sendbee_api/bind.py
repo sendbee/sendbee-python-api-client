@@ -190,6 +190,10 @@ def bind_request(**request_data):
                     self.parameters[constants.RequestConst.QUERY]
                 )
                 self.debug.ok(constants.ResponseConst.RESPONSE_OBJECT, response)
+                self.debug.set_curl(
+                    constants.DebugConst.CURL,
+                    response.request
+                )
 
                 return response.status_code, response.headers, response.text
 
@@ -213,7 +217,13 @@ def bind_request(**request_data):
                 self.debug.ok('payload', self.parameters[
                     constants.RequestConst.QUERY
                 ])
-                self.debug.ok(constants.ResponseConst.RESPONSE_OBJECT, response)
+                self.debug.ok(
+                    constants.ResponseConst.RESPONSE_OBJECT, response
+                )
+                self.debug.set_curl(
+                    constants.DebugConst.CURL,
+                    response.request
+                )
 
                 return response.status_code, response.headers, response.text
 
