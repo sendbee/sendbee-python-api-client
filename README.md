@@ -1,13 +1,4 @@
-# Sendbee Python API Client  
-
-```
-
-                .' '.            __
-       .        .   .           (__\_
-        .         .         . -{{_(|8)
-          ' .  . ' ' .  . '     (__/
-
-```  
+# AI Number Python API Client  
 
 [![PyPI version](https://badge.fury.io/py/sendbee-api.svg)](https://badge.fury.io/py/sendbee-api)
 [![Build Status](https://travis-ci.org/sendbee/sendbee-python-api-client.svg?branch=master)](https://travis-ci.org/sendbee/sendbee-python-api-client)
