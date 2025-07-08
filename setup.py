@@ -33,7 +33,7 @@ setup(
 
     packages=find_packages(),
     install_requires=[
-        'click>=7.0',
+        'click>=7.1.2',
         'requests>=2.20.0',
         'dumpit>=0.5.0',
         'aenum>=2.1.2',
