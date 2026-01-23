@@ -641,7 +641,7 @@ if not api.auth.check_auth_token(token):
 
 ### <a href='#warnings'>Warnings</a>
 
-Sometimes APi returns a worning so you could be warned about something.  
+Sometimes APi returns a warning so you could be warned about something.  
 The waning is displayed in standard output:  
 
 ![Debugging](docs/images/warning.png)  
