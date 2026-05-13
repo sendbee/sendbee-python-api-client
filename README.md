@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/number-logo-tm.svg" alt="AI Number" width="240">
+  <img src="docs/images/number-logo-tm.svg" alt="AI Number">
 </p>
 
 # AI Number Python API Client  
