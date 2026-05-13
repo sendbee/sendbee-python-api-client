@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/images/number-logo-tm.svg" alt="AI Number" width="240">
+</p>
+
 # AI Number Python API Client  
 
 [![PyPI version](https://badge.fury.io/py/sendbee-api.svg)](https://badge.fury.io/py/sendbee-api)
@@ -632,7 +636,7 @@ if not api.auth.check_auth_token(token):
 
 ### <a href='#warnings'>Warnings</a>
 
-Sometimes APi returns a worning so you could be warned about something.  
+Sometimes APi returns a warning so you could be warned about something.  
 The waning is displayed in standard output:  
 
 ![Debugging](docs/images/warning.png)  
