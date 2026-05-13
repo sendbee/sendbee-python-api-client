@@ -72,4 +72,4 @@ Errors: any HTTP ≥ 400 (unless the endpoint sets `ignore_error=True`) raises `
 - `ServerMessage` (in `sendbee_api/models.py`) is the canonical "the server just sent back `{message: ...}`" model — use it for DELETE endpoints and other ack-only responses.
 - The `endpoints/` subpackage referenced from the backend is misspelled `convresations.py` (sic). The client's `conversations` package is spelled correctly; do not "fix" the backend filename casually, the URL imports depend on it.
 - Debug mode (`SendbeeApi(..., debug=True)`) prints request/response/cURL via the `Debug` context manager (`sendbee_api/debug.py`) — invaluable when reproducing a server-side bug; pair with `tests/example.py`.
-- The package depends on `ujson==2.0.1` (pinned), `aenum`, `click`, `requests`, `cryptography`, `dumpit`, and `curlify` — all declared in `pyproject.toml`'s `[project] dependencies`.
+- The package depends on `ujson>=5.7.0,<6`, `aenum`, `click`, `requests`, `cryptography`, `dumpit`, and `curlify` — all declared in `pyproject.toml`'s `[project] dependencies`.
