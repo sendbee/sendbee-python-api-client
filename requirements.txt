@@ -1,1 +1,4 @@
+# Dev/test deps. Source of truth: pyproject.toml [project.optional-dependencies] dev
+# Prefer `pip install -e ".[dev]"` for new setups.
 pytest
+responses>=0.23

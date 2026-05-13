@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sendbee_api"
+version = "1.7.2"
+description = "Python client SDK for Sendbee Public API"
+readme = "README.md"
+requires-python = ">=3.6"
+license = { text = "MIT" }
+authors = [{ name = "Sendbee ltd", email = "info@sendbee.io" }]
+keywords = ["sendbee", "api", "python"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "click>=7.0",
+    "requests>=2.20.0",
+    "dumpit>=0.5.0",
+    "aenum>=2.1.2",
+    "ujson>=5.7.0,<6",
+    "cryptography>=3.2",
+    "curlify>=2.2.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "responses>=0.23"]
+
+[project.urls]
+Homepage = "https://github.com/sendbee/sendbee-python-client"
+Source = "https://github.com/sendbee/sendbee-python-client"
+
+[tool.setuptools.packages.find]
+include = ["sendbee_api*"]
+exclude = ["tests*"]

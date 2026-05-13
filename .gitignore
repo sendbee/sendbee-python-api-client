@@ -132,3 +132,7 @@ dmypy.json
 /.DS_Store
 /tests/example_.py
 /tests/example.py
+
+# claude
+.claude/
+CLAUDE.md
