@@ -49,6 +49,10 @@
 -   [Managing chatbot (automated responses) status settings](#bot-on-off)  
 -   [Get chatbot (automated responses) status](#bot-status)  
 
+#### Webhooks  
+
+-   [Subscribe to webhook](#subscribe-webhook)  
+
 #### Mics  
 
 -   [Pagination](#pagination)
@@ -526,6 +530,59 @@ response.chatbot_active # True/False
 
 ```
 
+## Webhooks  
+
+### <a href='#subscribe-webhook'>Subscribe to webhook</a>
+
+Register a URL of yours and subscribe it to a webhook event, so we start sending
+you requests when that event happens. This does the same thing as activating a
+webhook URL in the Sendbee Dashboard.  
+
+```python
+webhook = api.subscribe_webhook(
+    url='https://example.com/sendbee/webhook',
+    event='message.received'
+)
+
+webhook.id                 # UUID of the webhook endpoint
+webhook.url                # the URL you registered
+webhook.active             # True/False
+webhook.selected_webhooks  # list of all events this URL is subscribed to
+webhook.secret_key         # key used to sign requests we send to your URL
+webhook.created_at
+```
+
+Both `url` and `event` are required. Calling it again for the same `url` is safe -
+it will not create a duplicate, it just adds the new event to that URL (and
+re-activates it if it was deactivated), so subscribe one event per call:  
+
+```python
+for event in ('message.received', 'message.sent'):
+    api.subscribe_webhook(url='https://example.com/sendbee/webhook', event=event)
+```
+
+Available events:  
+
+| Event | Description |
+| --- | --- |
+| `contact.created` | A new contact was created |
+| `contact.subscription_created` | A contact subscribed |
+| `contact.subscription_updated` | A contact's subscription changed |
+| `contact.unsubscribed` | A contact unsubscribed |
+| `message.received` | A message was received from a contact |
+| `message.sent` | A message was sent to a contact |
+| `message.sent_status` | Delivery status of a sent message changed |
+| `whatsapp.message.session.sent_status` | Delivery status of a session message changed |
+| `whatsapp.message.template.sent_status` | Delivery status of a template message changed |
+| `whatsapp.message.template.approval_status` | A message template was approved or rejected |
+| `conversation.change_folder` | A conversation was moved to another folder |
+
+An unknown event name returns a `SendbeeRequestApiException`. For the authoritative
+and up to date list, see the [documentation](https://developer.ainumber.com/#webhooks).  
+
+Once subscribed, see [Authenticate webhook request](#authenticate-webhook-request)
+for how to verify the requests we send you.  
+
 ## Misc  
 
 ### <a href='#pagination'>Pagination</a>
@@ -611,7 +668,7 @@ except SendbeeRequestApiException as e:
 
 ### <a href='#authenticate-webhook-request'>Authenticate webhook request</a>
 
-After activating your webhook URL in Sendbee Dashboard, we will start sending requests on that URL depending on which webhook type is linked with that webhook URL.  
+After activating your webhook URL in Sendbee Dashboard or with [Subscribe to webhook](#subscribe-webhook), we will start sending requests on that URL depending on which webhook type is linked with that webhook URL.  
 Every request that we make will have authorization token in header, like this:  
 
 ```
@@ -631,6 +688,21 @@ api = SendbeeApi('__your_api_key_here__', '__your_secret_key_here__')
 
 token = '...'  # taken from the request header
 if not api.auth.check_auth_token(token):
+    # error! authentication failed!
+```  
+
+Requests to a webhook URL that has its own secret key also carry a second header,
+`X-Auth-Token`, signed with that key instead of your account secret. You get the
+key back as `webhook.secret_key` from [Subscribe to webhook](#subscribe-webhook).
+Check it the same way, using `SendbeeAuth` directly:  
+
+```python
+from sendbee_api import SendbeeAuth
+
+secret_key = '...'  # webhook.secret_key, store it when you subscribe
+
+token = '...'  # taken from the 'X-Auth-Token' request header
+if not SendbeeAuth(secret_key).check_auth_token(token):
     # error! authentication failed!
 ```  
 
