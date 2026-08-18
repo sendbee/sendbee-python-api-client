@@ -27,7 +27,7 @@ classifiers = [
 dependencies = [
     "click>=7.0",
     "requests>=2.20.0",
-    "git+ssh://git@github.com/arrrlo/dumpit.git@master",
+    "dumpit>=0.6.1",
     "aenum>=2.1.2",
     "ujson>=5.7.0,<6",
     "cryptography>=3.2",
