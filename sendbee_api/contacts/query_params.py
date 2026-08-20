@@ -17,6 +17,11 @@ class UpdateContacts(QueryParams):
 
     id = 'id', 'Contact ID'
     phone = 'phone', 'Contact phone number'
+    whatsapp_user_id = 'whatsapp_user_id', 'Business-scoped user ID (BSUID) of the ' \
+                                            'recipient, e.g. US.13491208655302741918. ' \
+                                            'Used instead of "to" when the phone number ' \
+                                            'is unknown. If both "to" and "recipient" ' \
+                                            'are provided, Meta gives precedence to "to".'
     tags = 'tags', 'Tag contact while subscribing it'
     name = 'name', 'Subscriber name'
     contact_fields = 'contact_fields', 'Contact data fields'
