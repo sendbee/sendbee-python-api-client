@@ -52,6 +52,14 @@ class ConversationContact(Model):
     _id = TextField(index='id', desc='UUID')
     _name = TextField(index='name', desc='Name')
     _phone = TextField(index='phone', desc='Phone number')
+    _whatsapp_user_id = TextField(
+        index='whatsapp_user_id', 
+        desc='Business-scoped user ID (BSUID) of the ' \
+            'recipient, e.g. US.13491208655302741918. ' \
+            'Used instead of "to" when the phone number ' \
+            'is unknown. If both "to" and "recipient" ' \
+            'are provided, Meta gives precedence to "to".'
+    )
 
 
 class ConversationLastMessage(Model):

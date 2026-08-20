@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sendbee_api"
-version = "1.8.0"
+version = "1.8.1"
 description = "Python client SDK for Sendbee Public API"
 readme = "README.md"
 requires-python = ">=3.6"
@@ -27,7 +27,7 @@ classifiers = [
 dependencies = [
     "click>=7.0",
     "requests>=2.20.0",
-    "dumpit>=0.5.0",
+    "dumpit>=0.6.1",
     "aenum>=2.1.2",
     "ujson>=5.7.0,<6",
     "cryptography>=3.2",

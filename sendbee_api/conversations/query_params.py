@@ -28,6 +28,11 @@ class SendMessage(QueryParams):
     """Parameters for sending message"""
 
     phone = 'phone', 'Contact\'s phone number'
+    whatsapp_user_id = 'whatsapp_user_id', 'Business-scoped user ID (BSUID) of the ' \
+                                            'recipient, e.g. US.13491208655302741918. ' \
+                                            'Used instead of "to" when the phone number ' \
+                                            'is unknown. If both "to" and "recipient" ' \
+                                            'are provided, Meta gives precedence to "to".'
     text = 'text', 'Message text'
     media_url = 'media_url', 'Media URL for media message'
     prevent_bot_off = 'prevent_bot_off', 'Prevent turning-off chatbot'
