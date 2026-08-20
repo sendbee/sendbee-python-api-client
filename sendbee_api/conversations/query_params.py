@@ -16,6 +16,11 @@ class SendTemplateMessage(QueryParams):
     tags = 'tags', 'Template message tags'
     button_tags = 'button_tags', 'Template button tags'
     phone = 'phone', 'Contact\'s phone number'
+    whatsapp_user_id = 'whatsapp_user_id', 'Business-scoped user ID (BSUID) of the ' \
+                                            'recipient, e.g. US.13491208655302741918. ' \
+                                            'Used instead of "to" when the phone number ' \
+                                            'is unknown. If both "to" and "recipient" ' \
+                                            'are provided, Meta gives precedence to "to".'
     language = 'language', 'Template message language'
     template_keyword = 'template_keyword', 'Template message keyword'
     prevent_bot_off = 'prevent_bot_off', 'Prevent turning-off chatbot'
